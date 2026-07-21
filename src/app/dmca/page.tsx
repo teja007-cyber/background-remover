@@ -28,14 +28,23 @@ export const metadata: Metadata = {
       "DMCA and copyright policy for Background Remover. Learn how to report copyright infringement or file a counter-notification.",
     url: `${SITE_URL}/dmca`,
     siteName: "Background Remover",
-    type: "website",
+    type: "article",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Background Remover — DMCA / Copyright Policy",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "DMCA / Copyright Policy | Background Remover",
     description:
       "DMCA and copyright policy for Background Remover. Learn how to report copyright infringement or file a counter-notification.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -64,6 +73,20 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const webPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "DMCA / Copyright Policy — Background Remover",
+  description: "DMCA and copyright policy for Background Remover. Report copyright infringement or file a counter-notification.",
+  url: `${SITE_URL}/dmca`,
+  dateModified: "2026-03-04",
+  isPartOf: {
+    "@type": "WebSite",
+    name: "Background Remover",
+    url: SITE_URL,
+  },
+};
+
 // ─── Page Component ────────────────────────────────────────────────
 
 export default function DMCAPage() {
@@ -78,7 +101,17 @@ export default function DMCAPage() {
           __html: JSON.stringify(breadcrumbJsonLd),
         }}
       />
+      {/* WebPage Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webPageJsonLd),
+        }}
+      />
 
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg">
+        Skip to main content
+      </a>
       <div className="min-h-screen flex flex-col bg-background">
         {/* ─── Header / Back Navigation ──────────────────────────── */}
         <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-md">
@@ -95,7 +128,7 @@ export default function DMCAPage() {
         </header>
 
         {/* ─── Main Content ──────────────────────────────────────── */}
-        <main className="flex-1">
+        <main id="main-content" className="flex-1">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             {/* ── Breadcrumb Navigation ──────────────────────────── */}
             <nav aria-label="Breadcrumb" className="mb-8">
@@ -373,15 +406,36 @@ export default function DMCAPage() {
                   send your written notice to our designated DMCA agent at the
                   following email address:
                 </p>
-                <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 sm:p-5 flex items-center gap-3">
-                  <Mail className="size-5 text-emerald-600 shrink-0" />
-                  <a
-                    href="mailto:dmca@backgroundremover.app"
-                    className="text-emerald-700 font-semibold text-base sm:text-lg hover:text-emerald-800 underline underline-offset-2 transition-colors"
-                  >
-                    dmca@backgroundremover.app
-                  </a>
+                <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 sm:p-5">
+                  <div className="flex items-center gap-3">
+                    <Mail className="size-5 text-emerald-600 shrink-0" />
+                    <a
+                      href="mailto:dmca@backgroundremover.app"
+                      className="text-emerald-700 font-semibold text-base sm:text-lg hover:text-emerald-800 underline underline-offset-2 transition-colors"
+                    >
+                      dmca@backgroundremover.app
+                    </a>
+                  </div>
+                  <div className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    <p className="font-medium text-foreground">Background Remover</p>
+                    <p>Attn: DMCA Designated Agent</p>
+                    <p>dmca@backgroundremover.app</p>
+                    <p className="mt-2">
+                      Our designated DMCA agent is registered with the U.S. Copyright Office as required by 17 U.S.C. § 512(c)(2).
+                    </p>
+                  </div>
                 </div>
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                  In accordance with 17 U.S.C. § 512(c)(2), our designated agent&apos;s contact information has been filed with the U.S. Copyright Office and is available through their online directory of designated agents at{" "}
+                  <a
+                    href="https://www.copyright.gov/dmca-directory/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                  >
+                    https://www.copyright.gov/dmca-directory/
+                  </a>.
+                </p>
                 <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
                   Please ensure your notice includes all six required elements
                   listed above. Incomplete notices may not be processed, and we
@@ -753,11 +807,31 @@ export default function DMCAPage() {
                     <Mail className="size-5" />
                     dmca@backgroundremover.app
                   </a>
+                  <div className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    <p className="font-medium text-foreground">Background Remover</p>
+                    <p>Attn: DMCA Designated Agent</p>
+                    <p>dmca@backgroundremover.app</p>
+                    <p className="mt-2">
+                      Our designated DMCA agent is registered with the U.S. Copyright Office as required by 17 U.S.C. § 512(c)(2).
+                    </p>
+                  </div>
                   <p className="mt-3 text-xs sm:text-sm text-muted-foreground">
                     We will acknowledge receipt of your notice via email and
                     will process valid notices as expeditiously as possible.
                   </p>
                 </div>
+
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                  In accordance with 17 U.S.C. § 512(c)(2), our designated agent&apos;s contact information has been filed with the U.S. Copyright Office and is available through their online directory of designated agents at{" "}
+                  <a
+                    href="https://www.copyright.gov/dmca-directory/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                  >
+                    https://www.copyright.gov/dmca-directory/
+                  </a>.
+                </p>
 
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   For general inquiries not related to DMCA or copyright

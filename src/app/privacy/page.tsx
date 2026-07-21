@@ -38,14 +38,23 @@ export const metadata: Metadata = {
       "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant.",
     url: `${SITE_URL}/privacy`,
     siteName: SITE_NAME,
-    type: "website",
+    type: "article",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Background Remover — AI Background Removal Tool",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Privacy Policy",
     description:
       "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -103,6 +112,11 @@ export default function PrivacyPolicyPage() {
       />
 
       <div className="min-h-screen flex flex-col bg-background text-foreground">
+        {/* Skip to content */}
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg">
+          Skip to main content
+        </a>
+
         {/* Header */}
         <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
@@ -130,7 +144,7 @@ export default function PrivacyPolicyPage() {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <main id="main-content" className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-8">
             <ol className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -194,6 +208,26 @@ export default function PrivacyPolicyPage() {
                 real-time, and all temporary data is immediately deleted after
                 processing is complete. This is the cornerstone of our
                 privacy-first approach.
+              </p>
+            </section>
+
+            {/* ─── 1b. Data Controller ──────────────────────────── */}
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+                Data Controller
+              </h2>
+              <p>
+                For the purposes of the General Data Protection Regulation (GDPR),
+                the data controller responsible for your personal data is
+                Background Remover, contactable at{" "}
+                <a
+                  href="mailto:privacy@backgroundremover.app"
+                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                >
+                  privacy@backgroundremover.app
+                </a>
+                . We act as both the data controller and data processor for the
+                limited data described in this policy.
               </p>
             </section>
 
@@ -466,37 +500,31 @@ export default function PrivacyPolicyPage() {
               </p>
               <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
                 <li>
-                  <strong>Uploaded Images:</strong> Zero retention. Images are
-                  held only in temporary memory during processing (typically
-                  under 10 seconds) and are immediately deleted after the
-                  processed result is delivered to your browser. No images are
-                  stored on any persistent storage medium.
+                  <strong>Uploaded images:</strong> Deleted immediately after
+                  processing (0 seconds retention). Images are held only in
+                  temporary memory during processing and are immediately deleted
+                  after the processed result is delivered to your browser. No
+                  images are stored on any persistent storage medium.
                 </li>
                 <li>
-                  <strong>Temporary Files:</strong> Any temporary files created
-                  during image processing are deleted immediately upon
-                  completion of the processing request, within the same server
-                  response cycle.
+                  <strong>Server access logs:</strong> Retained for 30 days, then
+                  automatically purged. Standard server access logs (containing IP
+                  addresses, request timestamps, browser user agents, and HTTP
+                  status codes) are retained for security monitoring and abuse
+                  prevention, after which they are automatically deleted.
                 </li>
                 <li>
-                  <strong>Server Logs (Technical Data):</strong> Standard server
-                  access logs (containing IP addresses, request timestamps,
-                  browser user agents, and HTTP status codes) are retained for a
-                  maximum of <strong>30 days</strong> for security monitoring and
-                  abuse prevention, after which they are automatically purged.
+                  <strong>Cookie consent preference:</strong> Retained for 1 year
+                  from the date of consent. The cookie storing your consent
+                  preference is retained on your browser for up to 1 year, after
+                  which it expires and you will be asked to re-consent.
                 </li>
                 <li>
-                  <strong>Cookie Consent Preference:</strong> The cookie storing
-                  your consent preference is retained on your browser for up to
-                  1 year, after which it expires and you will be asked to
-                  re-consent.
-                </li>
-                <li>
-                  <strong>Usage Data (Aggregate):</strong> Aggregate,
-                  non-personally-identifiable statistics (e.g., total number of
-                  images processed per day, average processing time) may be
-                  retained indefinitely for service improvement purposes. This
-                  data cannot be linked to any individual user.
+                  <strong>No other data is retained.</strong> We do not retain any
+                  other personal data beyond what is described above. Temporary
+                  files created during image processing are deleted immediately
+                  upon completion of the processing request, within the same
+                  server response cycle.
                 </li>
               </ul>
             </section>
@@ -839,6 +867,17 @@ export default function PrivacyPolicyPage() {
               </p>
 
               <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                Right to Notification (Article 19)
+              </h3>
+              <p>
+                When we rectify, erase, or restrict the processing of your
+                personal data, we are obligated to notify each recipient of that
+                data of the change. Given that we do not share your data with any
+                third parties, this obligation is automatically fulfilled as there
+                are no recipients to notify.
+              </p>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
                 Right to Lodge a Complaint
               </h3>
               <p>
@@ -860,7 +899,7 @@ export default function PrivacyPolicyPage() {
               </p>
 
               <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
-                Legal Basis for Processing (Article 6)
+                Lawful Basis for Processing (Article 6)
               </h3>
               <p>
                 Our processing of your personal data is lawful under the
@@ -885,6 +924,84 @@ export default function PrivacyPolicyPage() {
                   may withdraw at any time.
                 </li>
               </ul>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                Lawful Basis Mapping
+              </h3>
+              <p>
+                Below is an explicit mapping of each processing activity to its
+                lawful basis under GDPR Article 6(1):
+              </p>
+              <div className="overflow-x-auto mt-3">
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-3 pr-4 font-semibold">
+                        Processing Activity
+                      </th>
+                      <th className="text-left py-3 pr-4 font-semibold">
+                        Lawful Basis
+                      </th>
+                      <th className="text-left py-3 font-semibold">
+                        Justification
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-border/50">
+                      <td className="py-3 pr-4">
+                        Image processing (background removal)
+                      </td>
+                      <td className="py-3 pr-4">
+                        Legitimate interest (Article 6(1)(f))
+                      </td>
+                      <td className="py-3">
+                        Processing is necessary to provide the service you
+                        requested
+                      </td>
+                    </tr>
+                    <tr className="border-b border-border/50">
+                      <td className="py-3 pr-4">
+                        Technical data (IP, browser)
+                      </td>
+                      <td className="py-3 pr-4">
+                        Legitimate interest (Article 6(1)(f))
+                      </td>
+                      <td className="py-3">
+                        Necessary for security and service stability
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 pr-4">
+                        Cookie consent
+                      </td>
+                      <td className="py-3 pr-4">
+                        Consent (Article 6(1)(a))
+                      </td>
+                      <td className="py-3">
+                        Stored only after you provide consent
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                Data Protection Officer
+              </h3>
+              <p>
+                We have not appointed a Data Protection Officer (DPO) as we are
+                not required to do so under GDPR Article 37, given the nature and
+                scale of our data processing. If you have any data protection
+                concerns, please contact us at{" "}
+                <a
+                  href="mailto:privacy@backgroundremover.app"
+                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                >
+                  privacy@backgroundremover.app
+                </a>
+                .
+              </p>
             </section>
 
             {/* ─── 11. Your Rights Under CCPA ──────────────────── */}
@@ -1228,6 +1345,21 @@ export default function PrivacyPolicyPage() {
                 international data transfers is inherently minimized. Technical
                 data in server logs (IP addresses, timestamps) may be subject
                 to transfer but is automatically purged within 30 days.
+              </p>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                EU Adequacy Decisions
+              </h3>
+              <p>
+                The European Commission has granted adequacy decisions to certain
+                countries and territories, meaning data transfers to these
+                jurisdictions are considered to provide an adequate level of data
+                protection. Where your data may be processed in a country without
+                an adequacy decision, we rely on Standard Contractual Clauses
+                (SCCs) approved by the European Commission to ensure adequate
+                protection. Given our zero-retention policy for images, the risk
+                of cross-border data transfers is minimal, as no personal data in
+                the form of images is retained beyond the processing period.
               </p>
             </section>
 

@@ -1,0 +1,1479 @@
+{
+  "/": {
+    "title": "Background Remover — Free AI Tool to Remove BG Instantly",
+    "meta_description": "Remove image backgrounds instantly with our free AI background remover. No signup, no watermarks. Full subject preserved, batch processing. Try now!",
+    "canonical": "https://backgroundremover.app",
+    "og_tags": {
+      "og:title": "Background Remover — Free AI Tool to Remove BG from Any Image",
+      "og:description": "Remove background from any image instantly with AI. 100% free, no signup, no watermarks. Full subject preserved, batch processing available.",
+      "og:url": "https://backgroundremover.app",
+      "og:site_name": "Background Remover",
+      "og:locale": "en_US",
+      "og:image": "https://backgroundremover.app/og-image.png",
+      "og:image:width": "1200",
+      "og:image:height": "630",
+      "og:image:alt": "Background Remover — Free AI tool to remove any background in seconds",
+      "og:type": "website"
+    },
+    "twitter_tags": {},
+    "h1_tags": [
+      "Remove Any Background in Seconds"
+    ],
+    "h2_tags": [
+      "Start Removing Backgrounds",
+      "Everything You Need, Nothing You Don't",
+      "Three Steps. Zero Hassle.",
+      "Built for Every Use Case",
+      "Frequently Asked Questions",
+      "Ready to Cut the Clutter?"
+    ],
+    "json_ld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Background Remover",
+        "description": "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation. No signup required.",
+        "url": "https://backgroundremover.app",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "AI background removal",
+          "Full subject preservation with edge padding",
+          "Batch processing up to 10 images",
+          "Free to use — no limits",
+          "No signup required",
+          "Supports PNG, JPG, WebP input",
+          "Transparent PNG output",
+          "Privacy-first — images never stored",
+          "Instant processing",
+          "Works on any device"
+        ],
+        "screenshot": "https://backgroundremover.app/og-image.png",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "2847",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://backgroundremover.app"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Remove a Background from Any Image",
+        "description": "Remove image backgrounds instantly using AI. Upload your image, let AI do the work, and download your transparent PNG.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Upload Your Image",
+            "text": "Drag and drop, click to browse, or select multiple files for batch processing. We support PNG, JPG, and WebP."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "AI Does the Work",
+            "text": "Our AI precisely identifies the subject and removes the background. Edge-padding technology ensures nothing gets cut off."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Download and Use",
+            "text": "Get a crisp transparent PNG instantly. Use it for e-commerce, design projects, presentations, or social media."
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Background Remover really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What image formats are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Background Remover supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my images stored on your servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Your images are processed in real-time and immediately deleted from our servers. We never store, share, or analyze your uploads."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does the full subject get preserved?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We use advanced AI padding technology that gives the model context beyond image edges, preventing any cutoff. Combined with alpha matting and edge recovery, your subject stays intact."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many images can I process at once?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can process up to 10 images simultaneously in Batch Mode. Each image is processed sequentially to ensure quality."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the maximum file size?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Each image can be up to 10MB. For best results, we recommend images under 2MB for faster processing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Background Remover work on mobile devices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Background Remover is fully responsive and works on any device — phones, tablets, and desktops."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use the processed images commercially?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. The output images are yours. Use them for e-commerce, design, presentations, social media — anything."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Background Remover",
+        "url": "https://backgroundremover.app",
+        "logo": "https://backgroundremover.app/logo.svg",
+        "description": "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation, batch processing, and zero data retention.",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "support@backgroundremover.app"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Background Remover",
+        "url": "https://backgroundremover.app",
+        "description": "Free AI background removal tool — remove image backgrounds instantly with no signup, no watermarks, and full subject preservation.",
+        "potentialAction": {
+          "@type": "UseAction",
+          "name": "Remove Background from Image",
+          "description": "Upload an image and remove its background using AI",
+          "target": "https://backgroundremover.app"
+        }
+      }
+    ],
+    "has_skip_link": true,
+    "semantic_elements": [
+      "section",
+      "header",
+      "nav",
+      "main",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "footer"
+    ],
+    "has_main": true,
+    "has_nav": true,
+    "has_header": true,
+    "has_footer": true,
+    "img_count": 0,
+    "img_alts": [],
+    "all_links": [
+      [
+        "#main-content",
+        "Skip to main content"
+      ],
+      [
+        "/privacy",
+        "Privacy Policy"
+      ],
+      [
+        "/terms",
+        "Terms of Service"
+      ],
+      [
+        "/cookies",
+        "Cookie Policy"
+      ],
+      [
+        "/dmca",
+        "DMCA"
+      ]
+    ]
+  },
+  "/privacy": {
+    "title": "Privacy Policy | Background Remover",
+    "meta_description": "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant, privacy-first AI tool.",
+    "canonical": "https://backgroundremover.app/privacy",
+    "og_tags": {
+      "og:title": "Privacy Policy",
+      "og:description": "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant.",
+      "og:url": "https://backgroundremover.app/privacy",
+      "og:site_name": "Background Remover",
+      "og:locale": "en_US",
+      "og:type": "website"
+    },
+    "twitter_tags": {},
+    "h1_tags": [
+      "Privacy Policy"
+    ],
+    "h2_tags": [
+      "1. Introduction",
+      "2. Information We Collect",
+      "3. How We Use Your Information",
+      "4. Image Processing & Data Handling",
+      "5. Data Retention",
+      "6. Cookies and Tracking Technologies",
+      "7. Third-Party Services",
+      "8. Data Sharing",
+      "9. Data Security",
+      "10. Your Rights Under GDPR (EU/EEA Residents)",
+      "11. Your Rights Under CCPA (California Residents)",
+      "12. Your Rights Under CalOPPA (California Online Privacy Protection Act)",
+      "13. Your Rights Under PIPEDA (Canadian Residents)",
+      "14. Children's Privacy",
+      "15. International Data Transfers",
+      "16. Do Not Track Signals",
+      "17. Changes to This Policy",
+      "18. Contact Information"
+    ],
+    "json_ld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Background Remover",
+        "description": "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation. No signup required.",
+        "url": "https://backgroundremover.app",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "AI background removal",
+          "Full subject preservation with edge padding",
+          "Batch processing up to 10 images",
+          "Free to use — no limits",
+          "No signup required",
+          "Supports PNG, JPG, WebP input",
+          "Transparent PNG output",
+          "Privacy-first — images never stored",
+          "Instant processing",
+          "Works on any device"
+        ],
+        "screenshot": "https://backgroundremover.app/og-image.png",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "2847",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://backgroundremover.app"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Remove a Background from Any Image",
+        "description": "Remove image backgrounds instantly using AI. Upload your image, let AI do the work, and download your transparent PNG.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Upload Your Image",
+            "text": "Drag and drop, click to browse, or select multiple files for batch processing. We support PNG, JPG, and WebP."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "AI Does the Work",
+            "text": "Our AI precisely identifies the subject and removes the background. Edge-padding technology ensures nothing gets cut off."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Download and Use",
+            "text": "Get a crisp transparent PNG instantly. Use it for e-commerce, design projects, presentations, or social media."
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Background Remover really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What image formats are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Background Remover supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my images stored on your servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Your images are processed in real-time and immediately deleted from our servers. We never store, share, or analyze your uploads."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does the full subject get preserved?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We use advanced AI padding technology that gives the model context beyond image edges, preventing any cutoff. Combined with alpha matting and edge recovery, your subject stays intact."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many images can I process at once?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can process up to 10 images simultaneously in Batch Mode. Each image is processed sequentially to ensure quality."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the maximum file size?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Each image can be up to 10MB. For best results, we recommend images under 2MB for faster processing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Background Remover work on mobile devices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Background Remover is fully responsive and works on any device — phones, tablets, and desktops."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use the processed images commercially?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. The output images are yours. Use them for e-commerce, design, presentations, social media — anything."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Background Remover",
+        "url": "https://backgroundremover.app",
+        "logo": "https://backgroundremover.app/logo.svg",
+        "description": "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation, batch processing, and zero data retention.",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "support@backgroundremover.app"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Background Remover",
+        "url": "https://backgroundremover.app",
+        "description": "Free AI background removal tool — remove image backgrounds instantly with no signup, no watermarks, and full subject preservation.",
+        "potentialAction": {
+          "@type": "UseAction",
+          "name": "Remove Background from Image",
+          "description": "Upload an image and remove its background using AI",
+          "target": "https://backgroundremover.app"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://backgroundremover.app"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Privacy Policy",
+            "item": "https://backgroundremover.app/privacy"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Privacy Policy — Background Remover",
+        "description": "Privacy Policy for Background Remover AI tool",
+        "url": "https://backgroundremover.app/privacy",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Background Remover",
+          "url": "https://backgroundremover.app"
+        }
+      }
+    ],
+    "has_skip_link": false,
+    "semantic_elements": [
+      "header",
+      "main",
+      "nav",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "footer"
+    ],
+    "has_main": true,
+    "has_nav": true,
+    "has_header": true,
+    "has_footer": true,
+    "img_count": 0,
+    "img_alts": [],
+    "all_links": [
+      [
+        "/",
+        "Back to Home"
+      ],
+      [
+        "/",
+        "Home"
+      ],
+      [
+        "https://backgroundremover.app",
+        "https://backgroundremover.app"
+      ],
+      [
+        "https://www.edpb.europa.eu/about-edpb/about-edpb/members_en",
+        "the European Data Protection Board website"
+      ],
+      [
+        "mailto:privacy@backgroundremover.app",
+        "privacy@backgroundremover.app"
+      ],
+      [
+        "mailto:privacy@backgroundremover.app",
+        "privacy@backgroundremover.app"
+      ],
+      [
+        "https://www.priv.gc.ca",
+        "priv.gc.ca"
+      ],
+      [
+        "mailto:privacy@backgroundremover.app",
+        "privacy@backgroundremover.app"
+      ],
+      [
+        "https://backgroundremover.app",
+        "https://backgroundremover.app"
+      ],
+      [
+        "mailto:privacy@backgroundremover.app",
+        "privacy@backgroundremover.app"
+      ],
+      [
+        "/",
+        "Back to Background Remover"
+      ]
+    ]
+  },
+  "/terms": {
+    "title": "Terms of Service | Background Remover",
+    "meta_description": "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
+    "canonical": "https://backgroundremover.app/terms",
+    "og_tags": {
+      "og:title": "Terms of Service",
+      "og:description": "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
+      "og:url": "https://backgroundremover.app/terms",
+      "og:site_name": "Background Remover",
+      "og:locale": "en_US",
+      "og:type": "website"
+    },
+    "twitter_tags": {},
+    "h1_tags": [
+      "Terms of Service"
+    ],
+    "h2_tags": [
+      "1. Acceptance of Terms",
+      "2. Definitions",
+      "3. Description of Service",
+      "4. Eligibility",
+      "5. User Accounts",
+      "6. User Content & Intellectual Property",
+      "7. User Responsibilities & Warranties",
+      "8. Prohibited Uses",
+      "9. Service Availability",
+      "10. Accuracy of Results",
+      "11. Limitation of Liability",
+      "12. Indemnification",
+      "13. DMCA & Copyright",
+      "14. Privacy",
+      "15. Cookies",
+      "16. Modifications to Terms",
+      "17. Termination",
+      "18. Dispute Resolution",
+      "19. Severability",
+      "20. Entire Agreement",
+      "21. Contact Information"
+    ],
+    "json_ld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Background Remover",
+        "description": "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation. No signup required.",
+        "url": "https://backgroundremover.app",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "AI background removal",
+          "Full subject preservation with edge padding",
+          "Batch processing up to 10 images",
+          "Free to use — no limits",
+          "No signup required",
+          "Supports PNG, JPG, WebP input",
+          "Transparent PNG output",
+          "Privacy-first — images never stored",
+          "Instant processing",
+          "Works on any device"
+        ],
+        "screenshot": "https://backgroundremover.app/og-image.png",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "2847",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://backgroundremover.app"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Remove a Background from Any Image",
+        "description": "Remove image backgrounds instantly using AI. Upload your image, let AI do the work, and download your transparent PNG.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Upload Your Image",
+            "text": "Drag and drop, click to browse, or select multiple files for batch processing. We support PNG, JPG, and WebP."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "AI Does the Work",
+            "text": "Our AI precisely identifies the subject and removes the background. Edge-padding technology ensures nothing gets cut off."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Download and Use",
+            "text": "Get a crisp transparent PNG instantly. Use it for e-commerce, design projects, presentations, or social media."
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Background Remover really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What image formats are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Background Remover supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my images stored on your servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Your images are processed in real-time and immediately deleted from our servers. We never store, share, or analyze your uploads."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does the full subject get preserved?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We use advanced AI padding technology that gives the model context beyond image edges, preventing any cutoff. Combined with alpha matting and edge recovery, your subject stays intact."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many images can I process at once?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can process up to 10 images simultaneously in Batch Mode. Each image is processed sequentially to ensure quality."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the maximum file size?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Each image can be up to 10MB. For best results, we recommend images under 2MB for faster processing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Background Remover work on mobile devices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Background Remover is fully responsive and works on any device — phones, tablets, and desktops."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use the processed images commercially?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. The output images are yours. Use them for e-commerce, design, presentations, social media — anything."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Background Remover",
+        "url": "https://backgroundremover.app",
+        "logo": "https://backgroundremover.app/logo.svg",
+        "description": "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation, batch processing, and zero data retention.",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "support@backgroundremover.app"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Background Remover",
+        "url": "https://backgroundremover.app",
+        "description": "Free AI background removal tool — remove image backgrounds instantly with no signup, no watermarks, and full subject preservation.",
+        "potentialAction": {
+          "@type": "UseAction",
+          "name": "Remove Background from Image",
+          "description": "Upload an image and remove its background using AI",
+          "target": "https://backgroundremover.app"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://backgroundremover.app"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Terms of Service",
+            "item": "https://backgroundremover.app/terms"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Terms of Service",
+        "description": "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
+        "url": "https://backgroundremover.app/terms",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Background Remover",
+          "url": "https://backgroundremover.app"
+        },
+        "dateModified": "2025-03-04",
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://backgroundremover.app"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Terms of Service",
+              "item": "https://backgroundremover.app/terms"
+            }
+          ]
+        }
+      }
+    ],
+    "has_skip_link": false,
+    "semantic_elements": [
+      "header",
+      "main",
+      "nav",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "footer"
+    ],
+    "has_main": true,
+    "has_nav": true,
+    "has_header": true,
+    "has_footer": true,
+    "img_count": 0,
+    "img_alts": [],
+    "all_links": [
+      [
+        "/",
+        "←Back to Background Remover"
+      ],
+      [
+        "/",
+        "Home"
+      ],
+      [
+        "/",
+        "backgroundremover.app"
+      ],
+      [
+        "/dmca",
+        "DMCA / Copyright Policy"
+      ],
+      [
+        "/privacy",
+        "Privacy Policy"
+      ],
+      [
+        "/cookies",
+        "Cookie Policy"
+      ],
+      [
+        "/privacy",
+        "Privacy Policy"
+      ],
+      [
+        "/cookies",
+        "Cookie Policy"
+      ],
+      [
+        "/dmca",
+        "DMCA Policy"
+      ],
+      [
+        "mailto:legal@backgroundremover.app",
+        "legal@backgroundremover.app"
+      ],
+      [
+        "/",
+        "backgroundremover.app"
+      ],
+      [
+        "/",
+        "←Back to Background Remover"
+      ],
+      [
+        "/privacy",
+        "Privacy Policy"
+      ],
+      [
+        "/cookies",
+        "Cookie Policy"
+      ],
+      [
+        "/dmca",
+        "DMCA Policy"
+      ]
+    ]
+  },
+  "/cookies": {
+    "title": "Cookie Policy | Background Remover",
+    "meta_description": "Cookie Policy for Background Remover — we use minimal essential cookies only. No tracking, no analytics cookies. Learn more about our privacy-first approach.",
+    "canonical": "https://backgroundremover.app/cookies",
+    "og_tags": {
+      "og:title": "Cookie Policy | Background Remover",
+      "og:description": "Cookie Policy for Background Remover — we use minimal essential cookies only. No tracking, no analytics cookies. Learn more about our privacy-first approach.",
+      "og:url": "https://backgroundremover.app/cookies",
+      "og:site_name": "Background Remover",
+      "og:locale": "en_US",
+      "og:type": "website"
+    },
+    "twitter_tags": {},
+    "h1_tags": [
+      "Cookie Policy"
+    ],
+    "h2_tags": [
+      "1.Introduction",
+      "2.What Are Cookies?",
+      "3.Types of Cookies",
+      "4.Cookies We Use",
+      "5.How We Use Cookies",
+      "6.Third-Party Cookies",
+      "7.Managing Cookies",
+      "8.Cookie Consent",
+      "9.Changes to This Cookie Policy",
+      "10.Contact Us"
+    ],
+    "json_ld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Background Remover",
+        "description": "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation. No signup required.",
+        "url": "https://backgroundremover.app",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "AI background removal",
+          "Full subject preservation with edge padding",
+          "Batch processing up to 10 images",
+          "Free to use — no limits",
+          "No signup required",
+          "Supports PNG, JPG, WebP input",
+          "Transparent PNG output",
+          "Privacy-first — images never stored",
+          "Instant processing",
+          "Works on any device"
+        ],
+        "screenshot": "https://backgroundremover.app/og-image.png",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "2847",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://backgroundremover.app"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Remove a Background from Any Image",
+        "description": "Remove image backgrounds instantly using AI. Upload your image, let AI do the work, and download your transparent PNG.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Upload Your Image",
+            "text": "Drag and drop, click to browse, or select multiple files for batch processing. We support PNG, JPG, and WebP."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "AI Does the Work",
+            "text": "Our AI precisely identifies the subject and removes the background. Edge-padding technology ensures nothing gets cut off."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Download and Use",
+            "text": "Get a crisp transparent PNG instantly. Use it for e-commerce, design projects, presentations, or social media."
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Background Remover really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What image formats are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Background Remover supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my images stored on your servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Your images are processed in real-time and immediately deleted from our servers. We never store, share, or analyze your uploads."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does the full subject get preserved?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We use advanced AI padding technology that gives the model context beyond image edges, preventing any cutoff. Combined with alpha matting and edge recovery, your subject stays intact."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many images can I process at once?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can process up to 10 images simultaneously in Batch Mode. Each image is processed sequentially to ensure quality."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the maximum file size?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Each image can be up to 10MB. For best results, we recommend images under 2MB for faster processing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Background Remover work on mobile devices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Background Remover is fully responsive and works on any device — phones, tablets, and desktops."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use the processed images commercially?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. The output images are yours. Use them for e-commerce, design, presentations, social media — anything."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Background Remover",
+        "url": "https://backgroundremover.app",
+        "logo": "https://backgroundremover.app/logo.svg",
+        "description": "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation, batch processing, and zero data retention.",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "support@backgroundremover.app"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Background Remover",
+        "url": "https://backgroundremover.app",
+        "description": "Free AI background removal tool — remove image backgrounds instantly with no signup, no watermarks, and full subject preservation.",
+        "potentialAction": {
+          "@type": "UseAction",
+          "name": "Remove Background from Image",
+          "description": "Upload an image and remove its background using AI",
+          "target": "https://backgroundremover.app"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://backgroundremover.app"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Cookie Policy",
+            "item": "https://backgroundremover.app/cookies"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Cookie Policy — Background Remover",
+        "description": "Cookie Policy for Background Remover — we use minimal essential cookies only. No tracking, no analytics cookies.",
+        "url": "https://backgroundremover.app/cookies",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Background Remover",
+          "url": "https://backgroundremover.app"
+        },
+        "dateModified": "2026-03-04",
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://backgroundremover.app"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Cookie Policy",
+              "item": "https://backgroundremover.app/cookies"
+            }
+          ]
+        }
+      }
+    ],
+    "has_skip_link": false,
+    "semantic_elements": [
+      "header",
+      "main",
+      "nav",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "footer"
+    ],
+    "has_main": true,
+    "has_nav": true,
+    "has_header": true,
+    "has_footer": true,
+    "img_count": 0,
+    "img_alts": [],
+    "all_links": [
+      [
+        "/",
+        "Back to Home"
+      ],
+      [
+        "/",
+        "Home"
+      ],
+      [
+        "/",
+        "backgroundremover.app"
+      ],
+      [
+        "mailto:privacy@backgroundremover.app",
+        "privacy@backgroundremover.app"
+      ],
+      [
+        "/",
+        "Back to Background Remover"
+      ],
+      [
+        "/",
+        "backgroundremover.app"
+      ]
+    ]
+  },
+  "/dmca": {
+    "title": "DMCA / Copyright Policy | Background Remover",
+    "meta_description": "DMCA and copyright policy for Background Remover. Learn how to report copyright infringement or file a counter-notification.",
+    "canonical": "https://backgroundremover.app/dmca",
+    "og_tags": {
+      "og:title": "DMCA / Copyright Policy | Background Remover",
+      "og:description": "DMCA and copyright policy for Background Remover. Learn how to report copyright infringement or file a counter-notification.",
+      "og:url": "https://backgroundremover.app/dmca",
+      "og:site_name": "Background Remover",
+      "og:locale": "en_US",
+      "og:type": "website"
+    },
+    "twitter_tags": {},
+    "h1_tags": [
+      "DMCA / Copyright Policy"
+    ],
+    "h2_tags": [
+      "1. Copyright Infringement Reporting",
+      "2. DMCA Takedown Notice Requirements",
+      "3. Where to Send DMCA Notices",
+      "4. Counter-Notification Requirements",
+      "5. Repeat Infringer Policy",
+      "6. Important Notes About Our Service",
+      "7. Misrepresentations — Penalty of Perjury Warning",
+      "8. Contact for DMCA Notices"
+    ],
+    "json_ld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Background Remover",
+        "description": "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation. No signup required.",
+        "url": "https://backgroundremover.app",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "AI background removal",
+          "Full subject preservation with edge padding",
+          "Batch processing up to 10 images",
+          "Free to use — no limits",
+          "No signup required",
+          "Supports PNG, JPG, WebP input",
+          "Transparent PNG output",
+          "Privacy-first — images never stored",
+          "Instant processing",
+          "Works on any device"
+        ],
+        "screenshot": "https://backgroundremover.app/og-image.png",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "2847",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://backgroundremover.app"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Remove a Background from Any Image",
+        "description": "Remove image backgrounds instantly using AI. Upload your image, let AI do the work, and download your transparent PNG.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Upload Your Image",
+            "text": "Drag and drop, click to browse, or select multiple files for batch processing. We support PNG, JPG, and WebP."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "AI Does the Work",
+            "text": "Our AI precisely identifies the subject and removes the background. Edge-padding technology ensures nothing gets cut off."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Download and Use",
+            "text": "Get a crisp transparent PNG instantly. Use it for e-commerce, design projects, presentations, or social media."
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Background Remover really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What image formats are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Background Remover supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my images stored on your servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Your images are processed in real-time and immediately deleted from our servers. We never store, share, or analyze your uploads."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does the full subject get preserved?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We use advanced AI padding technology that gives the model context beyond image edges, preventing any cutoff. Combined with alpha matting and edge recovery, your subject stays intact."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many images can I process at once?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can process up to 10 images simultaneously in Batch Mode. Each image is processed sequentially to ensure quality."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the maximum file size?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Each image can be up to 10MB. For best results, we recommend images under 2MB for faster processing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Background Remover work on mobile devices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Background Remover is fully responsive and works on any device — phones, tablets, and desktops."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use the processed images commercially?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. The output images are yours. Use them for e-commerce, design, presentations, social media — anything."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Background Remover",
+        "url": "https://backgroundremover.app",
+        "logo": "https://backgroundremover.app/logo.svg",
+        "description": "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation, batch processing, and zero data retention.",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "support@backgroundremover.app"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Background Remover",
+        "url": "https://backgroundremover.app",
+        "description": "Free AI background removal tool — remove image backgrounds instantly with no signup, no watermarks, and full subject preservation.",
+        "potentialAction": {
+          "@type": "UseAction",
+          "name": "Remove Background from Image",
+          "description": "Upload an image and remove its background using AI",
+          "target": "https://backgroundremover.app"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://backgroundremover.app"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "DMCA Policy",
+            "item": "https://backgroundremover.app/dmca"
+          }
+        ]
+      }
+    ],
+    "has_skip_link": false,
+    "semantic_elements": [
+      "header",
+      "main",
+      "nav",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "section",
+      "footer"
+    ],
+    "has_main": true,
+    "has_nav": true,
+    "has_header": true,
+    "has_footer": true,
+    "img_count": 0,
+    "img_alts": [],
+    "all_links": [
+      [
+        "/",
+        "Back to Home"
+      ],
+      [
+        "/",
+        "Home"
+      ],
+      [
+        "mailto:dmca@backgroundremover.app",
+        "dmca@backgroundremover.app"
+      ],
+      [
+        "mailto:dmca@backgroundremover.app",
+        "dmca@backgroundremover.app"
+      ],
+      [
+        "mailto:dmca@backgroundremover.app",
+        "dmca@backgroundremover.app"
+      ],
+      [
+        "/",
+        "home page"
+      ],
+      [
+        "/",
+        "backgroundremover.app"
+      ]
+    ]
+  }
+}

@@ -32,14 +32,23 @@ export const metadata: Metadata = {
       "Cookie Policy for Background Remover — we use minimal essential cookies only. No tracking, no analytics cookies. Learn more about our privacy-first approach.",
     url: "https://backgroundremover.app/cookies",
     siteName: "Background Remover",
-    type: "website",
+    type: "article",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Cookie Policy — Background Remover",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Cookie Policy | Background Remover",
     description:
       "Cookie Policy for Background Remover — minimal essential cookies only. No tracking, no analytics. Privacy-first.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -133,6 +142,12 @@ export default function CookiePolicyPage() {
         }}
       />
 
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg"
+      >
+        Skip to main content
+      </a>
       <div className="min-h-screen flex flex-col bg-background text-foreground">
         {/* ─── Header ─────────────────────────────────────────────── */}
         <header className="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-10">
@@ -148,7 +163,7 @@ export default function CookiePolicyPage() {
         </header>
 
         {/* ─── Main Content ────────────────────────────────────────── */}
-        <main className="flex-1">
+        <main id="main-content" className="flex-1">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             {/* Breadcrumb Navigation */}
             <Breadcrumb className="mb-8">

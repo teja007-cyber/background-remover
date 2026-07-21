@@ -1,0 +1,940 @@
+     1→import type { Metadata } from "next";
+     2→import Link from "next/link";
+     3→
+     4→const SITE_URL = "https://backgroundremover.app";
+     5→const LAST_UPDATED = "March 4, 2025";
+     6→
+     7→// ─── SEO Metadata ─────────────────────────────────────────────────
+     8→
+     9→export const metadata: Metadata = {
+    10→  title: "Terms of Service",
+    11→  description:
+    12→    "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
+    13→  alternates: {
+    14→    canonical: `${SITE_URL}/terms`,
+    15→  },
+    16→  openGraph: {
+    17→    title: "Terms of Service",
+    18→    description:
+    19→      "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
+    20→    url: `${SITE_URL}/terms`,
+    21→    siteName: "Background Remover",
+    22→    type: "website",
+    23→    locale: "en_US",
+    24→  },
+    25→  twitter: {
+    26→    card: "summary_large_image",
+    27→    title: "Terms of Service",
+    28→    description:
+    29→      "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
+    30→  },
+    31→};
+    32→
+    33→// ─── JSON-LD Structured Data ──────────────────────────────────────
+    34→
+    35→const breadcrumbJsonLd = {
+    36→  "@context": "https://schema.org",
+    37→  "@type": "BreadcrumbList",
+    38→  itemListElement: [
+    39→    {
+    40→      "@type": "ListItem",
+    41→      position: 1,
+    42→      name: "Home",
+    43→      item: SITE_URL,
+    44→    },
+    45→    {
+    46→      "@type": "ListItem",
+    47→      position: 2,
+    48→      name: "Terms of Service",
+    49→      item: `${SITE_URL}/terms`,
+    50→    },
+    51→  ],
+    52→};
+    53→
+    54→const webPageJsonLd = {
+    55→  "@context": "https://schema.org",
+    56→  "@type": "WebPage",
+    57→  name: "Terms of Service",
+    58→  description:
+    59→    "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
+    60→  url: `${SITE_URL}/terms`,
+    61→  isPartOf: {
+    62→    "@type": "WebSite",
+    63→    name: "Background Remover",
+    64→    url: SITE_URL,
+    65→  },
+    66→  dateModified: "2025-03-04",
+    67→  breadcrumb: {
+    68→    "@type": "BreadcrumbList",
+    69→    itemListElement: [
+    70→      {
+    71→        "@type": "ListItem",
+    72→        position: 1,
+    73→        name: "Home",
+    74→        item: SITE_URL,
+    75→      },
+    76→      {
+    77→        "@type": "ListItem",
+    78→        position: 2,
+    79→        name: "Terms of Service",
+    80→        item: `${SITE_URL}/terms`,
+    81→      },
+    82→    ],
+    83→  },
+    84→};
+    85→
+    86→// ─── Page Component ───────────────────────────────────────────────
+    87→
+    88→export default function TermsOfServicePage() {
+    89→  return (
+    90→    <>
+    91→      {/* JSON-LD Structured Data */}
+    92→      <script
+    93→        type="application/ld+json"
+    94→        dangerouslySetInnerHTML={{
+    95→          __html: JSON.stringify(breadcrumbJsonLd),
+    96→        }}
+    97→      />
+    98→      <script
+    99→        type="application/ld+json"
+   100→        dangerouslySetInnerHTML={{
+   101→          __html: JSON.stringify(webPageJsonLd),
+   102→        }}
+   103→      />
+   104→
+   105→      <div className="min-h-screen flex flex-col bg-background text-foreground">
+   106→        {/* ─── Header / Back Navigation ─────────────────────────── */}
+   107→        <header className="border-b border-border">
+   108→          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-4">
+   109→            <Link
+   110→              href="/"
+   111→              className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 transition-colors text-sm font-medium group"
+   112→            >
+   113→              <span className="inline-block transition-transform group-hover:-translate-x-1">
+   114→                &larr;
+   115→              </span>
+   116→              Back to Background Remover
+   117→            </Link>
+   118→          </div>
+   119→        </header>
+   120→
+   121→        {/* ─── Main Content ─────────────────────────────────────── */}
+   122→        <main className="flex-1">
+   123→          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+   124→            {/* Breadcrumb Navigation */}
+   125→            <nav aria-label="Breadcrumb" className="mb-8">
+   126→              <ol className="flex items-center gap-2 text-sm text-muted-foreground">
+   127→                <li>
+   128→                  <Link
+   129→                    href="/"
+   130→                    className="hover:text-emerald-600 transition-colors"
+   131→                  >
+   132→                    Home
+   133→                  </Link>
+   134→                </li>
+   135→                <li aria-hidden="true">&gt;</li>
+   136→                <li className="text-foreground font-medium" aria-current="page">
+   137→                  Terms of Service
+   138→                </li>
+   139→              </ol>
+   140→            </nav>
+   141→
+   142→            {/* Page Title */}
+   143→            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-2">
+   144→              Terms of Service
+   145→            </h1>
+   146→            <p className="text-muted-foreground text-sm mb-10">
+   147→              Last Updated: {LAST_UPDATED}
+   148→            </p>
+   149→
+   150→            {/* ─── Sections ───────────────────────────────────────── */}
+   151→            <div className="space-y-10 text-[15px] leading-7 text-muted-foreground">
+   152→              {/* 1. Acceptance of Terms */}
+   153→              <section>
+   154→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   155→                  1. Acceptance of Terms
+   156→                </h2>
+   157→                <p>
+   158→                  By accessing or using the Background Remover service (&quot;Service&quot;),
+   159→                  available at{" "}
+   160→                  <Link
+   161→                    href="/"
+   162→                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   163→                  >
+   164→                    backgroundremover.app
+   165→                  </Link>
+   166→                  , you agree to be bound by these Terms of Service
+   167→                  (&quot;Terms&quot;). If you do not agree to these Terms, you must not
+   168→                  access or use the Service. Your continued use of the Service
+   169→                  following the posting of any changes to these Terms constitutes
+   170→                  acceptance of those changes.
+   171→                </p>
+   172→              </section>
+   173→
+   174→              {/* 2. Definitions */}
+   175→              <section>
+   176→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   177→                  2. Definitions
+   178→                </h2>
+   179→                <ul className="space-y-2 list-none pl-0">
+   180→                  <li>
+   181→                    <strong className="text-foreground">&quot;Service&quot;</strong>{" "}
+   182→                    means the Background Remover web application, including all
+   183→                    features, functionality, content, and tools provided at
+   184→                    backgroundremover.app, including but not limited to AI-powered
+   185→                    background removal, batch processing, and image download
+   186→                    capabilities.
+   187→                  </li>
+   188→                  <li>
+   189→                    <strong className="text-foreground">&quot;User&quot;</strong>{" "}
+   190→                    means any individual who accesses, browses, or uses the
+   191→                    Service, regardless of whether they upload any images.
+   192→                  </li>
+   193→                  <li>
+   194→                    <strong className="text-foreground">&quot;Content&quot;</strong>{" "}
+   195→                    means any image, photograph, graphic, or other visual material
+   196→                    that a User uploads or submits to the Service for processing.
+   197→                  </li>
+   198→                  <li>
+   199→                    <strong className="text-foreground">
+   200→                      &quot;Processed Output&quot;
+   201→                    </strong>{" "}
+   202→                    means the resulting image produced by the Service after
+   203→                    removing the background from a User&apos;s uploaded Content,
+   204→                    including transparent PNG files and any other output format
+   205→                    provided by the Service.
+   206→                  </li>
+   207→                  <li>
+   208→                    <strong className="text-foreground">
+   209→                      &quot;We,&quot; &quot;Us,&quot; &quot;Our&quot;
+   210→                    </strong>{" "}
+   211→                    means Background Remover, the operator of the Service.
+   212→                  </li>
+   213→                  <li>
+   214→                    <strong className="text-foreground">
+   215→                      &quot;You,&quot; &quot;Your&quot;
+   216→                    </strong>{" "}
+   217→                    means the User accessing or using the Service.
+   218→                  </li>
+   219→                </ul>
+   220→              </section>
+   221→
+   222→              {/* 3. Description of Service */}
+   223→              <section>
+   224→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   225→                  3. Description of Service
+   226→                </h2>
+   227→                <p>
+   228→                  Background Remover is a free, web-based AI-powered tool that
+   229→                  removes backgrounds from images. The Service allows Users to
+   230→                  upload images in formats including PNG, JPG, and WebP, and uses
+   231→                  artificial intelligence to automatically detect and remove the
+   232→                  background, producing a transparent PNG output. The Service also
+   233→                  supports batch processing of up to 10 images simultaneously.
+   234→                </p>
+   235→                <p className="mt-3">
+   236→                  The Service is provided free of charge. No account, registration,
+   237→                  or sign-up is required to use the Service. The Service processes
+   238→                  images in real-time and does not permanently store User Content
+   239→                  on its servers after processing is complete.
+   240→                </p>
+   241→              </section>
+   242→
+   243→              {/* 4. Eligibility */}
+   244→              <section>
+   245→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   246→                  4. Eligibility
+   247→                </h2>
+   248→                <p>
+   249→                  By using the Service, you represent and warrant that:
+   250→                </p>
+   251→                <ul className="mt-3 space-y-1 list-disc pl-6">
+   252→                  <li>
+   253→                    You are at least 13 years of age. If you are under 18, you
+   254→                    must have the consent of a parent or legal guardian to use
+   255→                    the Service.
+   256→                  </li>
+   257→                  <li>
+   258→                    You have the legal capacity to enter into a binding agreement
+   259→                    under applicable law.
+   260→                  </li>
+   261→                  <li>
+   262→                    You are not prohibited from using the Service under any
+   263→                    applicable law or regulation, including any laws of the
+   264→                    jurisdiction in which you reside or from which you access the
+   265→                    Service.
+   266→                  </li>
+   267→                  <li>
+   268→                    You have not been previously suspended or terminated from
+   269→                    using the Service.
+   270→                  </li>
+   271→                </ul>
+   272→              </section>
+   273→
+   274→              {/* 5. User Accounts */}
+   275→              <section>
+   276→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   277→                  5. User Accounts
+   278→                </h2>
+   279→                <p>
+   280→                  No account is required to use the Service. Background Remover is
+   281→                  designed to be accessible without registration, login, or any
+   282→                  form of user identification. You may use the Service anonymously
+   283→                  without providing any personal information. If we introduce
+   284→                  optional account features in the future, separate terms may
+   285→                  apply, and we will notify you at that time.
+   286→                </p>
+   287→              </section>
+   288→
+   289→              {/* 6. User Content & Intellectual Property */}
+   290→              <section>
+   291→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   292→                  6. User Content &amp; Intellectual Property
+   293→                </h2>
+   294→                <div className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-5 space-y-3">
+   295→                  <p className="font-semibold text-emerald-800">
+   296→                    Your Content, Your Rights.
+   297→                  </p>
+   298→                  <ul className="space-y-2 list-none pl-0 text-emerald-900">
+   299→                    <li className="flex items-start gap-2">
+   300→                      <span className="text-emerald-600 mt-1 shrink-0">&#10003;</span>
+   301→                      <span>
+   302→                        <strong>You retain ALL ownership and intellectual property rights</strong> to
+   303→                        any images you upload to the Service (&quot;Content&quot;).
+   304→                      </span>
+   305→                    </li>
+   306→                    <li className="flex items-start gap-2">
+   307→                      <span className="text-emerald-600 mt-1 shrink-0">&#10003;</span>
+   308→                      <span>
+   309→                        <strong>You retain ALL ownership and intellectual property rights</strong> to
+   310→                        any processed images produced by the Service (&quot;Processed Output&quot;).
+   311→                      </span>
+   312→                    </li>
+   313→                    <li className="flex items-start gap-2">
+   314→                      <span className="text-emerald-600 mt-1 shrink-0">&#10003;</span>
+   315→                      <span>
+   316→                        <strong>Background Remover claims NO ownership, license, or rights</strong> to
+   317→                        your uploaded images or processed outputs.
+   318→                      </span>
+   319→                    </li>
+   320→                    <li className="flex items-start gap-2">
+   321→                      <span className="text-emerald-600 mt-1 shrink-0">&#10003;</span>
+   322→                      <span>
+   323→                        The Service is a <strong>tool</strong> — the output belongs{" "}
+   324→                        <strong>entirely to you</strong>.
+   325→                      </span>
+   326→                    </li>
+   327→                    <li className="flex items-start gap-2">
+   328→                      <span className="text-emerald-600 mt-1 shrink-0">&#10003;</span>
+   329→                      <span>
+   330→                        You may use Processed Output for <strong>any purpose</strong>,
+   331→                        including commercial, personal, editorial, creative, or any
+   332→                        other lawful use, without attribution required.
+   333→                      </span>
+   334→                    </li>
+   335→                  </ul>
+   336→                </div>
+   337→                <p className="mt-4">
+   338→                  By uploading Content to the Service, you grant us a limited,
+   339→                  temporary, non-exclusive, non-transferable license solely for
+   340→                  the purpose of processing your image and delivering the Processed
+   341→                  Output to you. This license terminates automatically once
+   342→                  processing is complete and the Processed Output has been
+   343→                  delivered to you. We do not retain, store, reproduce, distribute,
+   344→                  or create derivative works from your Content or Processed Output
+   345→                  beyond what is technically necessary to provide the Service.
+   346→                </p>
+   347→                <p className="mt-3">
+   348→                  Because the Service does not permanently store your images, we
+   349→                  cannot recover or retrieve Content or Processed Output once you
+   350→                  navigate away from the results page. You are solely responsible
+   351→                  for downloading and saving any Processed Output you wish to keep.
+   352→                </p>
+   353→              </section>
+   354→
+   355→              {/* 7. User Responsibilities & Warranties */}
+   356→              <section>
+   357→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   358→                  7. User Responsibilities &amp; Warranties
+   359→                </h2>
+   360→                <p>
+   361→                  By uploading Content to the Service, you represent and warrant
+   362→                  that:
+   363→                </p>
+   364→                <ul className="mt-3 space-y-1 list-disc pl-6">
+   365→                  <li>
+   366→                    You own the Content or have obtained all necessary rights,
+   367→                    licenses, consents, and permissions to upload the Content and
+   368→                    have it processed by the Service.
+   369→                  </li>
+   370→                  <li>
+   371→                    The Content does not infringe upon any third party&apos;s
+   372→                    copyright, trademark, patent, trade secret, or other
+   373→                    intellectual property right.
+   374→                  </li>
+   375→                  <li>
+   376→                    The Content does not violate any applicable law, regulation, or
+   377→                    third-party right.
+   378→                  </li>
+   379→                  <li>
+   380→                    If the Content contains identifiable individuals, you have
+   381→                    obtained their consent for the use and processing of their
+   382→                    image, or such use is otherwise lawful.
+   383→                  </li>
+   384→                  <li>
+   385→                    You are solely responsible for the Content you upload and any
+   386→                    consequences arising from its processing or use of the
+   387→                    Processed Output.
+   388→                  </li>
+   389→                </ul>
+   390→              </section>
+   391→
+   392→              {/* 8. Prohibited Uses */}
+   393→              <section>
+   394→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   395→                  8. Prohibited Uses
+   396→                </h2>
+   397→                <p>
+   398→                  You may not use the Service for any purpose that is unlawful,
+   399→                  harmful, or violates the rights of others. The following uses are
+   400→                  strictly prohibited:
+   401→                </p>
+   402→                <ul className="mt-3 space-y-1 list-disc pl-6">
+   403→                  <li>
+   404→                    <strong>Illegal content.</strong> Uploading, processing, or
+   405→                    distributing any content that violates any applicable local,
+   406→                    state, national, or international law or regulation.
+   407→                  </li>
+   408→                  <li>
+   409→                    <strong>Child sexual abuse material (CSAM).</strong> We have
+   410→                    zero tolerance for CSAM. Any attempt to upload, process, or
+   411→                    distribute content involving the sexual exploitation of minors
+   412→                    will result in immediate termination of access and{" "}
+   413→                    <strong>reporting to the appropriate law enforcement
+   414→                    authorities</strong>, including the National Center for Missing
+   415→                    &amp; Exploited Children (NCMEC) and relevant international
+   416→                    agencies.
+   417→                  </li>
+   418→                  <li>
+   419→                    <strong>Violation of others&apos; rights.</strong> Uploading or
+   420→                    processing images that violate any person&apos;s copyright,
+   421→                    trademark, privacy, publicity, or other intellectual property
+   422→                    or personal rights.
+   423→                  </li>
+   424→                  <li>
+   425→                    <strong>Unauthorized use of likeness.</strong> Using the Service
+   426→                    to process images of identifiable individuals without their
+   427→                    consent, particularly for purposes that could be defamatory,
+   428→                    misleading, or harmful to their reputation.
+   429→                  </li>
+   430→                  <li>
+   431→                    <strong>Service disruption.</strong> Attempting to disrupt,
+   432→                    overload, compromise, or impair the Service&apos;s
+   433→                    infrastructure, servers, networks, or any third-party services
+   434→                    integrated with the Service, including but not limited to
+   435→                    denial-of-service attacks, flooding, or excessive resource
+   436→                    consumption.
+   437→                  </li>
+   438→                  <li>
+   439→                    <strong>Automated abuse.</strong> Using automated tools,
+   440→                    scripts, bots, scrapers, or any other automated means to
+   441→                    access, scrape, crawl, or interact with the Service in a
+   442→                    manner that exceeds reasonable personal use or places undue
+   443→                    burden on the Service&apos;s infrastructure.
+   444→                  </li>
+   445→                  <li>
+   446→                    <strong>Reverse engineering.</strong> Attempting to reverse
+   447→                    engineer, decompile, disassemble, or otherwise derive the
+   448→                    source code, algorithms, models, or underlying technology of
+   449→                    the Service.
+   450→                  </li>
+   451→                  <li>
+   452→                    <strong>Unlawful purposes.</strong> Using the Service for any
+   453→                    purpose that constitutes a criminal offense, gives rise to
+   454→                    civil liability, or otherwise violates any applicable law.
+   455→                  </li>
+   456→                  <li>
+   457→                    <strong>Malicious deepfakes.</strong> Using the Service to
+   458→                    create deepfakes, manipulated images, or synthetic media for
+   459→                    the purpose of fraud, defamation, harassment, blackmail,
+   460→                    election interference, or any other malicious or deceptive
+   461→                    purpose.
+   462→                  </li>
+   463→                  <li>
+   464→                    <strong>Harmful content.</strong> Uploading content that
+   465→                    promotes violence, terrorism, hate speech, discrimination, or
+   466→                    harassment against any individual or group.
+   467→                  </li>
+   468→                  <li>
+   469→                    <strong>Interference.</strong> Interfering with or circumventing
+   470→                    any security measures, access controls, or usage limits
+   471→                    implemented by the Service.
+   472→                  </li>
+   473→                </ul>
+   474→                <p className="mt-3">
+   475→                  We reserve the right to refuse processing of any Content, at any
+   476→                  time, for any reason, including but not limited to suspected
+   477→                  violations of these Terms.
+   478→                </p>
+   479→              </section>
+   480→
+   481→              {/* 9. Service Availability */}
+   482→              <section>
+   483→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   484→                  9. Service Availability
+   485→                </h2>
+   486→                <p>
+   487→                  The Service is provided on an &quot;as-is&quot; and &quot;as-available&quot;
+   488→                  basis. We do not guarantee that the Service will be available at
+   489→                  any particular time, uninterrupted, or error-free. We may
+   490→                  experience hardware, software, or other problems, and we may
+   491→                  need to perform maintenance, resulting in interruptions,
+   492→                  delays, or errors.
+   493→                </p>
+   494→                <p className="mt-3">
+   495→                  We reserve the right to change, modify, suspend, or discontinue
+   496→                  the Service, in whole or in part, at any time, with or without
+   497→                  notice. We shall not be liable to you or any third party for any
+   498→                  modification, suspension, or discontinuation of the Service.
+   499→                </p>
+   500→              </section>
+   501→
+   502→              {/* 10. Accuracy of Results */}
+   503→              <section>
+   504→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   505→                  10. Accuracy of Results
+   506→                </h2>
+   507→                <p>
+   508→                  The Service uses artificial intelligence and machine learning
+   509→                  technology to process images. AI-generated results may not be
+   510→                  perfect, and the quality of the Processed Output may vary
+   511→                  depending on the complexity, resolution, and characteristics of
+   512→                  the uploaded Content.
+   513→                </p>
+   514→                <p className="mt-3">
+   515→                  We do not guarantee the accuracy, completeness, reliability, or
+   516→                  quality of any Processed Output. You acknowledge that the
+   517→                  Service may produce imperfect, incomplete, or unexpected
+   518→                  results, and you use the Processed Output at your own risk. It
+   519→                  is your responsibility to review and verify the quality and
+   520→                  accuracy of any Processed Output before using it for any
+   521→                  purpose.
+   522→                </p>
+   523→              </section>
+   524→
+   525→              {/* 11. Limitation of Liability */}
+   526→              <section>
+   527→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   528→                  11. Limitation of Liability
+   529→                </h2>
+   530→                <div className="space-y-3">
+   531→                  <p>
+   532→                    <strong className="text-foreground">
+   533→                      TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW:
+   534→                    </strong>
+   535→                  </p>
+   536→                  <p>
+   537→                    The Service is provided without warranty of any kind, whether
+   538→                    express, implied, statutory, or otherwise, including but not
+   539→                    limited to warranties of merchantability, fitness for a
+   540→                    particular purpose, title, non-infringement, and any
+   541→                    warranties arising from course of dealing, usage, or trade
+   542→                    practice.
+   543→                  </p>
+   544→                  <p>
+   545→                    In no event shall Background Remover, its operators, directors,
+   546→                    employees, agents, or affiliates be liable for any indirect,
+   547→                    incidental, special, consequential, punitive, or exemplary
+   548→                    damages, including but not limited to damages for loss of
+   549→                    profits, goodwill, data, images, content, or other
+   550→                    intangible losses, regardless of whether such damages are
+   551→                    based on contract, tort, strict liability, or any other
+   552→                    theory, and whether or not we have been advised of the
+   553→                    possibility of such damages.
+   554→                  </p>
+   555→                  <p>
+   556→                    In no event shall our total aggregate liability to you for all
+   557→                    claims arising out of or relating to the Service or these
+   558→                    Terms exceed the amount you have paid to us for the Service.
+   559→                    Because the Service is provided free of charge, this amount
+   560→                    is <strong className="text-foreground">$0.00</strong>.
+   561→                  </p>
+   562→                  <p>
+   563→                    You acknowledge that the Service is provided as a free tool
+   564→                    and that no fee is charged for its use. Accordingly, you agree
+   565→                    that the absence of any payment consideration limits the
+   566→                    liability of Background Remover to the greatest extent
+   567→                    permitted by law, and that it would be unjust to hold
+   568→                    Background Remover liable for any damages arising from the use
+   569→                    of a free service.
+   570→                  </p>
+   571→                  <p>
+   572→                    Some jurisdictions do not allow the exclusion of certain
+   573→                    warranties or the limitation or exclusion of liability for
+   574→                    certain types of damages. Accordingly, some of the above
+   575→                    limitations and disclaimers may not apply to you. To the
+   576→                    extent that we may not, as a matter of applicable law,
+   577→                    disclaim any implied warranty or limit our liabilities, the
+   578→                    scope and duration of such warranty and the extent of our
+   579→                    liability shall be the minimum permitted under such applicable
+   580→                    law.
+   581→                  </p>
+   582→                </div>
+   583→              </section>
+   584→
+   585→              {/* 12. Indemnification */}
+   586→              <section>
+   587→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   588→                  12. Indemnification
+   589→                </h2>
+   590→                <p>
+   591→                  You agree to indemnify, defend, and hold harmless Background
+   592→                  Remover, its operators, directors, employees, agents, and
+   593→                  affiliates from and against any and all claims, damages,
+   594→                  losses, liabilities, costs, and expenses (including reasonable
+   595→                  attorneys&apos; fees) arising out of or in any way connected with:
+   596→                </p>
+   597→                <ul className="mt-3 space-y-1 list-disc pl-6">
+   598→                  <li>
+   599→                    Your use of the Service or any activity conducted through the
+   600→                    Service.
+   601→                  </li>
+   602→                  <li>
+   603→                    Any Content you upload or process through the Service.
+   604→                  </li>
+   605→                  <li>
+   606→                    Your violation of these Terms or any applicable law or
+   607→                    regulation.
+   608→                  </li>
+   609→                  <li>
+   610→                    Your violation of any rights of a third party, including but
+   611→                    not limited to intellectual property rights, privacy rights,
+   612→                    or publicity rights.
+   613→                  </li>
+   614→                  <li>
+   615→                    Any claim that your Content or use of the Processed Output
+   616→                    causes damage to a third party.
+   617→                  </li>
+   618→                </ul>
+   619→                <p className="mt-3">
+   620→                  This indemnification obligation will survive the termination or
+   621→                  expiration of these Terms and your use of the Service.
+   622→                </p>
+   623→              </section>
+   624→
+   625→              {/* 13. DMCA & Copyright */}
+   626→              <section>
+   627→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   628→                  13. DMCA &amp; Copyright
+   629→                </h2>
+   630→                <p>
+   631→                  We respect intellectual property rights and expect our Users to
+   632→                  do the same. If you believe that any Content processed by or
+   633→                  available through the Service infringes your copyright, please
+   634→                  refer to our{" "}
+   635→                  <Link
+   636→                    href="/dmca"
+   637→                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   638→                  >
+   639→                    DMCA / Copyright Policy
+   640→                  </Link>{" "}
+   641→                  page for information on how to submit a takedown notice. We
+   642→                  will respond to valid DMCA takedown requests in accordance with
+   643→                  applicable law.
+   644→                </p>
+   645→              </section>
+   646→
+   647→              {/* 14. Privacy */}
+   648→              <section>
+   649→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   650→                  14. Privacy
+   651→                </h2>
+   652→                <p>
+   653→                  Your privacy is important to us. Your use of the Service is
+   654→                  also governed by our{" "}
+   655→                  <Link
+   656→                    href="/privacy"
+   657→                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   658→                  >
+   659→                    Privacy Policy
+   660→                  </Link>
+   661→                  , which describes how we collect, use, and protect information
+   662→                  when you use the Service. By using the Service, you consent to
+   663→                  the collection and use of information as outlined in our
+   664→                  Privacy Policy.
+   665→                </p>
+   666→              </section>
+   667→
+   668→              {/* 15. Cookies */}
+   669→              <section>
+   670→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   671→                  15. Cookies
+   672→                </h2>
+   673→                <p>
+   674→                  The Service may use cookies and similar tracking technologies to
+   675→                  enhance your experience. For detailed information about the
+   676→                  cookies we use and your choices regarding cookies, please see
+   677→                  our{" "}
+   678→                  <Link
+   679→                    href="/cookies"
+   680→                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   681→                  >
+   682→                    Cookie Policy
+   683→                  </Link>
+   684→                  . By using the Service, you consent to the use of cookies as
+   685→                  described in our Cookie Policy.
+   686→                </p>
+   687→              </section>
+   688→
+   689→              {/* 16. Modifications to Terms */}
+   690→              <section>
+   691→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   692→                  16. Modifications to Terms
+   693→                </h2>
+   694→                <p>
+   695→                  We reserve the right to modify, amend, or update these Terms at
+   696→                  any time, at our sole discretion. When we make material changes,
+   697→                  we will update the &quot;Last Updated&quot; date at the top of this page
+   698→                  and make reasonable efforts to notify you, which may include
+   699→                  posting a notice on the Service or through other appropriate
+   700→                  means.
+   701→                </p>
+   702→                <p className="mt-3">
+   703→                  Your continued use of the Service after any changes to these
+   704→                  Terms become effective constitutes your acceptance of the
+   705→                  revised Terms. If you do not agree with the modified Terms, you
+   706→                  must discontinue use of the Service immediately.
+   707→                </p>
+   708→                <p className="mt-3">
+   709→                  We encourage you to review these Terms periodically to stay
+   710→                  informed of any changes. It is your responsibility to check
+   711→                  these Terms regularly for updates.
+   712→                </p>
+   713→              </section>
+   714→
+   715→              {/* 17. Termination */}
+   716→              <section>
+   717→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   718→                  17. Termination
+   719→                </h2>
+   720→                <p>
+   721→                  We reserve the right to terminate, suspend, or restrict your
+   722→                  access to the Service, in whole or in part, at any time, with
+   723→                  or without notice, for any reason, including but not limited to:
+   724→                </p>
+   725→                <ul className="mt-3 space-y-1 list-disc pl-6">
+   726→                  <li>
+   727→                    Violation of these Terms or any applicable law or regulation.
+   728→                  </li>
+   729→                  <li>
+   730→                    Conduct that we reasonably believe could cause harm to us,
+   731→                    other Users, or any third party.
+   732→                  </li>
+   733→                  <li>
+   734→                    Abuse, excessive use, or use of the Service in a manner that
+   735→                    places undue burden on our infrastructure.
+   736→                  </li>
+   737→                  <li>
+   738→                    Any attempted upload of CSAM or other illegal content, which
+   739→                    will result in immediate and permanent termination.
+   740→                  </li>
+   741→                </ul>
+   742→                <p className="mt-3">
+   743→                  Upon termination, your right to use the Service will immediately
+   744→                  cease. All provisions of these Terms that by their nature should
+   745→                  survive termination shall survive, including but not limited to
+   746→                  the limitations of liability, indemnification, and warranty
+   747→                  disclaimers.
+   748→                </p>
+   749→              </section>
+   750→
+   751→              {/* 18. Dispute Resolution */}
+   752→              <section>
+   753→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   754→                  18. Dispute Resolution
+   755→                </h2>
+   756→                <div className="space-y-3">
+   757→                  <p>
+   758→                    <strong className="text-foreground">Governing Law.</strong>{" "}
+   759→                    These Terms shall be governed by and construed in accordance
+   760→                    with the laws of the jurisdiction in which Background Remover
+   761→                    operates, without regard to its conflict of law provisions.
+   762→                  </p>
+   763→                  <p>
+   764→                    <strong className="text-foreground">Jurisdiction.</strong>{" "}
+   765→                    Any disputes arising out of or relating to these Terms or the
+   766→                    Service shall be resolved exclusively in the courts of
+   767→                    competent jurisdiction in the jurisdiction where Background
+   768→                    Remover operates. You consent to the personal jurisdiction of
+   769→                    such courts and waive any objection to venue in such courts.
+   770→                  </p>
+   771→                  <p>
+   772→                    <strong className="text-foreground">Arbitration Option.</strong>{" "}
+   773→                    Before filing any claim in court, you and we agree to attempt
+   774→                    to resolve the dispute through good-faith negotiation. If the
+   775→                    dispute cannot be resolved through negotiation within 30 days,
+   776→                    either party may submit the dispute to binding arbitration
+   777→                    administered by a mutually agreed-upon arbitration service.
+   778→                    The arbitration shall be conducted on an individual basis —
+   779→                    class arbitrations, class actions, and representative actions
+   780→                    are not permitted. The arbitrator&apos;s decision shall be final
+   781→                    and binding, and judgment on the award may be entered in any
+   782→                    court of competent jurisdiction.
+   783→                  </p>
+   784→                  <p>
+   785→                    <strong className="text-foreground">Waiver of Class Actions.</strong>{" "}
+   786→                    You agree that any dispute resolution proceedings will be
+   787→                    conducted only on an individual basis and not in a class,
+   788→                    consolidated, or representative action. You waive any right to
+   789→                    participate in a class action lawsuit or class-wide arbitration
+   790→                    against us.
+   791→                  </p>
+   792→                </div>
+   793→              </section>
+   794→
+   795→              {/* 19. Severability */}
+   796→              <section>
+   797→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   798→                  19. Severability
+   799→                </h2>
+   800→                <p>
+   801→                  If any provision of these Terms is held to be invalid, illegal,
+   802→                  void, or unenforceable by a court of competent jurisdiction,
+   803→                  such provision shall be modified to the minimum extent necessary
+   804→                  to make it valid and enforceable, or if modification is not
+   805→                  possible, shall be severed from these Terms. The invalidity or
+   806→                  unenforceability of any provision shall not affect the validity
+   807→                  or enforceability of the remaining provisions, which shall
+   808→                  continue in full force and effect. The parties agree that any
+   809→                  provision that is held to be invalid or unenforceable shall be
+   810→                  replaced by a provision that comes as close as possible to the
+   811→                  intent and economic effect of the invalid or unenforceable
+   812→                  provision.
+   813→                </p>
+   814→              </section>
+   815→
+   816→              {/* 20. Entire Agreement */}
+   817→              <section>
+   818→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   819→                  20. Entire Agreement
+   820→                </h2>
+   821→                <p>
+   822→                  These Terms of Service, together with our{" "}
+   823→                  <Link
+   824→                    href="/privacy"
+   825→                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   826→                  >
+   827→                    Privacy Policy
+   828→                  </Link>
+   829→                  ,{" "}
+   830→                  <Link
+   831→                    href="/cookies"
+   832→                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   833→                  >
+   834→                    Cookie Policy
+   835→                  </Link>
+   836→                  , and{" "}
+   837→                  <Link
+   838→                    href="/dmca"
+   839→                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   840→                  >
+   841→                    DMCA Policy
+   842→                  </Link>
+   843→                  , constitute the entire agreement between you and Background
+   844→                  Remover with respect to your use of the Service. These Terms
+   845→                  supersede all prior or contemporaneous communications,
+   846→                  representations, or agreements, whether oral or written, relating
+   847→                  to the Service.
+   848→                </p>
+   849→                <p className="mt-3">
+   850→                  Our failure to enforce any right or provision of these Terms
+   851→                  shall not constitute a waiver of such right or provision. Any
+   852→                  waiver of any provision of these Terms will be effective only
+   853→                  if in writing and signed by us.
+   854→                </p>
+   855→              </section>
+   856→
+   857→              {/* 21. Contact Information */}
+   858→              <section>
+   859→                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+   860→                  21. Contact Information
+   861→                </h2>
+   862→                <p>
+   863→                  If you have any questions, concerns, or feedback regarding these
+   864→                  Terms of Service, please contact us at:
+   865→                </p>
+   866→                <div className="mt-3 rounded-lg border border-border bg-muted/30 p-4">
+   867→                  <p className="font-medium text-foreground">
+   868→                    Background Remover — Legal
+   869→                  </p>
+   870→                  <p>
+   871→                    Email:{" "}
+   872→                    <a
+   873→                      href="mailto:legal@backgroundremover.app"
+   874→                      className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   875→                    >
+   876→                      legal@backgroundremover.app
+   877→                    </a>
+   878→                  </p>
+   879→                  <p>
+   880→                    Website:{" "}
+   881→                    <Link
+   882→                      href="/"
+   883→                      className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   884→                    >
+   885→                      backgroundremover.app
+   886→                    </Link>
+   887→                  </p>
+   888→                </div>
+   889→              </section>
+   890→            </div>
+   891→
+   892→            {/* ─── Bottom Navigation ────────────────────────────────── */}
+   893→            <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+   894→              <Link
+   895→                href="/"
+   896→                className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 transition-colors font-medium group"
+   897→              >
+   898→                <span className="inline-block transition-transform group-hover:-translate-x-1">
+   899→                  &larr;
+   900→                </span>
+   901→                Back to Background Remover
+   902→              </Link>
+   903→              <div className="flex items-center gap-4 text-sm">
+   904→                <Link
+   905→                  href="/privacy"
+   906→                  className="text-emerald-600 hover:text-emerald-700 transition-colors"
+   907→                >
+   908→                  Privacy Policy
+   909→                </Link>
+   910→                <span className="text-muted-foreground">&bull;</span>
+   911→                <Link
+   912→                  href="/cookies"
+   913→                  className="text-emerald-600 hover:text-emerald-700 transition-colors"
+   914→                >
+   915→                  Cookie Policy
+   916→                </Link>
+   917→                <span className="text-muted-foreground">&bull;</span>
+   918→                <Link
+   919→                  href="/dmca"
+   920→                  className="text-emerald-600 hover:text-emerald-700 transition-colors"
+   921→                >
+   922→                  DMCA Policy
+   923→                </Link>
+   924→              </div>
+   925→            </div>
+   926→          </div>
+   927→        </main>
+   928→
+   929→        {/* ─── Footer ─────────────────────────────────────────────── */}
+   930→        <footer className="border-t border-border mt-auto">
+   931→          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-muted-foreground">
+   932→            &copy; {new Date().getFullYear()} Background Remover. All rights
+   933→            reserved.
+   934→          </div>
+   935→        </footer>
+   936→      </div>
+   937→    </>
+   938→  );
+   939→}
+   940→

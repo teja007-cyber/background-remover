@@ -1,0 +1,586 @@
+- generic
+  - button "Open Next.js Dev Tools" [expanded=false, ref=e63]
+    - image
+  - button "Open issues overlay" [ref=e64]
+    - StaticText "1"
+    - StaticText "Issue"
+  - button "Collapse issues badge" [ref=e65]
+    - image
+  - link "Skip to main content" [ref=e1]
+  - banner
+    - link "Back to Home" [ref=e3]
+      - image
+      - StaticText "Back to Home"
+  - main
+    - navigation "Breadcrumb" [ref=e4]
+      - list
+        - listitem [level=1]
+          - link "Home" [ref=e66]
+        - listitem [level=1]
+          - StaticText "Privacy Policy"
+    - heading "Privacy Policy" [level=1, ref=e5]
+    - paragraph
+      - StaticText "Last updated: March 4, 2026"
+    - generic
+      - heading "1. Introduction" [level=2, ref=e6]
+      - paragraph
+        - StaticText "Welcome to "
+        - strong
+          - StaticText "Background Remover"
+        - StaticText " ("
+        - link "https://backgroundremover.app" [ref=e54]
+        - StaticText "). We are committed to protecting your privacy and ensuring that your personal data — and especially your images — are handled with the utmost care and respect. This Privacy Policy describes how we collect, use, process, and safeguard information when you use our free AI background removal tool and related services (collectively, the “Service”)."
+      - paragraph
+        - StaticText "By accessing or using our Service, you agree to the practices described in this Privacy Policy. If you do not agree with the terms of this policy, please do not use our Service. This policy applies to all visitors, users, and others who access or use the Service."
+      - paragraph
+        - strong
+          - StaticText "Key promise:"
+        - StaticText " We do not store, retain, cache, or share your uploaded images. Your images are processed in real-time, and all temporary data is immediately deleted after processing is complete. This is the cornerstone of our privacy-first approach."
+    - generic
+      - heading "Data Controller" [level=2, ref=e7]
+      - paragraph
+        - StaticText "For the purposes of the General Data Protection Regulation (GDPR), the data controller responsible for your personal data is Background Remover, contactable at "
+        - link "privacy@backgroundremover.app" [ref=e55]
+        - StaticText ". We act as both the data controller and data processor for the limited data described in this policy."
+    - generic
+      - heading "2. Information We Collect" [level=2, ref=e8]
+      - paragraph
+        - StaticText "We collect only the minimum information necessary to provide our Service and maintain its security and reliability. Below is a detailed breakdown of the types of information we may collect:"
+      - heading "2.1 Images You Upload" [level=3, ref=e9]
+      - paragraph
+        - StaticText "When you use our Service to remove an image background, you upload an image file (PNG, JPG, or WebP). These images are transmitted to our servers for the sole purpose of background removal processing. Images are held in temporary server memory during processing and are "
+        - strong
+          - StaticText "never"
+        - StaticText " written to persistent storage, cached, or retained on any server in any form. Once processing is complete and the result has been delivered to your browser, all temporary data associated with your image is immediately and permanently deleted. For more details, see Section 4 (Image Processing & Data Handling)."
+      - heading "2.2 Technical Data (Automatically Collected)" [level=3, ref=e10]
+      - paragraph
+        - StaticText "When you access our Service, our servers may automatically collect certain technical information, including:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — used for server security, rate limiting, and abuse prevention"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — e.g., Chrome 120, Safari 17, Firefox 121"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — e.g., Windows 11, macOS 14, iOS 17"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — e.g., desktop, mobile, tablet"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — to optimize layout rendering"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — the website that linked you to our Service"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — standard HTTP headers sent by your browser"
+      - paragraph
+        - StaticText "This technical data is collected automatically as a necessary part of serving web pages and is used solely to maintain the security, stability, and performance of our Service. It is not used to identify or profile individual users."
+      - heading "2.3 Usage Data" [level=3, ref=e11]
+      - paragraph
+        - StaticText "We may collect aggregate, non-personally-identifiable usage data to improve our Service, including:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "Pages and features visited or used on our Service"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "The number of images processed (aggregate counts only)"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "Timestamps of visits and processing requests"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "Error reports and processing failure rates (for debugging)"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "General geographic region (country-level, derived from IP)"
+      - paragraph
+        - StaticText "Usage data is collected at an aggregate level and cannot be used to identify any individual user. We do not track individual user behavior across sessions or build user profiles."
+      - heading "2.4 Cookie Data" [level=3, ref=e12]
+      - paragraph
+        - StaticText "We use a minimal number of cookies. Specifically, we use a single essential cookie to store your cookie consent preference (i.e., whether you have acknowledged our cookie notice). No other cookies are set by our Service. For full details, see Section 6 (Cookies and Tracking Technologies)."
+    - generic
+      - heading "3. How We Use Your Information" [level=2, ref=e13]
+      - paragraph
+        - StaticText "We use the information we collect for the following purposes:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Processing your uploaded images to remove their backgrounds and delivering the results to you. This is the primary and sole purpose for which your images are processed."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Ensuring the Service functions correctly, including load balancing, rate limiting to prevent abuse, and maintaining server stability."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Detecting and preventing security threats, abuse, spam, or malicious activity. IP addresses are used for rate limiting and abuse prevention."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Analyzing aggregate usage patterns and error rates to enhance performance, reliability, and user experience. No individual-level analysis is performed."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Responding to lawful requests from public authorities, court orders, or as required by applicable law."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Storing your cookie consent preference so we do not repeatedly prompt you with cookie notices."
+      - paragraph
+        - StaticText "We do "
+        - strong
+          - StaticText "not"
+        - StaticText " use your information for:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "Marketing, advertising, or promotional purposes"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "Building user profiles or behavioral tracking"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "Training, improving, or developing AI models"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "Selling, renting, or trading personal data"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "Any purpose beyond those explicitly stated above"
+    - generic
+      - heading "4. Image Processing & Data Handling" [level=2, ref=e14]
+      - paragraph
+        - StaticText "We understand that the images you upload may be personal, sensitive, or commercially valuable. We have designed our Service with a privacy-first architecture that ensures your images are handled with the highest level of care. Here is exactly what happens when you upload an image:"
+      - heading "How Image Processing Works" [level=3, ref=e15]
+      - list
+        - listitem [level=1]
+          - ListMarker "1. "
+          - strong
+          - StaticText " Your image is transmitted from your browser to our server over an encrypted HTTPS connection."
+        - listitem [level=1]
+          - ListMarker "2. "
+          - strong
+          - StaticText " The image is loaded into temporary server memory (RAM) for AI background removal processing. A temporary file may be created on the server's ephemeral storage during processing."
+        - listitem [level=1]
+          - ListMarker "3. "
+          - strong
+          - StaticText " As soon as the background removal is complete and the result has been encoded and sent to your browser, the temporary file is "
+          - strong
+          - StaticText " from the server. This deletion occurs within the same request cycle — typically within seconds."
+        - listitem [level=1]
+          - ListMarker "4. "
+          - strong
+          - StaticText " The processed image (with background removed) is sent directly to your browser via base64 encoding. The result exists only in your browser's memory and is never stored on our servers."
+      - heading "Our Binding Commitments Regarding Your Images" [level=3, ref=e16]
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " on any server, database, CDN, or backup system. Once processing is complete and the result delivered, all image data is permanently deleted."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Our background removal AI model is pre-trained and production-ready. Your images are never used as training data, fine-tuning data, or evaluation data for any AI system."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Your images are processed entirely within our infrastructure and are never transmitted to, shared with, or made accessible to any third party for any purpose."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Image processing is fully automated. No employee, contractor, or agent of Background Remover ever views, accesses, or inspects your uploaded images."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Server logs may record that a processing request occurred (timestamp, IP address, file size), but the content of the image itself is never logged, recorded, or stored in any form."
+      - paragraph
+        - strong
+          - StaticText "Important:"
+        - StaticText " Because we do not store your images, we cannot recover or retrieve them after processing. If you close your browser before downloading the result, the processed image cannot be recovered. We recommend downloading your results immediately after processing."
+    - generic
+      - heading "5. Data Retention" [level=2, ref=e17]
+      - paragraph
+        - StaticText "Our data retention practices reflect our commitment to data minimization and privacy:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Deleted immediately after processing (0 seconds retention). Images are held only in temporary memory during processing and are immediately deleted after the processed result is delivered to your browser. No images are stored on any persistent storage medium."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Retained for 30 days, then automatically purged. Standard server access logs (containing IP addresses, request timestamps, browser user agents, and HTTP status codes) are retained for security monitoring and abuse prevention, after which they are automatically deleted."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Retained for 1 year from the date of consent. The cookie storing your consent preference is retained on your browser for up to 1 year, after which it expires and you will be asked to re-consent."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " We do not retain any other personal data beyond what is described above. Temporary files created during image processing are deleted immediately upon completion of the processing request, within the same server response cycle."
+    - generic
+      - heading "6. Cookies and Tracking Technologies" [level=2, ref=e18]
+      - paragraph
+        - StaticText "A cookie is a small text file stored on your device by your web browser. We use cookies only to the extent necessary for the basic functioning of our Service. We are committed to minimal cookie usage and full transparency about what cookies we set and why."
+      - heading "Cookies We Use" [level=3, ref=e19]
+      - table
+        - rowgroup
+          - row
+            - columnheader "Cookie Name" [ref=e81]
+            - columnheader "Purpose" [ref=e82]
+            - columnheader "Duration" [ref=e83]
+            - columnheader "Type" [ref=e84]
+        - row
+          - cell "cookie_consent" [ref=e67]
+          - cell "Stores your cookie consent preference (whether you have acknowledged our cookie notice)" [ref=e68]
+          - cell "1 year" [ref=e69]
+          - cell "Essential" [ref=e70]
+      - heading "What We Do NOT Use" [level=3, ref=e20]
+      - paragraph
+        - StaticText "We want to be explicit about the tracking technologies we do "
+        - strong
+          - StaticText "not"
+        - StaticText " use, as we believe this is just as important as disclosing what we do use:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — We do not use Google Analytics, Matomo, or any other web analytics platform that sets tracking cookies."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — We do not display advertisements and do not set any advertising-related cookies or tracking identifiers."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — We do not embed tracking pixels, web beacons, clear GIFs, or any similar technology in our emails or web pages."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — No cookies are set on our website by any third-party service."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — We do not collect or analyze device fingerprints or browser characteristics for tracking purposes."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " — We do not use HTML5 local storage, session storage, or IndexedDB for tracking or identification purposes."
+      - heading "Managing Cookies" [level=3, ref=e21]
+      - paragraph
+        - StaticText "You can control and manage cookies through your browser settings. Most browsers allow you to refuse or delete cookies. However, please note that refusing the essential cookie_consent cookie may result in repeated cookie consent prompts. For information on how to manage cookies in your specific browser, please consult your browser's help documentation."
+    - generic
+      - heading "7. Third-Party Services" [level=2, ref=e22]
+      - paragraph
+        - StaticText "While we process your images entirely within our own infrastructure, we do rely on certain third-party services to deliver and maintain our Service. These services have access to only the technical data necessary to perform their functions and are contractually obligated to handle such data in compliance with applicable privacy laws:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Our Service is hosted on a cloud infrastructure provider that processes requests on our behalf. The hosting provider may have access to server logs containing IP addresses and request metadata for security and operational purposes. They do not have access to the content of your uploaded images."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " We use a CDN to deliver static assets (HTML, CSS, JavaScript, images) efficiently to users worldwide. The CDN may collect technical data (IP addresses, request data) for performance optimization and security. The CDN does not process, store, or have access to your uploaded images."
+      - paragraph
+        - StaticText "We do not use any third-party analytics services, advertising networks, social media plugins, chat widgets, or other third-party tracking tools that would collect data from our visitors."
+    - generic
+      - heading "8. Data Sharing" [level=2, ref=e23]
+      - paragraph
+        - StaticText "We do "
+        - strong
+          - StaticText "not"
+        - StaticText " share your personal data or uploaded images with any third parties, except in the following limited circumstances:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " As described in Section 7, we share certain technical data with our hosting provider and CDN solely for the purpose of delivering the Service. These providers are contractually bound to protect your data and may only use it as instructed by us."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " We may disclose information if required to do so by law, in response to a valid legal process (such as a court order, subpoena, or government request), or to establish, exercise, or defend legal claims. However, because we do not store your images or collect personally identifiable information beyond technical data, our ability to disclose such data is inherently limited."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " We may disclose information to protect the rights, property, or safety of Background Remover, our users, or the public, including investigating fraud, security threats, or violations of our terms of service."
+      - paragraph
+        - strong
+          - StaticText "We do not sell your data."
+        - StaticText " We have never sold, and will never sell, personal data, image data, or any other information to any third party for any purpose, including advertising or marketing. This is an absolute commitment."
+    - generic
+      - heading "9. Data Security" [level=2, ref=e24]
+      - paragraph
+        - StaticText "We implement robust technical and organizational measures to protect your data and ensure the security of our Service:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " All communication between your browser and our servers is encrypted using industry-standard TLS (Transport Layer Security). This ensures that your uploaded images and all data in transit are protected from interception or tampering."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Image processing occurs on isolated, ephemeral server instances that are automatically provisioned and terminated for each processing session. This ensures that no data persists between requests."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " We implement rate limiting to prevent abuse, protect against denial-of-service attacks, and ensure fair access for all users."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Access to our infrastructure is restricted to authorized personnel using multi-factor authentication and the principle of least privilege. No personnel have access to user image data."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " As described in Section 4, all temporary image data is automatically deleted after processing. Server logs are automatically purged after 30 days."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " We periodically review our security practices and infrastructure to identify and address potential vulnerabilities."
+      - paragraph
+        - StaticText "While we strive to use commercially acceptable means to protect your data, no method of transmission over the Internet or electronic storage is 100% secure. Therefore, we cannot guarantee absolute security. However, our zero-retention policy for images significantly minimizes the potential impact of any security incident, as there is simply no image data to compromise."
+    - generic
+      - heading "10. Your Rights Under GDPR (EU/EEA Residents)" [level=2, ref=e25]
+      - paragraph
+        - StaticText "If you are a resident of the European Union or the European Economic Area (EU/EEA), you have certain data protection rights under the General Data Protection Regulation (GDPR). We are committed to facilitating these rights:"
+      - heading "Right of Access (Article 15)" [level=3, ref=e26]
+      - paragraph
+        - StaticText "You have the right to obtain confirmation as to whether or not personal data concerning you is being processed, and if so, access to that personal data along with information about the purposes of processing, the categories of data concerned, and the recipients to whom the data has been disclosed."
+      - heading "Right to Rectification (Article 16)" [level=3, ref=e27]
+      - paragraph
+        - StaticText "You have the right to request the correction of inaccurate personal data concerning you. Taking into account the purposes of processing, you also have the right to have incomplete personal data completed."
+      - heading "Right to Erasure (Article 17)" [level=3, ref=e28]
+      - paragraph
+        - StaticText "You have the right to request the deletion of personal data concerning you. We will comply with such requests subject to certain exceptions, such as where we are required to retain data for legal compliance or for the establishment, exercise, or defense of legal claims. Note: Because we do not store your images, there is no image data to erase upon request. Technical data in server logs is automatically purged after 30 days."
+      - heading "Right to Restriction of Processing (Article 18)" [level=3, ref=e29]
+      - paragraph
+        - StaticText "You have the right to request the restriction of processing of your personal data in certain circumstances, such as when you contest the accuracy of the data, when processing is unlawful but you prefer restriction over erasure, or when we no longer need the data but you require it for legal claims."
+      - heading "Right to Data Portability (Article 20)" [level=3, ref=e30]
+      - paragraph
+        - StaticText "You have the right to receive your personal data in a structured, commonly used, and machine-readable format, and the right to transmit that data to another controller without hindrance. Given the minimal personal data we collect, this right primarily applies to any technical data we may hold about you."
+      - heading "Right to Object (Article 21)" [level=3, ref=e31]
+      - paragraph
+        - StaticText "You have the right to object to the processing of your personal data based on legitimate interests. We will cease processing unless we have compelling legitimate grounds for processing that override your interests, rights, and freedoms, or for the establishment, exercise, or defense of legal claims."
+      - heading "Right Not to Be Subject to Automated Decision-Making (Article 22)" [level=3, ref=e32]
+      - paragraph
+        - StaticText "You have the right not to be subject to a decision based solely on automated processing, including profiling, which produces legal effects concerning you or similarly significantly affects you. Our background removal processing does not produce legal or similarly significant effects concerning you."
+      - heading "Right to Notification (Article 19)" [level=3, ref=e33]
+      - paragraph
+        - StaticText "When we rectify, erase, or restrict the processing of your personal data, we are obligated to notify each recipient of that data of the change. Given that we do not share your data with any third parties, this obligation is automatically fulfilled as there are no recipients to notify."
+      - heading "Right to Lodge a Complaint" [level=3, ref=e34]
+      - paragraph
+        - StaticText "You have the right to lodge a complaint with a supervisory authority in the EU/EEA member state of your habitual residence, place of work, or place of the alleged infringement if you consider that the processing of your personal data infringes the GDPR. A list of EU/EEA data protection authorities is available at "
+        - link "the European Data Protection Board website" [ref=e56]
+        - StaticText "."
+      - heading "Lawful Basis for Processing (Article 6)" [level=3, ref=e35]
+      - paragraph
+        - StaticText "Our processing of your personal data is lawful under the following GDPR legal bases:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Processing your uploaded images is necessary to perform the background removal service you have requested."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Collecting technical data (IP address, browser type) for security, abuse prevention, and service maintenance represents a legitimate interest that does not override your rights and freedoms."
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+          - StaticText " Setting the cookie consent preference cookie is based on your consent, which you may withdraw at any time."
+      - heading "Lawful Basis Mapping" [level=3, ref=e36]
+      - paragraph
+        - StaticText "Below is an explicit mapping of each processing activity to its lawful basis under GDPR Article 6(1):"
+      - table
+        - rowgroup
+          - row
+            - columnheader "Processing Activity" [ref=e85]
+            - columnheader "Lawful Basis" [ref=e86]
+            - columnheader "Justification" [ref=e87]
+        - row
+          - cell "Image processing (background removal)" [ref=e71]
+          - cell "Legitimate interest (Article 6(1)(f))" [ref=e72]
+          - cell "Processing is necessary to provide the service you requested" [ref=e73]
+        - row
+          - cell "Technical data (IP, browser)" [ref=e74]
+          - cell "Legitimate interest (Article 6(1)(f))" [ref=e75]
+          - cell "Necessary for security and service stability" [ref=e76]
+        - row
+          - cell "Cookie consent" [ref=e77]
+          - cell "Consent (Article 6(1)(a))" [ref=e78]
+          - cell "Stored only after you provide consent" [ref=e79]
+      - heading "Data Protection Officer" [level=3, ref=e37]
+      - paragraph
+        - StaticText "We have not appointed a Data Protection Officer (DPO) as we are not required to do so under GDPR Article 37, given the nature and scale of our data processing. If you have any data protection concerns, please contact us at "
+        - link "privacy@backgroundremover.app" [ref=e57]
+        - StaticText "."
+    - generic
+      - heading "11. Your Rights Under CCPA (California Residents)" [level=2, ref=e38]
+      - paragraph
+        - StaticText "The California Consumer Privacy Act (CCPA) grants California residents specific rights regarding their personal information. This section applies to all individuals who are California residents as defined under the CCPA."
+      - heading "Right to Know" [level=3, ref=e39]
+      - paragraph
+        - StaticText "You have the right to request, up to twice per year, that we disclose to you the following information about the personal information we have collected about you in the preceding 12 months:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "The categories of personal information collected"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "The categories of sources from which the personal information was collected"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "The business or commercial purpose for collecting the personal information"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "The categories of third parties with whom we share personal information"
+        - listitem [level=1]
+          - ListMarker "• "
+          - StaticText "The specific pieces of personal information we have collected about you"
+      - heading "Right to Delete" [level=3, ref=e40]
+      - paragraph
+        - StaticText "You have the right to request that we delete any personal information about you that we have collected. We will comply with your request, subject to certain exceptions under the CCPA, such as when the data is necessary to complete a transaction, detect security incidents, or comply with legal obligations. As noted throughout this policy, we do not retain your uploaded images, and technical data in server logs is automatically purged after 30 days."
+      - heading "Right to Opt-Out of Sale" [level=3, ref=e41]
+      - paragraph
+        - StaticText "You have the right to opt-out of the sale of your personal information. We do "
+        - strong
+          - StaticText "not"
+        - StaticText " sell personal information and have never sold personal information. Because we do not sell personal information, there is no opt-out to exercise. We do not include a “Do Not Sell My Personal Information” link on our website because this right is inapplicable to our practices."
+      - heading "Right to Non-Discrimination" [level=3, ref=e42]
+      - paragraph
+        - StaticText "You have the right not to receive discriminatory treatment for exercising any of your CCPA rights. We will not discriminate against you for exercising your rights, including by denying or providing a different level or quality of service, charging different prices, or suggesting that you will receive discriminatory treatment."
+      - heading "CCPA Information Categories" [level=3, ref=e43]
+      - paragraph
+        - StaticText "For the purposes of the CCPA, the categories of personal information we have collected in the preceding 12 months are:"
+      - list
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+            - StaticText "Category A: Identifiers"
+          - StaticText " — IP address (collected automatically)"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+            - StaticText "Category B: Customer Records Information"
+          - StaticText " — None collected"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+            - StaticText "Category C: Protected Classification Information"
+          - StaticText " — None collected"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+            - StaticText "Category D: Commercial Information"
+          - StaticText " — None collected"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+            - StaticText "Category E: Biometric Information"
+          - StaticText " — None collected (images are processed temporarily and immediately deleted; they are not analyzed for biometric data)"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+            - StaticText "Category F: Internet or Other Electronic Network Activity Information"
+          - StaticText " — Browser type, pages visited, timestamps (collected automatically)"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+            - StaticText "Category G: Geolocation Data"
+          - StaticText " — Country-level location inferred from IP address (not precise geolocation)"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+            - StaticText "Category H: Sensory Data"
+          - StaticText " — Uploaded images (processed temporarily and immediately deleted; not retained)"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+            - StaticText "Category I: Professional or Employment Information"
+          - StaticText " — None collected"
+        - listitem [level=1]
+          - ListMarker "• "
+          - strong
+            - StaticText "Category J: Inferences"
+      - heading "Exercising Your CCPA Rights" [level=3, ref=e44]
+      - paragraph
+        - StaticText "To exercise any of your CCPA rights, please contact us at "
+        - link "privacy@backgroundremover.app" [ref=e58]
+        - StaticText ". We will respond to your request within 45 days, as required by the CCPA. We may extend this period by an additional 45 days when necessary, with notice to you. We will verify your identity before processing your request."
+    - generic
+      - heading "12. Your Rights Under CalOPPA (California Online Privacy Protection Act)" [level=2, ref=e45]
+      - paragraph
+        - StaticText "Under the California Online Privacy Protection Act (CalOPPA), we are required to provide the following information:"
+      - list
+        - listitem [level=1]
+        - listitem [level=1]
+        - listitem [level=1]
+        - listitem [level=1]
+        - listitem [level=1]
+      - paragraph
+        - StaticText "CalOPPA further grants you the right to request that we remove your personally identifiable information from our systems. You may exercise this right by contacting us at "
+        - link "privacy@backgroundremover.app" [ref=e59]
+        - StaticText "."
+    - generic
+      - heading "13. Your Rights Under PIPEDA (Canadian Residents)" [level=2, ref=e46]
+      - paragraph
+        - StaticText "If you are a resident of Canada, the Personal Information Protection and Electronic Documents Act (PIPEDA) grants you certain rights regarding the collection, use, and disclosure of your personal information. Under PIPEDA, you have the right to:"
+      - list
+        - listitem [level=1]
+        - listitem [level=1]
+        - listitem [level=1]
+        - listitem [level=1]
+          - link "priv.gc.ca" [ref=e80]
+      - paragraph
+    - generic
+      - heading "14. Children's Privacy" [level=2, ref=e47]
+      - paragraph
+      - list
+      - paragraph
+        - link "privacy@backgroundremover.app" [ref=e60]
+      - paragraph
+    - generic
+      - heading "15. International Data Transfers" [level=2, ref=e48]
+      - paragraph
+      - paragraph
+        - StaticText "For EU/EEA residents: Our hosting provider and CDN may process data in the United States or other countries. We ensure appropriate safeguards are in place for such transfers, including:"
+      - list
+      - paragraph
+      - heading "EU Adequacy Decisions" [level=3, ref=e49]
+      - paragraph
+    - generic
+      - heading "16. Do Not Track Signals" [level=2, ref=e50]
+      - paragraph
+      - list
+    - generic
+      - heading "17. Changes to This Policy" [level=2, ref=e51]
+      - paragraph
+      - list
+      - paragraph
+      - paragraph
+    - generic
+      - heading "18. Contact Information" [level=2, ref=e52]
+      - paragraph
+      - generic
+        - StaticText "Service: Background Remover"
+      - generic
+        - StaticText "Website: "
+        - link "https://backgroundremover.app" [ref=e61]
+      - generic
+        - StaticText "Privacy Email: "
+        - link "privacy@backgroundremover.app" [ref=e62]
+    - link "Back to Background Remover" [ref=e53]
+  - region "Notifications (F8)" [ref=e2]

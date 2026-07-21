@@ -1,0 +1,815 @@
+     1→import type { Metadata } from "next";
+     2→import Link from "next/link";
+     3→import {
+     4→  ArrowLeft,
+     5→  Mail,
+     6→  ShieldCheck,
+     7→  AlertTriangle,
+     8→  FileText,
+     9→  Scale,
+    10→  Ban,
+    11→  Info,
+    12→} from "lucide-react";
+    13→
+    14→// ─── SEO Metadata ──────────────────────────────────────────────────
+    15→
+    16→const SITE_URL = "https://backgroundremover.app";
+    17→
+    18→export const metadata: Metadata = {
+    19→  title: "DMCA / Copyright Policy",
+    20→  description:
+    21→    "DMCA and copyright policy for Background Remover. Learn how to report copyright infringement or file a counter-notification.",
+    22→  alternates: {
+    23→    canonical: `${SITE_URL}/dmca`,
+    24→  },
+    25→  openGraph: {
+    26→    title: "DMCA / Copyright Policy | Background Remover",
+    27→    description:
+    28→      "DMCA and copyright policy for Background Remover. Learn how to report copyright infringement or file a counter-notification.",
+    29→    url: `${SITE_URL}/dmca`,
+    30→    siteName: "Background Remover",
+    31→    type: "website",
+    32→    locale: "en_US",
+    33→  },
+    34→  twitter: {
+    35→    card: "summary",
+    36→    title: "DMCA / Copyright Policy | Background Remover",
+    37→    description:
+    38→      "DMCA and copyright policy for Background Remover. Learn how to report copyright infringement or file a counter-notification.",
+    39→  },
+    40→  robots: {
+    41→    index: true,
+    42→    follow: true,
+    43→  },
+    44→};
+    45→
+    46→// ─── BreadcrumbList JSON-LD ────────────────────────────────────────
+    47→
+    48→const breadcrumbJsonLd = {
+    49→  "@context": "https://schema.org",
+    50→  "@type": "BreadcrumbList",
+    51→  itemListElement: [
+    52→    {
+    53→      "@type": "ListItem",
+    54→      position: 1,
+    55→      name: "Home",
+    56→      item: SITE_URL,
+    57→    },
+    58→    {
+    59→      "@type": "ListItem",
+    60→      position: 2,
+    61→      name: "DMCA Policy",
+    62→      item: `${SITE_URL}/dmca`,
+    63→    },
+    64→  ],
+    65→};
+    66→
+    67→// ─── Page Component ────────────────────────────────────────────────
+    68→
+    69→export default function DMCAPage() {
+    70→  const lastUpdated = "March 4, 2026";
+    71→
+    72→  return (
+    73→    <>
+    74→      {/* BreadcrumbList Structured Data */}
+    75→      <script
+    76→        type="application/ld+json"
+    77→        dangerouslySetInnerHTML={{
+    78→          __html: JSON.stringify(breadcrumbJsonLd),
+    79→        }}
+    80→      />
+    81→
+    82→      <div className="min-h-screen flex flex-col bg-background">
+    83→        {/* ─── Header / Back Navigation ──────────────────────────── */}
+    84→        <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-md">
+    85→          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
+    86→            <Link
+    87→              href="/"
+    88→              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-emerald-600 transition-colors group"
+    89→              aria-label="Back to home page"
+    90→            >
+    91→              <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
+    92→              Back to Home
+    93→            </Link>
+    94→          </div>
+    95→        </header>
+    96→
+    97→        {/* ─── Main Content ──────────────────────────────────────── */}
+    98→        <main className="flex-1">
+    99→          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+   100→            {/* ── Breadcrumb Navigation ──────────────────────────── */}
+   101→            <nav aria-label="Breadcrumb" className="mb-8">
+   102→              <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground sm:gap-2.5">
+   103→                <li className="inline-flex items-center gap-1.5">
+   104→                  <Link
+   105→                    href="/"
+   106→                    className="hover:text-foreground transition-colors"
+   107→                  >
+   108→                    Home
+   109→                  </Link>
+   110→                </li>
+   111→                <li
+   112→                  role="presentation"
+   113→                  aria-hidden="true"
+   114→                  className="text-muted-foreground/50"
+   115→                >
+   116→                  /
+   117→                </li>
+   118→                <li
+   119→                  className="inline-flex items-center gap-1.5 text-foreground font-medium"
+   120→                  aria-current="page"
+   121→                >
+   122→                  DMCA Policy
+   123→                </li>
+   124→              </ol>
+   125→            </nav>
+   126→
+   127→            {/* ── Page Title ─────────────────────────────────────── */}
+   128→            <div className="mb-10 sm:mb-12">
+   129→              <div className="flex items-center gap-3 mb-4">
+   130→                <div className="flex items-center justify-center size-10 rounded-lg bg-emerald-50 text-emerald-600 shrink-0">
+   131→                  <Scale className="size-5" />
+   132→                </div>
+   133→                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
+   134→                  DMCA / Copyright Policy
+   135→                </h1>
+   136→              </div>
+   137→              <p className="text-muted-foreground text-sm sm:text-base max-w-2xl">
+   138→                This policy outlines how Background Remover handles copyright
+   139→                infringement notifications and counter-notifications in
+   140→                compliance with the Digital Millennium Copyright Act (DMCA), 17
+   141→                U.S.C. §&nbsp;512.
+   142→              </p>
+   143→              <p className="mt-3 text-xs sm:text-sm text-muted-foreground/70">
+   144→                Last updated: {lastUpdated}
+   145→              </p>
+   146→            </div>
+   147→
+   148→            {/* ── Divider ────────────────────────────────────────── */}
+   149→            <div className="h-px bg-border mb-10 sm:mb-12" />
+   150→
+   151→            {/* ════════════════════════════════════════════════════════
+   152→                SECTION 1: Copyright Infringement Reporting
+   153→            ════════════════════════════════════════════════════════ */}
+   154→            <section className="mb-10 sm:mb-12" id="copyright-reporting">
+   155→              <div className="flex items-center gap-3 mb-4">
+   156→                <div className="flex items-center justify-center size-8 rounded-md bg-emerald-50 text-emerald-600 shrink-0">
+   157→                  <ShieldCheck className="size-4" />
+   158→                </div>
+   159→                <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
+   160→                  1. Copyright Infringement Reporting
+   161→                </h2>
+   162→              </div>
+   163→              <div className="space-y-4 text-sm sm:text-base text-muted-foreground leading-relaxed pl-0 sm:pl-11">
+   164→                <p>
+   165→                  Background Remover respects the intellectual property rights
+   166→                  of others and expects its users to do the same. We are
+   167→                  committed to complying with the Digital Millennium Copyright
+   168→                  Act of 1998 ({" "}
+   169→                  <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">
+   170→                    17 U.S.C. § 512
+   171→                  </span>
+   172→                  ), including the notice-and-takedown procedures described
+   173→                  therein.
+   174→                </p>
+   175→                <p>
+   176→                  It is our policy to respond to clear notices of alleged
+   177→                  copyright infringement that comply with the requirements set
+   178→                  forth in the DMCA. If we receive a properly formatted DMCA
+   179→                  takedown notice, we will expeditiously remove or disable access
+   180→                  to the material identified as infringing in that notice.
+   181→                </p>
+   182→                <p>
+   183→                  We will also, in appropriate circumstances, terminate the
+   184→                  access of users who are repeat infringers of copyrighted
+   185→                  material, as required by{" "}
+   186→                  <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">
+   187→                    17 U.S.C. § 512(i)
+   188→                  </span>
+   189→                  .
+   190→                </p>
+   191→              </div>
+   192→            </section>
+   193→
+   194→            {/* ════════════════════════════════════════════════════════
+   195→                SECTION 2: DMCA Takedown Notice Requirements
+   196→            ════════════════════════════════════════════════════════ */}
+   197→            <section
+   198→              className="mb-10 sm:mb-12"
+   199→              id="takedown-notice-requirements"
+   200→            >
+   201→              <div className="flex items-center gap-3 mb-4">
+   202→                <div className="flex items-center justify-center size-8 rounded-md bg-emerald-50 text-emerald-600 shrink-0">
+   203→                  <FileText className="size-4" />
+   204→                </div>
+   205→                <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
+   206→                  2. DMCA Takedown Notice Requirements
+   207→                </h2>
+   208→              </div>
+   209→              <div className="pl-0 sm:pl-11">
+   210→                <p className="mb-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
+   211→                  Pursuant to{" "}
+   212→                  <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">
+   213→                    17 U.S.C. § 512(c)(3)
+   214→                  </span>
+   215→                  , a valid DMCA takedown notice must include all of the
+   216→                  following elements. Failure to include all required elements
+   217→                  may result in your notice not being processed.
+   218→                </p>
+   219→
+   220→                <div className="rounded-lg border border-border bg-card p-5 sm:p-6 space-y-5">
+   221→                  <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+   222→                    Required Elements
+   223→                  </h3>
+   224→
+   225→                  <ol className="space-y-4">
+   226→                    {/* Element A */}
+   227→                    <li className="flex gap-3">
+   228→                      <span className="flex items-center justify-center size-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold shrink-0 mt-0.5">
+   229→                        A
+   230→                      </span>
+   231→                      <div>
+   232→                        <p className="font-medium text-foreground text-sm sm:text-base">
+   233→                          Physical or Electronic Signature
+   234→                        </p>
+   235→                        <p className="text-sm text-muted-foreground mt-1">
+   236→                          A physical or electronic signature of a person
+   237→                          authorized to act on behalf of the owner of an
+   238→                          exclusive right that is allegedly infringed. For
+   239→                          electronic notices, a typed full legal name is
+   240→                          acceptable as an electronic signature.
+   241→                        </p>
+   242→                      </div>
+   243→                    </li>
+   244→
+   245→                    {/* Element B */}
+   246→                    <li className="flex gap-3">
+   247→                      <span className="flex items-center justify-center size-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold shrink-0 mt-0.5">
+   248→                        B
+   249→                      </span>
+   250→                      <div>
+   251→                        <p className="font-medium text-foreground text-sm sm:text-base">
+   252→                          Identification of the Copyrighted Work
+   253→                        </p>
+   254→                        <p className="text-sm text-muted-foreground mt-1">
+   255→                          Identification of the copyrighted work claimed to have
+   256→                          been infringed, or, if multiple copyrighted works at a
+   257→                          single online site are covered by a single
+   258→                          notification, a representative list of such works at
+   259→                          that site. Please provide URLs, titles, or other
+   260→                          identifying information sufficient for us to locate the
+   261→                          material.
+   262→                        </p>
+   263→                      </div>
+   264→                    </li>
+   265→
+   266→                    {/* Element C */}
+   267→                    <li className="flex gap-3">
+   268→                      <span className="flex items-center justify-center size-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold shrink-0 mt-0.5">
+   269→                        C
+   270→                      </span>
+   271→                      <div>
+   272→                        <p className="font-medium text-foreground text-sm sm:text-base">
+   273→                          Identification of the Infringing Material
+   274→                        </p>
+   275→                        <p className="text-sm text-muted-foreground mt-1">
+   276→                          Identification of the material that is claimed to be
+   277→                          infringing or to be the subject of infringing activity
+   278→                          and that is to be removed or have access disabled, and
+   279→                          information reasonably sufficient to permit us to
+   280→                          locate the material. Please provide the specific URL
+   281→                          or other identifying information for each item.
+   282→                        </p>
+   283→                      </div>
+   284→                    </li>
+   285→
+   286→                    {/* Element D */}
+   287→                    <li className="flex gap-3">
+   288→                      <span className="flex items-center justify-center size-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold shrink-0 mt-0.5">
+   289→                        D
+   290→                      </span>
+   291→                      <div>
+   292→                        <p className="font-medium text-foreground text-sm sm:text-base">
+   293→                          Contact Information
+   294→                        </p>
+   295→                        <p className="text-sm text-muted-foreground mt-1">
+   296→                          Information reasonably sufficient to permit us to
+   297→                          contact the complaining party, such as an address,
+   298→                          telephone number, and, if available, an electronic
+   299→                          mail address at which the complaining party may be
+   300→                          contacted.
+   301→                        </p>
+   302→                      </div>
+   303→                    </li>
+   304→
+   305→                    {/* Element E */}
+   306→                    <li className="flex gap-3">
+   307→                      <span className="flex items-center justify-center size-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold shrink-0 mt-0.5">
+   308→                        E
+   309→                      </span>
+   310→                      <div>
+   311→                        <p className="font-medium text-foreground text-sm sm:text-base">
+   312→                          Good Faith Belief Statement
+   313→                        </p>
+   314→                        <p className="text-sm text-muted-foreground mt-1">
+   315→                          A statement that the complaining party has a good faith
+   316→                          belief that use of the material in the manner
+   317→                          complained of is not authorized by the copyright owner,
+   318→                          its agent, or the law.
+   319→                        </p>
+   320→                        <div className="mt-2 rounded-md bg-muted/50 border border-border p-3 text-xs sm:text-sm italic text-muted-foreground">
+   321→                          &ldquo;I have a good faith belief that the use of the
+   322→                          material in the manner complained of is not authorized
+   323→                          by the copyright owner, its agent, or the law.&rdquo;
+   324→                        </div>
+   325→                      </div>
+   326→                    </li>
+   327→
+   328→                    {/* Element F */}
+   329→                    <li className="flex gap-3">
+   330→                      <span className="flex items-center justify-center size-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold shrink-0 mt-0.5">
+   331→                        F
+   332→                      </span>
+   333→                      <div>
+   334→                        <p className="font-medium text-foreground text-sm sm:text-base">
+   335→                          Statement of Accuracy Under Penalty of Perjury
+   336→                        </p>
+   337→                        <p className="text-sm text-muted-foreground mt-1">
+   338→                          A statement that the information in the notification is
+   339→                          accurate, and under penalty of perjury, that the
+   340→                          complaining party is authorized to act on behalf of
+   341→                          the owner of an exclusive right that is allegedly
+   342→                          infringed.
+   343→                        </p>
+   344→                        <div className="mt-2 rounded-md bg-muted/50 border border-border p-3 text-xs sm:text-sm italic text-muted-foreground">
+   345→                          &ldquo;I swear, under penalty of perjury, that the
+   346→                          information in the notification is accurate and that I
+   347→                          am the copyright owner or am authorized to act on
+   348→                          behalf of the owner of an exclusive right that is
+   349→                          allegedly infringed.&rdquo;
+   350→                        </div>
+   351→                      </div>
+   352→                    </li>
+   353→                  </ol>
+   354→                </div>
+   355→              </div>
+   356→            </section>
+   357→
+   358→            {/* ════════════════════════════════════════════════════════
+   359→                SECTION 3: Where to Send DMCA Notices
+   360→            ════════════════════════════════════════════════════════ */}
+   361→            <section className="mb-10 sm:mb-12" id="send-dmca-notices">
+   362→              <div className="flex items-center gap-3 mb-4">
+   363→                <div className="flex items-center justify-center size-8 rounded-md bg-emerald-50 text-emerald-600 shrink-0">
+   364→                  <Mail className="size-4" />
+   365→                </div>
+   366→                <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
+   367→                  3. Where to Send DMCA Notices
+   368→                </h2>
+   369→              </div>
+   370→              <div className="pl-0 sm:pl-11">
+   371→                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4">
+   372→                  To file a DMCA takedown notice with Background Remover, please
+   373→                  send your written notice to our designated DMCA agent at the
+   374→                  following email address:
+   375→                </p>
+   376→                <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 sm:p-5 flex items-center gap-3">
+   377→                  <Mail className="size-5 text-emerald-600 shrink-0" />
+   378→                  <a
+   379→                    href="mailto:dmca@backgroundremover.app"
+   380→                    className="text-emerald-700 font-semibold text-base sm:text-lg hover:text-emerald-800 underline underline-offset-2 transition-colors"
+   381→                  >
+   382→                    dmca@backgroundremover.app
+   383→                  </a>
+   384→                </div>
+   385→                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+   386→                  Please ensure your notice includes all six required elements
+   387→                  listed above. Incomplete notices may not be processed, and we
+   388→                  may request additional information before taking action.
+   389→                </p>
+   390→              </div>
+   391→            </section>
+   392→
+   393→            {/* ════════════════════════════════════════════════════════
+   394→                SECTION 4: Counter-Notification Requirements
+   395→            ════════════════════════════════════════════════════════ */}
+   396→            <section
+   397→              className="mb-10 sm:mb-12"
+   398→              id="counter-notification-requirements"
+   399→            >
+   400→              <div className="flex items-center gap-3 mb-4">
+   401→                <div className="flex items-center justify-center size-8 rounded-md bg-emerald-50 text-emerald-600 shrink-0">
+   402→                  <AlertTriangle className="size-4" />
+   403→                </div>
+   404→                <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
+   405→                  4. Counter-Notification Requirements
+   406→                </h2>
+   407→              </div>
+   408→              <div className="pl-0 sm:pl-11">
+   409→                <p className="mb-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
+   410→                  If you believe that your material was removed or disabled as a
+   411→                  result of a mistake or misidentification, you may file a
+   412→                  counter-notification pursuant to{" "}
+   413→                  <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">
+   414→                    17 U.S.C. § 512(g)(3)
+   415→                  </span>
+   416→                  . A valid counter-notification must include all of the
+   417→                  following:
+   418→                </p>
+   419→
+   420→                <div className="rounded-lg border border-border bg-card p-5 sm:p-6 space-y-5">
+   421→                  <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+   422→                    Required Elements for Counter-Notification
+   423→                  </h3>
+   424→
+   425→                  <ol className="space-y-4">
+   426→                    {/* Element 1 */}
+   427→                    <li className="flex gap-3">
+   428→                      <span className="flex items-center justify-center size-6 rounded-full bg-amber-100 text-amber-700 text-xs font-bold shrink-0 mt-0.5">
+   429→                        1
+   430→                      </span>
+   431→                      <div>
+   432→                        <p className="font-medium text-foreground text-sm sm:text-base">
+   433→                          Physical or Electronic Signature
+   434→                        </p>
+   435→                        <p className="text-sm text-muted-foreground mt-1">
+   436→                          Your physical or electronic signature. For electronic
+   437→                          counter-notifications, a typed full legal name is
+   438→                          acceptable.
+   439→                        </p>
+   440→                      </div>
+   441→                    </li>
+   442→
+   443→                    {/* Element 2 */}
+   444→                    <li className="flex gap-3">
+   445→                      <span className="flex items-center justify-center size-6 rounded-full bg-amber-100 text-amber-700 text-xs font-bold shrink-0 mt-0.5">
+   446→                        2
+   447→                      </span>
+   448→                      <div>
+   449→                        <p className="font-medium text-foreground text-sm sm:text-base">
+   450→                          Identification of the Removed Material
+   451→                        </p>
+   452→                        <p className="text-sm text-muted-foreground mt-1">
+   453→                          Identification of the material that has been removed or
+   454→                          to which access has been disabled and the location at
+   455→                          which the material appeared before it was removed or
+   456→                          access to it was disabled. Provide the specific URL or
+   457→                          other identifying details.
+   458→                        </p>
+   459→                      </div>
+   460→                    </li>
+   461→
+   462→                    {/* Element 3 */}
+   463→                    <li className="flex gap-3">
+   464→                      <span className="flex items-center justify-center size-6 rounded-full bg-amber-100 text-amber-700 text-xs font-bold shrink-0 mt-0.5">
+   465→                        3
+   466→                      </span>
+   467→                      <div>
+   468→                        <p className="font-medium text-foreground text-sm sm:text-base">
+   469→                          Good Faith Belief Statement Under Penalty of Perjury
+   470→                        </p>
+   471→                        <p className="text-sm text-muted-foreground mt-1">
+   472→                          A statement under penalty of perjury that you have a
+   473→                          good faith belief that the material was removed or
+   474→                          disabled as a result of mistake or misidentification
+   475→                          of the material to be removed or disabled.
+   476→                        </p>
+   477→                        <div className="mt-2 rounded-md bg-muted/50 border border-border p-3 text-xs sm:text-sm italic text-muted-foreground">
+   478→                          &ldquo;I swear, under penalty of perjury, that I have a
+   479→                          good faith belief that the material was removed or
+   480→                          disabled as a result of mistake or misidentification
+   481→                          of the material to be removed or disabled.&rdquo;
+   482→                        </div>
+   483→                      </div>
+   484→                    </li>
+   485→
+   486→                    {/* Element 4 */}
+   487→                    <li className="flex gap-3">
+   488→                      <span className="flex items-center justify-center size-6 rounded-full bg-amber-100 text-amber-700 text-xs font-bold shrink-0 mt-0.5">
+   489→                        4
+   490→                      </span>
+   491→                      <div>
+   492→                        <p className="font-medium text-foreground text-sm sm:text-base">
+   493→                          Name, Address, Phone, and Consent to Jurisdiction
+   494→                        </p>
+   495→                        <p className="text-sm text-muted-foreground mt-1">
+   496→                          Your name, address, and telephone number, and a
+   497→                          statement that you consent to the jurisdiction of the
+   498→                          Federal District Court for the judicial district in
+   499→                          which your address is located (or if your address is
+   500→                          outside of the United States, for any judicial district
+   501→                          in which Background Remover may be found), and that
+   502→                          you will accept service of process from the person who
+   503→                          provided notification of the alleged infringement or an
+   504→                          agent of such person.
+   505→                        </p>
+   506→                      </div>
+   507→                    </li>
+   508→                  </ol>
+   509→                </div>
+   510→
+   511→                <div className="mt-4 rounded-md border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+   512→                  <strong>Important:</strong> If a counter-notification is
+   513→                  received, we will forward a copy to the original complaining
+   514→                  party and inform them that we may replace the removed material
+   515→                  or cease disabling access to it in 10 business days. Unless
+   516→                  the copyright owner files an action seeking a court order
+   517→                  against you, the removed material may be restored after that
+   518→                  10-day period.
+   519→                </div>
+   520→
+   521→                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+   522→                  Counter-notifications should be sent to:{" "}
+   523→                  <a
+   524→                    href="mailto:dmca@backgroundremover.app"
+   525→                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   526→                  >
+   527→                    dmca@backgroundremover.app
+   528→                  </a>
+   529→                </p>
+   530→              </div>
+   531→            </section>
+   532→
+   533→            {/* ════════════════════════════════════════════════════════
+   534→                SECTION 5: Repeat Infringer Policy
+   535→            ════════════════════════════════════════════════════════ */}
+   536→            <section className="mb-10 sm:mb-12" id="repeat-infringer-policy">
+   537→              <div className="flex items-center gap-3 mb-4">
+   538→                <div className="flex items-center justify-center size-8 rounded-md bg-emerald-50 text-emerald-600 shrink-0">
+   539→                  <Ban className="size-4" />
+   540→                </div>
+   541→                <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
+   542→                  5. Repeat Infringer Policy
+   543→                </h2>
+   544→              </div>
+   545→              <div className="space-y-4 text-sm sm:text-base text-muted-foreground leading-relaxed pl-0 sm:pl-11">
+   546→                <p>
+   547→                  In accordance with{" "}
+   548→                  <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">
+   549→                    17 U.S.C. § 512(i)(1)(A)
+   550→                  </span>
+   551→                  , Background Remover has adopted and reasonably implements a
+   552→                  policy providing for the termination in appropriate
+   553→                  circumstances of users who are repeat infringers of copyright.
+   554→                </p>
+   555→                <p>
+   556→                  We maintain a record of valid DMCA takedown notices received.
+   557→                  When we determine that a user has been the subject of multiple
+   558→                  valid DMCA complaints, we will take steps including, but not
+   559→                  limited to:
+   560→                </p>
+   561→                <ul className="space-y-2 pl-6 list-disc">
+   562→                  <li>
+   563→                    Issuing a formal warning to the user regarding the
+   564→                    infringement
+   565→                  </li>
+   566→                  <li>
+   567→                    Temporarily suspending the user&apos;s access to the service
+   568→                  </li>
+   569→                  <li>
+   570→                    Permanently terminating the user&apos;s access to the
+   571→                    service for repeated offenses
+   572→                  </li>
+   573→                  <li>
+   574→                    Blocking associated IP addresses or device identifiers
+   575→                  </li>
+   576→                </ul>
+   577→                <p>
+   578→                  We reserve the right to determine what constitutes a
+   579→                  &ldquo;repeat infringer&rdquo; on a case-by-case basis, taking
+   580→                  into account the nature and frequency of infringements, as
+   581→                  well as any mitigating or aggravating circumstances.
+   582→                </p>
+   583→              </div>
+   584→            </section>
+   585→
+   586→            {/* ════════════════════════════════════════════════════════
+   587→                SECTION 6: Important Notes
+   588→            ════════════════════════════════════════════════════════ */}
+   589→            <section className="mb-10 sm:mb-12" id="important-notes">
+   590→              <div className="flex items-center gap-3 mb-4">
+   591→                <div className="flex items-center justify-center size-8 rounded-md bg-emerald-50 text-emerald-600 shrink-0">
+   592→                  <Info className="size-4" />
+   593→                </div>
+   594→                <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
+   595→                  6. Important Notes About Our Service
+   596→                </h2>
+   597→              </div>
+   598→              <div className="pl-0 sm:pl-11 space-y-4">
+   599→                <div className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-5 sm:p-6 space-y-5">
+   600→                  {/* Note 1: We don't store images */}
+   601→                  <div className="flex gap-3">
+   602→                    <div className="flex items-center justify-center size-6 rounded-full bg-emerald-100 text-emerald-700 shrink-0 mt-0.5">
+   603→                      <span className="text-xs font-bold">1</span>
+   604→                    </div>
+   605→                    <div>
+   606→                      <p className="font-medium text-foreground text-sm sm:text-base">
+   607→                        We Do Not Store Your Images
+   608→                      </p>
+   609→                      <p className="text-sm text-muted-foreground mt-1">
+   610→                        Background Remover is designed with privacy as a core
+   611→                        principle. Images uploaded to our service are processed
+   612→                        in real-time and are{" "}
+   613→                        <strong className="text-foreground">
+   614→                          immediately deleted
+   615→                        </strong>{" "}
+   616→                        from our servers once processing is complete. We do not
+   617→                        store, cache, retain, or archive any uploaded images or
+   618→                        processed results on our servers. No permanent copy of
+   619→                        any image exists on our systems.
+   620→                      </p>
+   621→                    </div>
+   622→                  </div>
+   623→
+   624→                  {/* Note 2: Cannot remove content we don't host */}
+   625→                  <div className="flex gap-3">
+   626→                    <div className="flex items-center justify-center size-6 rounded-full bg-emerald-100 text-emerald-700 shrink-0 mt-0.5">
+   627→                      <span className="text-xs font-bold">2</span>
+   628→                    </div>
+   629→                    <div>
+   630→                      <p className="font-medium text-foreground text-sm sm:text-base">
+   631→                        We Cannot Remove Content We Don&apos;t Host
+   632→                      </p>
+   633→                      <p className="text-sm text-muted-foreground mt-1">
+   634→                        Because we do not store or host images on our platform,
+   635→                        we cannot remove, disable, or block access to specific
+   636→                        image content. If you have identified infringing
+   637→                        material that was processed through our service, please
+   638→                        be aware that we have no ability to remove the
+   639→                        processed image from the user&apos;s device or from any
+   640→                        third-party website where it may have been subsequently
+   641→                        published.
+   642→                      </p>
+   643→                    </div>
+   644→                  </div>
+   645→
+   646→                  {/* Note 3: Processing tool, not hosting platform */}
+   647→                  <div className="flex gap-3">
+   648→                    <div className="flex items-center justify-center size-6 rounded-full bg-emerald-100 text-emerald-700 shrink-0 mt-0.5">
+   649→                      <span className="text-xs font-bold">3</span>
+   650→                    </div>
+   651→                    <div>
+   652→                      <p className="font-medium text-foreground text-sm sm:text-base">
+   653→                        Our Service Is a Processing Tool, Not a Hosting Platform
+   654→                      </p>
+   655→                      <p className="text-sm text-muted-foreground mt-1">
+   656→                        Background Remover functions as an ephemeral image
+   657→                        processing tool. We transform images at the user&apos;s
+   658→                        request and return the result directly to the user. We
+   659→                        do not provide image hosting, storage, sharing, or
+   660→                        distribution capabilities. As such, our service does not
+   661→                        &ldquo;host&rdquo; content in the traditional sense
+   662→                        contemplated by DMCA takedown procedures, and our
+   663→                        ability to respond to takedown requests is inherently
+   664→                        limited by the nature of our service.
+   665→                      </p>
+   666→                    </div>
+   667→                  </div>
+   668→                </div>
+   669→
+   670→                <p className="text-sm text-muted-foreground leading-relaxed">
+   671→                  If you believe your copyrighted material was processed through
+   672→                  our service and the resulting output is being distributed
+   673→                  elsewhere, you may still send a DMCA notice and we will review
+   674→                  it in good faith. However, please understand that the most
+   675→                  effective course of action may be to contact the party hosting
+   676→                  or distributing the infringing material directly.
+   677→                </p>
+   678→              </div>
+   679→            </section>
+   680→
+   681→            {/* ════════════════════════════════════════════════════════
+   682→                SECTION 7: Misrepresentations
+   683→            ════════════════════════════════════════════════════════ */}
+   684→            <section className="mb-10 sm:mb-12" id="misrepresentations">
+   685→              <div className="flex items-center gap-3 mb-4">
+   686→                <div className="flex items-center justify-center size-8 rounded-md bg-red-50 text-red-600 shrink-0">
+   687→                  <AlertTriangle className="size-4" />
+   688→                </div>
+   689→                <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
+   690→                  7. Misrepresentations &mdash; Penalty of Perjury Warning
+   691→                </h2>
+   692→              </div>
+   693→              <div className="pl-0 sm:pl-11 space-y-4">
+   694→                <div className="rounded-lg border border-red-200 bg-red-50 p-5 sm:p-6">
+   695→                  <p className="text-sm sm:text-base text-red-800 leading-relaxed font-medium">
+   696→                    Under{" "}
+   697→                    <span className="font-mono text-xs bg-red-100 px-1.5 py-0.5 rounded">
+   698→                      17 U.S.C. § 512(f)
+   699→                    </span>
+   700→                    , any person who knowingly materially misrepresents that
+   701→                    material or activity is infringing, or that material or
+   702→                    activity was removed or disabled by mistake or
+   703→                    misidentification, shall be liable for any damages,
+   704→                    including costs and attorneys&apos; fees, incurred by the
+   705→                    alleged infringer, by any copyright owner or copyright
+   706→                    owner&apos;s authorized licensee, or by a service provider
+   707→                    who is injured by such misrepresentation.
+   708→                  </p>
+   709→                </div>
+   710→                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+   711→                  This means that if you file a DMCA takedown notice claiming
+   712→                  that material infringes your copyright when you know that it
+   713→                  does not, or if you file a counter-notification claiming that
+   714→                  material was removed by mistake when you know it was
+   715→                  legitimately infringing, you may be held legally responsible
+   716→                  for the damages caused by your misrepresentation.
+   717→                </p>
+   718→                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+   719→                  Please carefully consider whether the material in question
+   720→                  genuinely infringes your rights before submitting a DMCA
+   721→                  notice, and consult with legal counsel if you are uncertain.
+   722→                </p>
+   723→              </div>
+   724→            </section>
+   725→
+   726→            {/* ════════════════════════════════════════════════════════
+   727→                SECTION 8: Contact for DMCA Notices
+   728→            ════════════════════════════════════════════════════════ */}
+   729→            <section className="mb-10 sm:mb-12" id="contact">
+   730→              <div className="flex items-center gap-3 mb-4">
+   731→                <div className="flex items-center justify-center size-8 rounded-md bg-emerald-50 text-emerald-600 shrink-0">
+   732→                  <Mail className="size-4" />
+   733→                </div>
+   734→                <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
+   735→                  8. Contact for DMCA Notices
+   736→                </h2>
+   737→              </div>
+   738→              <div className="pl-0 sm:pl-11 space-y-4">
+   739→                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+   740→                  All DMCA takedown notices and counter-notifications should be
+   741→                  sent to our designated DMCA agent at the following email
+   742→                  address:
+   743→                </p>
+   744→
+   745→                <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-5 sm:p-6">
+   746→                  <p className="text-sm text-muted-foreground mb-2">
+   747→                    Designated DMCA Agent for Background Remover:
+   748→                  </p>
+   749→                  <a
+   750→                    href="mailto:dmca@backgroundremover.app"
+   751→                    className="text-emerald-700 font-semibold text-lg sm:text-xl hover:text-emerald-800 underline underline-offset-2 transition-colors inline-flex items-center gap-2"
+   752→                  >
+   753→                    <Mail className="size-5" />
+   754→                    dmca@backgroundremover.app
+   755→                  </a>
+   756→                  <p className="mt-3 text-xs sm:text-sm text-muted-foreground">
+   757→                    We will acknowledge receipt of your notice via email and
+   758→                    will process valid notices as expeditiously as possible.
+   759→                  </p>
+   760→                </div>
+   761→
+   762→                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+   763→                  For general inquiries not related to DMCA or copyright
+   764→                  matters, please visit our{" "}
+   765→                  <Link
+   766→                    href="/"
+   767→                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   768→                  >
+   769→                    home page
+   770→                  </Link>{" "}
+   771→                  for more information about our service.
+   772→                </p>
+   773→              </div>
+   774→            </section>
+   775→
+   776→            {/* ── Final Divider ──────────────────────────────────── */}
+   777→            <div className="h-px bg-border mb-8" />
+   778→
+   779→            {/* ── Legal Disclaimer ───────────────────────────────── */}
+   780→            <div className="rounded-md bg-muted/50 border border-border p-4 sm:p-5 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+   781→              <p>
+   782→                <strong className="text-foreground">Disclaimer:</strong>{" "}
+   783→                This DMCA policy is provided for informational purposes and
+   784→                constitutes our official statement regarding copyright
+   785→                infringement procedures. Nothing in this policy shall be
+   786→                construed as legal advice, nor does it create an
+   787→                attorney-client relationship. We reserve the right to modify
+   788→                this policy at any time without prior notice. It is your
+   789→                responsibility to review this policy periodically for changes.
+   790→                Last updated: {lastUpdated}.
+   791→              </p>
+   792→            </div>
+   793→          </div>
+   794→        </main>
+   795→
+   796→        {/* ─── Footer ────────────────────────────────────────────── */}
+   797→        <footer className="border-t border-border bg-muted/30 mt-auto">
+   798→          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+   799→            <p className="text-xs sm:text-sm text-muted-foreground">
+   800→              &copy; {new Date().getFullYear()} Background Remover. All rights
+   801→              reserved.
+   802→            </p>
+   803→            <Link
+   804→              href="/"
+   805→              className="text-xs sm:text-sm text-emerald-600 hover:text-emerald-700 transition-colors"
+   806→            >
+   807→              backgroundremover.app
+   808→            </Link>
+   809→          </div>
+   810→        </footer>
+   811→      </div>
+   812→    </>
+   813→  );
+   814→}
+   815→

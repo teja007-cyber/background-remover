@@ -1,0 +1,1100 @@
+     1→import type { Metadata } from "next";
+     2→import Link from "next/link";
+     3→import {
+     4→  ArrowLeft,
+     5→  Cookie,
+     6→  ShieldCheck,
+     7→  Monitor,
+     8→  Mail,
+     9→  ChevronRight,
+    10→} from "lucide-react";
+    11→import {
+    12→  Breadcrumb,
+    13→  BreadcrumbItem,
+    14→  BreadcrumbLink,
+    15→  BreadcrumbList,
+    16→  BreadcrumbPage,
+    17→  BreadcrumbSeparator,
+    18→} from "@/components/ui/breadcrumb";
+    19→
+    20→// ─── SEO Metadata ─────────────────────────────────────────────────────────
+    21→
+    22→export const metadata: Metadata = {
+    23→  title: "Cookie Policy",
+    24→  description:
+    25→    "Cookie Policy for Background Remover — we use minimal essential cookies only. No tracking, no analytics cookies. Learn more about our privacy-first approach.",
+    26→  alternates: {
+    27→    canonical: "https://backgroundremover.app/cookies",
+    28→  },
+    29→  openGraph: {
+    30→    title: "Cookie Policy | Background Remover",
+    31→    description:
+    32→      "Cookie Policy for Background Remover — we use minimal essential cookies only. No tracking, no analytics cookies. Learn more about our privacy-first approach.",
+    33→    url: "https://backgroundremover.app/cookies",
+    34→    siteName: "Background Remover",
+    35→    type: "website",
+    36→    locale: "en_US",
+    37→  },
+    38→  twitter: {
+    39→    card: "summary",
+    40→    title: "Cookie Policy | Background Remover",
+    41→    description:
+    42→      "Cookie Policy for Background Remover — minimal essential cookies only. No tracking, no analytics. Privacy-first.",
+    43→  },
+    44→};
+    45→
+    46→// ─── Constants ────────────────────────────────────────────────────────────
+    47→
+    48→const SITE_URL = "https://backgroundremover.app";
+    49→const LAST_UPDATED = "March 4, 2026";
+    50→const CONTACT_EMAIL = "privacy@backgroundremover.app";
+    51→
+    52→// ─── JSON-LD Structured Data ──────────────────────────────────────────────
+    53→
+    54→const breadcrumbJsonLd = {
+    55→  "@context": "https://schema.org",
+    56→  "@type": "BreadcrumbList",
+    57→  itemListElement: [
+    58→    {
+    59→      "@type": "ListItem",
+    60→      position: 1,
+    61→      name: "Home",
+    62→      item: SITE_URL,
+    63→    },
+    64→    {
+    65→      "@type": "ListItem",
+    66→      position: 2,
+    67→      name: "Cookie Policy",
+    68→      item: `${SITE_URL}/cookies`,
+    69→    },
+    70→  ],
+    71→};
+    72→
+    73→const webPageJsonLd = {
+    74→  "@context": "https://schema.org",
+    75→  "@type": "WebPage",
+    76→  name: "Cookie Policy — Background Remover",
+    77→  description:
+    78→    "Cookie Policy for Background Remover — we use minimal essential cookies only. No tracking, no analytics cookies.",
+    79→  url: `${SITE_URL}/cookies`,
+    80→  isPartOf: {
+    81→    "@type": "WebSite",
+    82→    name: "Background Remover",
+    83→    url: SITE_URL,
+    84→  },
+    85→  dateModified: "2026-03-04",
+    86→  breadcrumb: {
+    87→    "@type": "BreadcrumbList",
+    88→    itemListElement: [
+    89→      {
+    90→        "@type": "ListItem",
+    91→        position: 1,
+    92→        name: "Home",
+    93→        item: SITE_URL,
+    94→      },
+    95→      {
+    96→        "@type": "ListItem",
+    97→        position: 2,
+    98→        name: "Cookie Policy",
+    99→        item: `${SITE_URL}/cookies`,
+   100→      },
+   101→    ],
+   102→  },
+   103→};
+   104→
+   105→// ─── Cookie Table Data ────────────────────────────────────────────────────
+   106→
+   107→const cookiesWeUse = [
+   108→  {
+   109→    name: "cookie_consent",
+   110→    purpose: "Stores your cookie consent preference (accepted/rejected)",
+   111→    type: "Essential / Strictly Necessary",
+   112→    duration: "1 year from the date of consent",
+   113→    category: "First-Party",
+   114→  },
+   115→];
+   116→
+   117→// ─── Page Component ───────────────────────────────────────────────────────
+   118→
+   119→export default function CookiePolicyPage() {
+   120→  return (
+   121→    <>
+   122→      {/* JSON-LD Structured Data */}
+   123→      <script
+   124→        type="application/ld+json"
+   125→        dangerouslySetInnerHTML={{
+   126→          __html: JSON.stringify(breadcrumbJsonLd),
+   127→        }}
+   128→      />
+   129→      <script
+   130→        type="application/ld+json"
+   131→        dangerouslySetInnerHTML={{
+   132→          __html: JSON.stringify(webPageJsonLd),
+   133→        }}
+   134→      />
+   135→
+   136→      <div className="min-h-screen flex flex-col bg-background text-foreground">
+   137→        {/* ─── Header ─────────────────────────────────────────────── */}
+   138→        <header className="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-10">
+   139→          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
+   140→            <Link
+   141→              href="/"
+   142→              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+   143→            >
+   144→              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+   145→              <span>Back to Home</span>
+   146→            </Link>
+   147→          </div>
+   148→        </header>
+   149→
+   150→        {/* ─── Main Content ────────────────────────────────────────── */}
+   151→        <main className="flex-1">
+   152→          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+   153→            {/* Breadcrumb Navigation */}
+   154→            <Breadcrumb className="mb-8">
+   155→              <BreadcrumbList>
+   156→                <BreadcrumbItem>
+   157→                  <BreadcrumbLink asChild>
+   158→                    <Link href="/">Home</Link>
+   159→                  </BreadcrumbLink>
+   160→                </BreadcrumbItem>
+   161→                <BreadcrumbSeparator>
+   162→                  <ChevronRight className="h-3.5 w-3.5" />
+   163→                </BreadcrumbSeparator>
+   164→                <BreadcrumbItem>
+   165→                  <BreadcrumbPage>Cookie Policy</BreadcrumbPage>
+   166→                </BreadcrumbItem>
+   167→              </BreadcrumbList>
+   168→            </Breadcrumb>
+   169→
+   170→            {/* Page Title Section */}
+   171→            <div className="mb-10 sm:mb-12">
+   172→              <div className="flex items-center gap-3 mb-4">
+   173→                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600">
+   174→                  <Cookie className="h-6 w-6" />
+   175→                </div>
+   176→                <div>
+   177→                  <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
+   178→                    Cookie Policy
+   179→                  </h1>
+   180→                </div>
+   181→              </div>
+   182→              <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl">
+   183→                We believe in transparency. This Cookie Policy explains how
+   184→                Background Remover uses cookies and similar technologies, and how
+   185→                you can control them.
+   186→              </p>
+   187→              <p className="text-sm text-muted-foreground mt-3">
+   188→                Last updated:{" "}
+   189→                <time dateTime="2026-03-04" className="font-medium">
+   190→                  {LAST_UPDATED}
+   191→                </time>
+   192→              </p>
+   193→            </div>
+   194→
+   195→            {/* ─── Policy Sections ─────────────────────────────────── */}
+   196→            <div className="space-y-10 sm:space-y-12">
+   197→              {/* 1. Introduction */}
+   198→              <section id="introduction" className="scroll-mt-20">
+   199→                <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+   200→                  <span className="text-emerald-500 font-mono text-lg">1.</span>
+   201→                  Introduction
+   202→                </h2>
+   203→                <div className="space-y-4 text-muted-foreground leading-relaxed">
+   204→                  <p>
+   205→                    Background Remover (&quot;we,&quot; &quot;us,&quot; or
+   206→                    &quot;our&quot;), accessible at{" "}
+   207→                    <Link
+   208→                      href="/"
+   209→                      className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   210→                    >
+   211→                      backgroundremover.app
+   212→                    </Link>
+   213→                    , is committed to protecting your privacy and being
+   214→                    transparent about how we use technology on our website.
+   215→                  </p>
+   216→                  <p>
+   217→                    This Cookie Policy explains what cookies and similar
+   218→                    technologies are, how we use them on our website, and your
+   219→                    rights to control their use. This policy applies to all
+   220→                    visitors and users of our website.
+   221→                  </p>
+   222→                  <p>
+   223→                    This Cookie Policy is part of our broader privacy practices
+   224→                    and should be read alongside our Privacy Policy. By using our
+   225→                    website, you consent to the use of cookies as described in
+   226→                    this policy, subject to the choices you make through our
+   227→                    cookie consent mechanism.
+   228→                  </p>
+   229→                  <p>
+   230→                    This policy is designed to comply with the requirements of
+   231→                    the EU Cookie Directive (2009/136/EC), the ePrivacy
+   232→                    Directive (2002/58/EC as amended), the General Data
+   233→                    Protection Regulation (GDPR — Regulation (EU) 2016/679), and
+   234→                    the California Consumer Privacy Act (CCPA) as amended by the
+   235→                    CPRA.
+   236→                  </p>
+   237→                </div>
+   238→              </section>
+   239→
+   240→              {/* 2. What Are Cookies */}
+   241→              <section id="what-are-cookies" className="scroll-mt-20">
+   242→                <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+   243→                  <span className="text-emerald-500 font-mono text-lg">2.</span>
+   244→                  What Are Cookies?
+   245→                </h2>
+   246→                <div className="space-y-4 text-muted-foreground leading-relaxed">
+   247→                  <p>
+   248→                    Cookies are small text files that are placed on your computer,
+   249→                    smartphone, or other device when you visit a website. They are
+   250→                    widely used to make websites work more efficiently, provide a
+   251→                    better browsing experience, and supply information to the
+   252→                    website owners.
+   253→                  </p>
+   254→                  <p>
+   255→                    Each cookie is a small piece of data — typically consisting of
+   256→                    letters and numbers — that is stored on your device by your
+   257→                    web browser at the request of a web server. When you visit the
+   258→                    same website again, your browser sends the cookie back to the
+   259→                    server, allowing the website to recognize your device and
+   260→                    remember information about your visit.
+   261→                  </p>
+   262→                  <p>
+   263→                    Cookies can be &quot;persistent&quot; (they remain on your
+   264→                    device until they expire or you delete them) or
+   265→                    &quot;session&quot; (they are deleted when you close your
+   266→                    browser). Cookies can be set by the website you are visiting
+   267→                    (&quot;first-party cookies&quot;) or by third-party services
+   268→                    operating on that website (&quot;third-party cookies&quot;).
+   269→                  </p>
+   270→                  <div className="rounded-lg border border-border bg-muted/30 p-4 sm:p-5 my-4">
+   271→                    <p className="text-sm text-muted-foreground leading-relaxed">
+   272→                      <strong className="text-foreground">In simple terms:</strong>{" "}
+   273→                      Think of a cookie like a small note a website leaves on
+   274→                      your device so it can remember something about you the next
+   275→                      time you visit. Just like a shopkeeper might remember your
+   276→                      name, cookies help websites remember your preferences.
+   277→                    </p>
+   278→                  </div>
+   279→                  <p>
+   280→                    Cookies are not programs and cannot execute code or carry
+   281→                    viruses or malware. They cannot access the data on your hard
+   282→                    drive or read other cookies stored by other websites. However,
+   283→                    they do store information about you, which is why we believe
+   284→                    you should understand and control their use.
+   285→                  </p>
+   286→                </div>
+   287→              </section>
+   288→
+   289→              {/* 3. Types of Cookies */}
+   290→              <section id="types-of-cookies" className="scroll-mt-20">
+   291→                <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+   292→                  <span className="text-emerald-500 font-mono text-lg">3.</span>
+   293→                  Types of Cookies
+   294→                </h2>
+   295→                <p className="text-muted-foreground leading-relaxed mb-6">
+   296→                  There are several categories of cookies that websites commonly
+   297→                  use. Below is a detailed explanation of each type, including
+   298→                  which ones we use and which ones we do not.
+   299→                </p>
+   300→
+   301→                <div className="space-y-6">
+   302→                  {/* Essential Cookies */}
+   303→                  <div className="rounded-xl border border-border p-5 sm:p-6">
+   304→                    <div className="flex items-start gap-3 mb-3">
+   305→                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 shrink-0 mt-0.5">
+   306→                        <ShieldCheck className="h-4 w-4" />
+   307→                      </div>
+   308→                      <div>
+   309→                        <h3 className="text-lg font-semibold">
+   310→                          Essential / Strictly Necessary Cookies
+   311→                        </h3>
+   312→                        <span className="inline-flex items-center rounded-full bg-emerald-100 text-emerald-700 text-xs font-medium px-2.5 py-0.5 mt-1">
+   313→                          We use this type
+   314→                        </span>
+   315→                      </div>
+   316→                    </div>
+   317→                    <p className="text-muted-foreground leading-relaxed text-sm">
+   318→                      These cookies are strictly necessary for the operation of
+   319→                      our website. They are set in response to your use of our
+   320→                      services, such as remembering your cookie consent
+   321→                      preferences. Without these cookies, certain features of the
+   322→                      website cannot function properly. Essential cookies do not
+   323→                      require your consent under the ePrivacy Directive and GDPR,
+   324→                      as they are necessary for the provision of the service you
+   325→                      have requested.
+   326→                    </p>
+   327→                  </div>
+   328→
+   329→                  {/* Performance Cookies */}
+   330→                  <div className="rounded-xl border border-border p-5 sm:p-6">
+   331→                    <div className="flex items-start gap-3 mb-3">
+   332→                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted text-muted-foreground shrink-0 mt-0.5">
+   333→                        <Monitor className="h-4 w-4" />
+   334→                      </div>
+   335→                      <div>
+   336→                        <h3 className="text-lg font-semibold">
+   337→                          Performance / Analytics Cookies
+   338→                        </h3>
+   339→                        <span className="inline-flex items-center rounded-full bg-muted text-muted-foreground text-xs font-medium px-2.5 py-0.5 mt-1">
+   340→                          We do NOT use this type
+   341→                        </span>
+   342→                      </div>
+   343→                    </div>
+   344→                    <p className="text-muted-foreground leading-relaxed text-sm">
+   345→                      These cookies collect information about how visitors use a
+   346→                      website, such as which pages are visited most often, how
+   347→                      users navigate between pages, and whether users encounter
+   348→                      error messages. These cookies do not collect information
+   349→                      that identifies you personally; all data is aggregated and
+   350→                      anonymized. Under GDPR and the ePrivacy Directive, these
+   351→                      cookies require your prior consent.
+   352→                    </p>
+   353→                  </div>
+   354→
+   355→                  {/* Functionality Cookies */}
+   356→                  <div className="rounded-xl border border-border p-5 sm:p-6">
+   357→                    <div className="flex items-start gap-3 mb-3">
+   358→                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted text-muted-foreground shrink-0 mt-0.5">
+   359→                        <Cookie className="h-4 w-4" />
+   360→                      </div>
+   361→                      <div>
+   362→                        <h3 className="text-lg font-semibold">
+   363→                          Functionality Cookies
+   364→                        </h3>
+   365→                        <span className="inline-flex items-center rounded-full bg-muted text-muted-foreground text-xs font-medium px-2.5 py-0.5 mt-1">
+   366→                          We do NOT use this type
+   367→                        </span>
+   368→                      </div>
+   369→                    </div>
+   370→                    <p className="text-muted-foreground leading-relaxed text-sm">
+   371→                      These cookies allow the website to remember choices you
+   372→                      make (such as your preferred language, region, or other
+   373→                      display settings) and provide enhanced, personalized
+   374→                      features. They may also be used to remember changes you
+   375→                      have made to text size, fonts, and other customizable
+   376→                      elements. These cookies require your prior consent under
+   377→                      applicable law.
+   378→                    </p>
+   379→                  </div>
+   380→
+   381→                  {/* Advertising Cookies */}
+   382→                  <div className="rounded-xl border border-border p-5 sm:p-6">
+   383→                    <div className="flex items-start gap-3 mb-3">
+   384→                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted text-muted-foreground shrink-0 mt-0.5">
+   385→                        <Cookie className="h-4 w-4" />
+   386→                      </div>
+   387→                      <div>
+   388→                        <h3 className="text-lg font-semibold">
+   389→                          Advertising / Targeting Cookies
+   390→                        </h3>
+   391→                        <span className="inline-flex items-center rounded-full bg-muted text-muted-foreground text-xs font-medium px-2.5 py-0.5 mt-1">
+   392→                          We do NOT use this type
+   393→                        </span>
+   394→                      </div>
+   395→                    </div>
+   396→                    <p className="text-muted-foreground leading-relaxed text-sm">
+   397→                      These cookies are used to deliver advertisements more
+   398→                      relevant to you and your interests. They are also used to
+   399→                      limit the number of times you see an advertisement, as well
+   400→                      as to measure the effectiveness of advertising campaigns.
+   401→                      They are usually placed by advertising networks with the
+   402→                      website operator&apos;s permission. These cookies track
+   403→                      your browsing activity across different websites and
+   404→                      require your explicit prior consent.
+   405→                    </p>
+   406→                  </div>
+   407→
+   408→                  {/* Third-Party Cookies */}
+   409→                  <div className="rounded-xl border border-border p-5 sm:p-6">
+   410→                    <div className="flex items-start gap-3 mb-3">
+   411→                      <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted text-muted-foreground shrink-0 mt-0.5">
+   412→                        <Cookie className="h-4 w-4" />
+   413→                      </div>
+   414→                      <div>
+   415→                        <h3 className="text-lg font-semibold">
+   416→                          Third-Party Cookies
+   417→                        </h3>
+   418→                        <span className="inline-flex items-center rounded-full bg-muted text-muted-foreground text-xs font-medium px-2.5 py-0.5 mt-1">
+   419→                          We do NOT use this type
+   420→                        </span>
+   421→                      </div>
+   422→                    </div>
+   423→                    <p className="text-muted-foreground leading-relaxed text-sm">
+   424→                      Third-party cookies are set by domains other than the
+   425→                      website you are visiting. These are commonly used by
+   426→                      analytics providers, advertising networks, social media
+   427→                      platforms, and other external services operating on a
+   428→                      website. Third-party cookies can track your activity across
+   429→                      multiple websites and raise significant privacy concerns.
+   430→                      Under GDPR and the ePrivacy Directive, these cookies
+   431→                      require your explicit prior informed consent.
+   432→                    </p>
+   433→                  </div>
+   434→                </div>
+   435→              </section>
+   436→
+   437→              {/* 4. Cookies We Use */}
+   438→              <section id="cookies-we-use" className="scroll-mt-20">
+   439→                <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+   440→                  <span className="text-emerald-500 font-mono text-lg">4.</span>
+   441→                  Cookies We Use
+   442→                </h2>
+   443→                <div className="space-y-4 text-muted-foreground leading-relaxed mb-6">
+   444→                  <p>
+   445→                    We are committed to minimizing the use of cookies on our
+   446→                    website. We only use one essential cookie, and we do not use
+   447→                    any analytics, advertising, functionality, or third-party
+   448→                    cookies.
+   449→                  </p>
+   450→                  <p>
+   451→                    The sole cookie we use is necessary to remember your cookie
+   452→                    consent preference, as required by applicable law. Without
+   453→                    this cookie, we would be unable to honor your consent choice
+   454→                    and would need to ask you for consent on every page visit.
+   455→                  </p>
+   456→                </div>
+   457→
+   458→                {/* Cookie Table */}
+   459→                <div className="rounded-xl border border-border overflow-hidden">
+   460→                  <div className="overflow-x-auto">
+   461→                    <table className="w-full text-sm">
+   462→                      <thead>
+   463→                        <tr className="bg-muted/50 border-b border-border">
+   464→                          <th className="text-left font-semibold py-3 px-4 text-foreground">
+   465→                            Cookie Name
+   466→                          </th>
+   467→                          <th className="text-left font-semibold py-3 px-4 text-foreground">
+   468→                            Purpose
+   469→                          </th>
+   470→                          <th className="text-left font-semibold py-3 px-4 text-foreground">
+   471→                            Type
+   472→                          </th>
+   473→                          <th className="text-left font-semibold py-3 px-4 text-foreground">
+   474→                            Duration
+   475→                          </th>
+   476→                          <th className="text-left font-semibold py-3 px-4 text-foreground">
+   477→                            Category
+   478→                          </th>
+   479→                        </tr>
+   480→                      </thead>
+   481→                      <tbody>
+   482→                        {cookiesWeUse.map((cookie) => (
+   483→                          <tr
+   484→                            key={cookie.name}
+   485→                            className="border-b border-border last:border-b-0"
+   486→                          >
+   487→                            <td className="py-3 px-4 font-mono text-xs text-emerald-600 bg-emerald-50/50">
+   488→                              {cookie.name}
+   489→                            </td>
+   490→                            <td className="py-3 px-4 text-muted-foreground">
+   491→                              {cookie.purpose}
+   492→                            </td>
+   493→                            <td className="py-3 px-4">
+   494→                              <span className="inline-flex items-center rounded-full bg-emerald-100 text-emerald-700 text-xs font-medium px-2 py-0.5">
+   495→                                {cookie.type}
+   496→                              </span>
+   497→                            </td>
+   498→                            <td className="py-3 px-4 text-muted-foreground">
+   499→                              {cookie.duration}
+   500→                            </td>
+   501→                            <td className="py-3 px-4 text-muted-foreground">
+   502→                              {cookie.category}
+   503→                            </td>
+   504→                          </tr>
+   505→                        ))}
+   506→                      </tbody>
+   507→                    </table>
+   508→                  </div>
+   509→                </div>
+   510→
+   511→                {/* What we do NOT use */}
+   512→                <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50/50 p-5 sm:p-6">
+   513→                  <h3 className="text-base font-semibold text-emerald-800 mb-3">
+   514→                    What We Do NOT Use
+   515→                  </h3>
+   516→                  <p className="text-emerald-700 text-sm mb-4">
+   517→                    We are proud of our privacy-first approach. We do{" "}
+   518→                    <strong>not</strong> use any of the following:
+   519→                  </p>
+   520→                  <ul className="space-y-2 text-sm text-emerald-700">
+   521→                    <li className="flex items-start gap-2">
+   522→                      <span className="text-emerald-500 mt-0.5 font-bold">
+   523→                        &times;
+   524→                      </span>
+   525→                      <span>
+   526→                        <strong>Analytics cookies</strong> — We do not track how
+   527→                        you use our website or collect browsing statistics.
+   528→                      </span>
+   529→                    </li>
+   530→                    <li className="flex items-start gap-2">
+   531→                      <span className="text-emerald-500 mt-0.5 font-bold">
+   532→                        &times;
+   533→                      </span>
+   534→                      <span>
+   535→                        <strong>Advertising / targeting cookies</strong> — We do
+   536→                        not serve targeted advertisements or track you for
+   537→                        advertising purposes.
+   538→                      </span>
+   539→                    </li>
+   540→                    <li className="flex items-start gap-2">
+   541→                      <span className="text-emerald-500 mt-0.5 font-bold">
+   542→                        &times;
+   543→                      </span>
+   544→                      <span>
+   545→                        <strong>Tracking cookies</strong> — We do not track your
+   546→                        browsing activity across pages or sessions (beyond your
+   547→                        consent preference).
+   548→                      </span>
+   549→                    </li>
+   550→                    <li className="flex items-start gap-2">
+   551→                      <span className="text-emerald-500 mt-0.5 font-bold">
+   552→                        &times;
+   553→                      </span>
+   554→                      <span>
+   555→                        <strong>Third-party cookies</strong> — No external
+   556→                        service sets cookies through our website.
+   557→                      </span>
+   558→                    </li>
+   559→                    <li className="flex items-start gap-2">
+   560→                      <span className="text-emerald-500 mt-0.5 font-bold">
+   561→                        &times;
+   562→                      </span>
+   563→                      <span>
+   564→                        <strong>Social media cookies</strong> — We do not embed
+   565→                        social media plugins or share buttons that set cookies.
+   566→                      </span>
+   567→                    </li>
+   568→                    <li className="flex items-start gap-2">
+   569→                      <span className="text-emerald-500 mt-0.5 font-bold">
+   570→                        &times;
+   571→                      </span>
+   572→                      <span>
+   573→                        <strong>Functionality cookies</strong> — We do not store
+   574→                        preferences like language or display settings via
+   575→                        cookies.
+   576→                      </span>
+   577→                    </li>
+   578→                  </ul>
+   579→                </div>
+   580→              </section>
+   581→
+   582→              {/* 5. How We Use Cookies */}
+   583→              <section id="how-we-use-cookies" className="scroll-mt-20">
+   584→                <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+   585→                  <span className="text-emerald-500 font-mono text-lg">5.</span>
+   586→                  How We Use Cookies
+   587→                </h2>
+   588→                <div className="space-y-4 text-muted-foreground leading-relaxed">
+   589→                  <p>
+   590→                    We use cookies for one purpose only: to remember your cookie
+   591→                    consent preference.
+   592→                  </p>
+   593→                  <p>
+   594→                    When you visit our website for the first time, a cookie
+   595→                    consent banner is displayed. Once you indicate your consent
+   596→                    choice (accept or reject non-essential cookies), we store
+   597→                    that preference in the <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">cookie_consent</code> cookie. This
+   598→                    ensures that:
+   599→                  </p>
+   600→                  <ul className="space-y-2 ml-4">
+   601→                    <li className="flex items-start gap-2">
+   602→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   603→                      <span>
+   604→                        We do not show you the consent banner again on
+   605→                        subsequent visits, providing a better user experience.
+   606→                      </span>
+   607→                    </li>
+   608→                    <li className="flex items-start gap-2">
+   609→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   610→                      <span>
+   611→                        We honor your consent choice consistently across your
+   612→                        visits, as required by the ePrivacy Directive and GDPR.
+   613→                      </span>
+   614→                    </li>
+   615→                    <li className="flex items-start gap-2">
+   616→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   617→                      <span>
+   618→                        We maintain a record of your consent for compliance
+   619→                        purposes.
+   620→                      </span>
+   621→                    </li>
+   622→                  </ul>
+   623→                  <p>
+   624→                    That is the full extent of our cookie usage. We do not use
+   625→                    cookies for tracking, profiling, analytics, advertising, or
+   626→                    any other purpose.
+   627→                  </p>
+   628→                </div>
+   629→              </section>
+   630→
+   631→              {/* 6. Third-Party Cookies */}
+   632→              <section id="third-party-cookies" className="scroll-mt-20">
+   633→                <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+   634→                  <span className="text-emerald-500 font-mono text-lg">6.</span>
+   635→                  Third-Party Cookies
+   636→                </h2>
+   637→                <div className="space-y-4 text-muted-foreground leading-relaxed">
+   638→                  <p>
+   639→                    We do <strong>not</strong> allow any third-party cookies to
+   640→                    be set on our website. This means:
+   641→                  </p>
+   642→                  <ul className="space-y-2 ml-4">
+   643→                    <li className="flex items-start gap-2">
+   644→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   645→                      <span>
+   646→                        No analytics services (such as Google Analytics, Matomo,
+   647→                        or similar) set cookies through our website.
+   648→                      </span>
+   649→                    </li>
+   650→                    <li className="flex items-start gap-2">
+   651→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   652→                      <span>
+   653→                        No advertising networks (such as Google Ads, Facebook
+   654→                        Pixel, or similar) set cookies through our website.
+   655→                      </span>
+   656→                    </li>
+   657→                    <li className="flex items-start gap-2">
+   658→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   659→                      <span>
+   660→                        No social media platforms (such as Facebook, Twitter/X,
+   661→                        LinkedIn, or similar) set cookies through our website.
+   662→                      </span>
+   663→                    </li>
+   664→                    <li className="flex items-start gap-2">
+   665→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   666→                      <span>
+   667→                        No embedded content from third-party domains sets cookies
+   668→                        through our website.
+   669→                      </span>
+   670→                    </li>
+   671→                  </ul>
+   672→                  <p>
+   673→                    Our website is entirely self-contained with respect to cookie
+   674→                    usage. The only cookie set is our own first-party essential
+   675→                    cookie for consent management.
+   676→                  </p>
+   677→                  <div className="rounded-lg border border-border bg-muted/30 p-4 sm:p-5 my-4">
+   678→                    <p className="text-sm text-muted-foreground leading-relaxed">
+   679→                      <strong className="text-foreground">Note:</strong> While we
+   680→                      do not set third-party cookies ourselves, please be aware
+   681→                      that third-party cookies may be set by other websites you
+   682→                      visit. We have no control over cookies set by other
+   683→                      websites and recommend reviewing their cookie policies.
+   684→                    </p>
+   685→                  </div>
+   686→                </div>
+   687→              </section>
+   688→
+   689→              {/* 7. Managing Cookies */}
+   690→              <section id="managing-cookies" className="scroll-mt-20">
+   691→                <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+   692→                  <span className="text-emerald-500 font-mono text-lg">7.</span>
+   693→                  Managing Cookies
+   694→                </h2>
+   695→                <div className="space-y-4 text-muted-foreground leading-relaxed">
+   696→                  <p>
+   697→                    You have the right to decide whether to accept or reject
+   698→                    cookies. You can exercise your cookie preferences in the
+   699→                    following ways:
+   700→                  </p>
+   701→
+   702→                  {/* Cookie Consent Banner */}
+   703→                  <h3 className="text-lg font-semibold text-foreground pt-2">
+   704→                    Through Our Cookie Consent Banner
+   705→                  </h3>
+   706→                  <p>
+   707→                    When you first visit our website, a cookie consent banner is
+   708→                    displayed. You can accept or reject non-essential cookies
+   709→                    through this banner. You can also change your preference at
+   710→                    any time by clearing the <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">cookie_consent</code> cookie from
+   711→                    your browser, which will cause the banner to reappear on your
+   712→                    next visit.
+   713→                  </p>
+   714→
+   715→                  {/* Browser Settings */}
+   716→                  <h3 className="text-lg font-semibold text-foreground pt-2">
+   717→                    Through Your Browser Settings
+   718→                  </h3>
+   719→                  <p>
+   720→                    Most web browsers allow you to control cookies through their
+   721→                    settings. You can set your browser to refuse all cookies,
+   722→                    accept only certain cookies, or alert you when a cookie is
+   723→                    being set. Below are instructions for the most common
+   724→                    browsers:
+   725→                  </p>
+   726→
+   727→                  <div className="space-y-4 mt-4">
+   728→                    {/* Chrome */}
+   729→                    <div className="rounded-lg border border-border p-4 sm:p-5">
+   730→                      <h4 className="font-semibold text-foreground mb-2">
+   731→                        Google Chrome
+   732→                      </h4>
+   733→                      <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground">
+   734→                        <li>
+   735→                          Click the three-dot menu in the top-right corner and
+   736→                          select &quot;Settings&quot;
+   737→                        </li>
+   738→                        <li>
+   739→                          Click &quot;Privacy and security&quot; in the left
+   740→                          sidebar
+   741→                        </li>
+   742→                        <li>Click &quot;Third-party cookies&quot;</li>
+   743→                        <li>
+   744→                          Select your preferred cookie settings (block all, block
+   745→                          third-party, or allow all)
+   746→                        </li>
+   747→                        <li>
+   748→                          To manage existing cookies, click &quot;See all site
+   749→                          data and permissions&quot;
+   750→                        </li>
+   751→                      </ol>
+   752→                    </div>
+   753→
+   754→                    {/* Firefox */}
+   755→                    <div className="rounded-lg border border-border p-4 sm:p-5">
+   756→                      <h4 className="font-semibold text-foreground mb-2">
+   757→                        Mozilla Firefox
+   758→                      </h4>
+   759→                      <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground">
+   760→                        <li>
+   761→                          Click the three-line menu in the top-right corner and
+   762→                          select &quot;Settings&quot;
+   763→                        </li>
+   764→                        <li>
+   765→                          Select &quot;Privacy &amp; Security&quot; from the
+   766→                          left panel
+   767→                        </li>
+   768→                        <li>
+   769→                          Under &quot;Enhanced Tracking Protection,&quot; choose
+   770→                          your level of protection
+   771→                        </li>
+   772→                        <li>
+   773→                          Under &quot;Cookies and Site Data,&quot; click
+   774→                          &quot;Manage Data&quot; to view and remove individual
+   775→                          cookies
+   776→                        </li>
+   777→                      </ol>
+   778→                    </div>
+   779→
+   780→                    {/* Safari */}
+   781→                    <div className="rounded-lg border border-border p-4 sm:p-5">
+   782→                      <h4 className="font-semibold text-foreground mb-2">
+   783→                        Apple Safari (macOS)
+   784→                      </h4>
+   785→                      <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground">
+   786→                        <li>
+   787→                          Click &quot;Safari&quot; in the menu bar and select
+   788→                          &quot;Settings&quot; (or &quot;Preferences&quot;)
+   789→                        </li>
+   790→                        <li>Click the &quot;Privacy&quot; tab</li>
+   791→                        <li>
+   792→                          Under &quot;Cookies and website data,&quot; select your
+   793→                          preferred option (block all, block third-party, or
+   794→                          allow)
+   795→                        </li>
+   796→                        <li>
+   797→                          Click &quot;Manage Website Data&quot; to view and
+   798→                          remove individual cookies
+   799→                        </li>
+   800→                      </ol>
+   801→                    </div>
+   802→
+   803→                    {/* Safari iOS */}
+   804→                    <div className="rounded-lg border border-border p-4 sm:p-5">
+   805→                      <h4 className="font-semibold text-foreground mb-2">
+   806→                        Apple Safari (iOS)
+   807→                      </h4>
+   808→                      <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground">
+   809→                        <li>Open the &quot;Settings&quot; app</li>
+   810→                        <li>Scroll down and tap &quot;Safari&quot;</li>
+   811→                        <li>
+   812→                          Under &quot;Privacy &amp; Security,&quot; toggle
+   813→                          &quot;Block All Cookies&quot; on or off
+   814→                        </li>
+   815→                        <li>
+   816→                          Tap &quot;Advanced&quot; → &quot;Website Data&quot; to
+   817→                          manage stored data
+   818→                        </li>
+   819→                      </ol>
+   820→                    </div>
+   821→
+   822→                    {/* Edge */}
+   823→                    <div className="rounded-lg border border-border p-4 sm:p-5">
+   824→                      <h4 className="font-semibold text-foreground mb-2">
+   825→                        Microsoft Edge
+   826→                      </h4>
+   827→                      <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground">
+   828→                        <li>
+   829→                          Click the three-dot menu in the top-right corner and
+   830→                          select &quot;Settings&quot;
+   831→                        </li>
+   832→                        <li>
+   833→                          Click &quot;Cookies and site permissions&quot; in the
+   834→                          left sidebar
+   835→                        </li>
+   836→                        <li>
+   837→                          Click &quot;Manage and delete cookies and site
+   838→                          data&quot;
+   839→                        </li>
+   840→                        <li>
+   841→                          Configure your preferences for cookies and third-party
+   842→                          cookies
+   843→                        </li>
+   844→                      </ol>
+   845→                    </div>
+   846→                  </div>
+   847→
+   848→                  {/* What happens if you disable cookies */}
+   849→                  <h3 className="text-lg font-semibold text-foreground pt-4">
+   850→                    What Happens If You Disable Cookies
+   851→                  </h3>
+   852→                  <p>
+   853→                    If you choose to disable all cookies, please note the
+   854→                    following:
+   855→                  </p>
+   856→                  <ul className="space-y-2 ml-4">
+   857→                    <li className="flex items-start gap-2">
+   858→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   859→                      <span>
+   860→                        The core functionality of Background Remover (removing
+   861→                        backgrounds from images) will continue to work normally,
+   862→                        as it does not depend on cookies.
+   863→                      </span>
+   864→                    </li>
+   865→                    <li className="flex items-start gap-2">
+   866→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   867→                      <span>
+   868→                        Our cookie consent banner will appear each time you visit
+   869→                        the website, since we will not be able to remember your
+   870→                        previous consent choice.
+   871→                      </span>
+   872→                    </li>
+   873→                    <li className="flex items-start gap-2">
+   874→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   875→                      <span>
+   876→                        You will need to indicate your consent preference on
+   877→                        every visit, which may be inconvenient.
+   878→                      </span>
+   879→                    </li>
+   880→                  </ul>
+   881→                  <div className="rounded-lg border border-border bg-muted/30 p-4 sm:p-5 my-4">
+   882→                    <p className="text-sm text-muted-foreground leading-relaxed">
+   883→                      <strong className="text-foreground">Important:</strong>{" "}
+   884→                      Disabling cookies in your browser does not delete cookies
+   885→                      that have already been set. To remove existing cookies, you
+   886→                      must delete them manually through your browser settings or
+   887→                      clear your browsing data.
+   888→                    </p>
+   889→                  </div>
+   890→                </div>
+   891→              </section>
+   892→
+   893→              {/* 8. Cookie Consent */}
+   894→              <section id="cookie-consent" className="scroll-mt-20">
+   895→                <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+   896→                  <span className="text-emerald-500 font-mono text-lg">8.</span>
+   897→                  Cookie Consent
+   898→                </h2>
+   899→                <div className="space-y-4 text-muted-foreground leading-relaxed">
+   900→                  <p>
+   901→                    In accordance with the EU Cookie Directive, ePrivacy
+   902→                    Directive, and GDPR, we obtain your consent before placing
+   903→                    any non-essential cookies on your device.
+   904→                  </p>
+   905→                  <p>
+   906→                    Our cookie consent mechanism works as follows:
+   907→                  </p>
+   908→                  <ol className="list-decimal list-inside space-y-2 ml-4">
+   909→                    <li>
+   910→                      When you first visit our website, a cookie consent banner
+   911→                      is displayed at the bottom of the screen.
+   912→                    </li>
+   913→                    <li>
+   914→                      The banner provides clear information about the cookies we
+   915→                      use and their purposes.
+   916→                    </li>
+   917→                    <li>
+   918→                      You can choose to &quot;Accept&quot; or &quot;Reject&quot;
+   919→                      non-essential cookies using the buttons provided.
+   920→                    </li>
+   921→                    <li>
+   922→                      Your choice is stored in the <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">cookie_consent</code> cookie
+   923→                      so that we can honor your preference on future visits.
+   924→                    </li>
+   925→                    <li>
+   926→                      You can change your consent preference at any time by
+   927→                      clearing the <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">cookie_consent</code> cookie, which
+   928→                      will cause the banner to reappear.
+   929→                    </li>
+   930→                  </ol>
+   931→                  <p>
+   932→                    Because we only use one essential cookie (the consent
+   933→                    preference cookie itself), accepting or rejecting
+   934→                    non-essential cookies has no practical difference in terms of
+   935→                    additional cookies being placed — we never place
+   936→                    non-essential cookies regardless. However, the consent
+   937→                    mechanism ensures we comply with legal requirements and
+   938→                    respect your right to be informed.
+   939→                  </p>
+   940→                  <div className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-4 sm:p-5 my-4">
+   941→                    <p className="text-sm text-emerald-700 leading-relaxed">
+   942→                      <strong>Your Rights Under GDPR:</strong> Under the General
+   943→                      Data Protection Regulation, you have the right to withdraw
+   944→                      your consent at any time. Withdrawing consent does not
+   945→                      affect the lawfulness of processing based on consent before
+   946→                      its withdrawal. To withdraw consent, simply clear the
+   947→                      cookie_consent cookie in your browser settings and then
+   948→                      reject cookies when the banner reappears.
+   949→                    </p>
+   950→                  </div>
+   951→                  <div className="rounded-lg border border-border bg-muted/30 p-4 sm:p-5 my-4">
+   952→                    <p className="text-sm text-muted-foreground leading-relaxed">
+   953→                      <strong className="text-foreground">Your Rights Under CCPA:</strong>{" "}
+   954→                      Under the California Consumer Privacy Act (as amended by
+   955→                      the CPRA), California residents have the right to opt out of
+   956→                      the &quot;sale&quot; or &quot;sharing&quot; of their
+   957→                      personal information. Because we do not use any tracking,
+   958→                      advertising, or analytics cookies, and we do not sell or
+   959→                      share your personal information with third parties, there is
+   960→                      nothing for you to opt out of. However, if you wish to
+   961→                      exercise any of your CCPA rights, please contact us at the
+   962→                      email address listed below.
+   963→                    </p>
+   964→                  </div>
+   965→                </div>
+   966→              </section>
+   967→
+   968→              {/* 9. Changes to Cookie Policy */}
+   969→              <section id="changes-to-cookie-policy" className="scroll-mt-20">
+   970→                <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+   971→                  <span className="text-emerald-500 font-mono text-lg">9.</span>
+   972→                  Changes to This Cookie Policy
+   973→                </h2>
+   974→                <div className="space-y-4 text-muted-foreground leading-relaxed">
+   975→                  <p>
+   976→                    We may update this Cookie Policy from time to time to reflect
+   977→                    changes in our practices, technology, legal requirements, or
+   978→                    other factors. When we make changes, we will:
+   979→                  </p>
+   980→                  <ul className="space-y-2 ml-4">
+   981→                    <li className="flex items-start gap-2">
+   982→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   983→                      <span>
+   984→                        Update the &quot;Last updated&quot; date at the top of
+   985→                        this page.
+   986→                      </span>
+   987→                    </li>
+   988→                    <li className="flex items-start gap-2">
+   989→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   990→                      <span>
+   991→                        If the changes are significant, display a prominent
+   992→                        notice on our website informing you of the update.
+   993→                      </span>
+   994→                    </li>
+   995→                    <li className="flex items-start gap-2">
+   996→                      <span className="text-emerald-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+   997→                      <span>
+   998→                        Obtain new consent from you if the changes involve
+   999→                        introducing new categories of cookies that require
+  1000→                        consent.
+  1001→                      </span>
+  1002→                    </li>
+  1003→                  </ul>
+  1004→                  <p>
+  1005→                    We encourage you to review this Cookie Policy periodically to
+  1006→                    stay informed about how we use cookies. Your continued use of
+  1007→                    our website after any changes constitutes your acceptance of
+  1008→                    the updated policy, subject to your consent preferences.
+  1009→                  </p>
+  1010→                </div>
+  1011→              </section>
+  1012→
+  1013→              {/* 10. Contact */}
+  1014→              <section id="contact" className="scroll-mt-20">
+  1015→                <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+  1016→                  <span className="text-emerald-500 font-mono text-lg">
+  1017→                    10.
+  1018→                  </span>
+  1019→                  Contact Us
+  1020→                </h2>
+  1021→                <div className="space-y-4 text-muted-foreground leading-relaxed">
+  1022→                  <p>
+  1023→                    If you have any questions, concerns, or requests regarding
+  1024→                    this Cookie Policy or our use of cookies, please contact us:
+  1025→                  </p>
+  1026→                  <div className="rounded-xl border border-border bg-muted/30 p-5 sm:p-6">
+  1027→                    <div className="space-y-3">
+  1028→                      <div className="flex items-center gap-3">
+  1029→                        <Mail className="h-5 w-5 text-emerald-500 shrink-0" />
+  1030→                        <div>
+  1031→                          <p className="text-sm text-muted-foreground">
+  1032→                            Email
+  1033→                          </p>
+  1034→                          <a
+  1035→                            href={`mailto:${CONTACT_EMAIL}`}
+  1036→                            className="text-foreground hover:text-emerald-600 transition-colors font-medium"
+  1037→                          >
+  1038→                            {CONTACT_EMAIL}
+  1039→                          </a>
+  1040→                        </div>
+  1041→                      </div>
+  1042→                      <div className="border-t border-border pt-3">
+  1043→                        <p className="text-sm text-muted-foreground">
+  1044→                          We will respond to your request within 30 days, or
+  1045→                          sooner where required by applicable law. For GDPR
+  1046→                          requests, we will respond without undue delay and no
+  1047→                          later than one month from receipt of your request. For
+  1048→                          CCPA requests, we will respond within 45 days, with a
+  1049→                          possible 45-day extension where reasonably necessary.
+  1050→                        </p>
+  1051→                      </div>
+  1052→                    </div>
+  1053→                  </div>
+  1054→                  <p>
+  1055→                    You also have the right to lodge a complaint with a data
+  1056→                    protection supervisory authority in your jurisdiction if you
+  1057→                    believe that our use of cookies violates applicable data
+  1058→                    protection laws. In the EU, you can contact your national
+  1059→                    Data Protection Authority. In the UK, you can contact the
+  1060→                    Information Commissioner&apos;s Office (ICO). In California,
+  1061→                    you can contact the California Privacy Protection Agency
+  1062→                    (CPPA).
+  1063→                  </p>
+  1064→                </div>
+  1065→              </section>
+  1066→            </div>
+  1067→
+  1068→            {/* ─── Bottom Navigation ────────────────────────────────── */}
+  1069→            <div className="mt-12 pt-8 border-t border-border">
+  1070→              <Link
+  1071→                href="/"
+  1072→                className="inline-flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors group"
+  1073→              >
+  1074→                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+  1075→                <span>Back to Background Remover</span>
+  1076→              </Link>
+  1077→            </div>
+  1078→          </div>
+  1079→        </main>
+  1080→
+  1081→        {/* ─── Footer ────────────────────────────────────────────── */}
+  1082→        <footer className="border-t border-border bg-muted/30 mt-auto">
+  1083→          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  1084→            <p className="text-sm text-muted-foreground text-center">
+  1085→              &copy; {new Date().getFullYear()} Background Remover. All rights
+  1086→              reserved.{" "}
+  1087→              <Link
+  1088→                href="/"
+  1089→                className="text-emerald-600 hover:text-emerald-700 transition-colors"
+  1090→              >
+  1091→                backgroundremover.app
+  1092→              </Link>
+  1093→            </p>
+  1094→          </div>
+  1095→        </footer>
+  1096→      </div>
+  1097→    </>
+  1098→  );
+  1099→}
+  1100→

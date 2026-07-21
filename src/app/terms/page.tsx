@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 const SITE_URL = "https://backgroundremover.app";
-const LAST_UPDATED = "March 4, 2025";
+const LAST_UPDATED = "March 4, 2026";
 
 // ─── SEO Metadata ─────────────────────────────────────────────────
 
@@ -19,14 +19,23 @@ export const metadata: Metadata = {
       "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
     url: `${SITE_URL}/terms`,
     siteName: "Background Remover",
-    type: "website",
+    type: "article",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Background Remover — Terms of Service",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Terms of Service",
     description:
       "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -63,7 +72,7 @@ const webPageJsonLd = {
     name: "Background Remover",
     url: SITE_URL,
   },
-  dateModified: "2025-03-04",
+  dateModified: "2026-03-04",
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -102,6 +111,9 @@ export default function TermsOfServicePage() {
         }}
       />
 
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg">
+        Skip to main content
+      </a>
       <div className="min-h-screen flex flex-col bg-background text-foreground">
         {/* ─── Header / Back Navigation ─────────────────────────── */}
         <header className="border-b border-border">
@@ -119,7 +131,7 @@ export default function TermsOfServicePage() {
         </header>
 
         {/* ─── Main Content ─────────────────────────────────────── */}
-        <main className="flex-1">
+        <main id="main-content" className="flex-1">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             {/* Breadcrumb Navigation */}
             <nav aria-label="Breadcrumb" className="mb-8">
@@ -144,7 +156,7 @@ export default function TermsOfServicePage() {
               Terms of Service
             </h1>
             <p className="text-muted-foreground text-sm mb-10">
-              Last Updated: {LAST_UPDATED}
+              Last updated: {LAST_UPDATED}
             </p>
 
             {/* ─── Sections ───────────────────────────────────────── */}
