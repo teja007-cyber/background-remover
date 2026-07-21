@@ -446,6 +446,86 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
       <Toaster position="top-center" richColors closeButton />
 
+      {/* Organization Structured Data — homepage only */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Background Remover",
+            url: "https://backgroundremover.app",
+            logo: "https://backgroundremover.app/logo.svg",
+            description: "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation, batch processing, and zero data retention.",
+            contactPoint: {
+              "@type": "ContactPoint",
+              contactType: "customer support",
+              email: "support@backgroundremover.app",
+            },
+          }),
+        }}
+      />
+
+      {/* WebSite with SearchAction — homepage only */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Background Remover",
+            url: "https://backgroundremover.app",
+            description: "Free AI background removal tool — remove image backgrounds instantly with no signup, no watermarks, and full subject preservation.",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: {
+                "@type": "EntryPoint",
+                urlTemplate: "https://backgroundremover.app/?q={search_term_string}",
+              },
+              "query-input": "required name=search_term_string",
+            },
+          }),
+        }}
+      />
+
+      {/* BreadcrumbList — homepage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://backgroundremover.app",
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* WebPage — homepage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Background Remover — Free AI Tool to Remove BG Instantly",
+            description: "Remove image backgrounds instantly with our free AI background remover. No signup, no watermarks. Full subject preserved, batch processing.",
+            url: "https://backgroundremover.app",
+            isPartOf: {
+              "@type": "WebSite",
+              name: "Background Remover",
+              url: "https://backgroundremover.app",
+            },
+          }),
+        }}
+      />
+
       {/* Homepage-only Structured Data (JSON-LD) — NOT in layout so it doesn't leak to legal pages */}
       <script
         type="application/ld+json"
@@ -468,22 +548,15 @@ export default function Home() {
               "AI background removal",
               "Full subject preservation with edge padding",
               "Batch processing up to 10 images",
-              "Free to use — no limits",
+              "Free to use — no account required",
               "No signup required",
               "Supports PNG, JPG, WebP input",
               "Transparent PNG output",
-              "Privacy-first — images never stored",
+              "Privacy-first — images not retained after processing",
               "Instant processing",
               "Works on any device",
             ],
             screenshot: "https://backgroundremover.app/og-image.png",
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "4.9",
-              ratingCount: "2847",
-              bestRating: "5",
-              worstRating: "1",
-            },
           }),
         }}
       />
@@ -1476,9 +1549,9 @@ export default function Home() {
             <div>
               <div className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3" aria-label="Info" role="heading" aria-level={2}>Info</div>
               <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
-                <li>100% Free — No Limits</li>
+                <li>100% Free — No Account Needed</li>
                 <li>No Signup Required</li>
-                <li>Privacy First — Never Stored</li>
+                <li>Privacy First — Not Stored After Processing</li>
                 <li>Works on Any Device</li>
               </ul>
             </div>
@@ -1517,7 +1590,7 @@ export default function Home() {
               </Link>
               <span className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
                 <ShieldCheck className="h-3 w-3" aria-hidden="true" />
-                Images processed securely &amp; never stored
+                Images processed securely &amp; not retained
               </span>
             </div>
           </div>

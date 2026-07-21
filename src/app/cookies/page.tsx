@@ -23,6 +23,29 @@ export const metadata: Metadata = {
   title: "Cookie Policy",
   description:
     "Cookie Policy for Background Remover — we use minimal essential cookies only. No tracking, no analytics cookies. Learn more about our privacy-first approach.",
+  keywords: [
+    "cookie policy",
+    "background remover cookies",
+    "essential cookies",
+    "no tracking cookies",
+    "privacy-first cookies",
+    "cookie consent",
+    "cookie management",
+  ],
+  authors: [{ name: "Background Remover", url: SITE_URL }],
+  creator: "Background Remover",
+  publisher: "Background Remover",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   alternates: {
     canonical: "https://backgroundremover.app/cookies",
   },
@@ -32,7 +55,7 @@ export const metadata: Metadata = {
       "Cookie Policy for Background Remover — we use minimal essential cookies only. No tracking, no analytics cookies. Learn more about our privacy-first approach.",
     url: "https://backgroundremover.app/cookies",
     siteName: "Background Remover",
-    type: "article",
+    type: "website",
     locale: "en_US",
     images: [
       {
@@ -47,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Cookie Policy | Background Remover",
     description:
-      "Cookie Policy for Background Remover — minimal essential cookies only. No tracking, no analytics. Privacy-first.",
+      "Cookie Policy for Background Remover — we use minimal essential cookies only. No tracking, no analytics cookies. Privacy-first.",
     images: ["/og-image.png"],
   },
 };
@@ -115,11 +138,11 @@ const webPageJsonLd = {
 
 const cookiesWeUse = [
   {
-    name: "cookie_consent",
-    purpose: "Stores your cookie consent preference (accepted/rejected)",
+    name: "bg-remover-cookie-consent",
+    purpose: "Stores your cookie consent preference (acknowledged/dismissed) using browser localStorage",
     type: "Essential / Strictly Necessary",
-    duration: "1 year from the date of consent",
-    category: "First-Party",
+    duration: "Persistent until you clear browser data or manually remove it",
+    category: "First-Party (localStorage)",
   },
 ];
 
@@ -212,7 +235,7 @@ export default function CookiePolicyPage() {
               {/* 1. Introduction */}
               <section id="introduction" className="scroll-mt-20">
                 <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
-                  <span className="text-emerald-500 font-mono text-lg">1.</span>
+                  <span className="text-emerald-500 font-mono text-lg">1.</span>{' '}
                   Introduction
                 </h2>
                 <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -607,9 +630,9 @@ export default function CookiePolicyPage() {
                   </p>
                   <p>
                     When you visit our website for the first time, a cookie
-                    consent banner is displayed. Once you indicate your consent
-                    choice (accept or reject non-essential cookies), we store
-                    that preference in the <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">cookie_consent</code> cookie. This
+                    consent banner is displayed. Once you acknowledge the
+                    banner, we store your preference in browser localStorage
+                    under the key <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">bg-remover-cookie-consent</code>. This
                     ensures that:
                   </p>
                   <ul className="space-y-2 ml-4">
@@ -722,7 +745,7 @@ export default function CookiePolicyPage() {
                     When you first visit our website, a cookie consent banner is
                     displayed. You can accept or reject non-essential cookies
                     through this banner. You can also change your preference at
-                    any time by clearing the <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">cookie_consent</code> cookie from
+                    any time by clearing the <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">bg-remover-cookie-consent</code> localStorage entry from
                     your browser, which will cause the banner to reappear on your
                     next visit.
                   </p>
@@ -930,16 +953,19 @@ export default function CookiePolicyPage() {
                       use and their purposes.
                     </li>
                     <li>
-                      You can choose to &quot;Accept&quot; or &quot;Reject&quot;
-                      non-essential cookies using the buttons provided.
+                      You can acknowledge the banner by clicking
+                      &quot;Got it,&quot; which dismisses it and stores your
+                      preference. Since we only use essential localStorage,
+                      there are no non-essential cookies to accept or reject.
                     </li>
                     <li>
-                      Your choice is stored in the <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">cookie_consent</code> cookie
+                      Your choice is stored in browser localStorage under
+                      the key <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">bg-remover-cookie-consent</code>
                       so that we can honor your preference on future visits.
                     </li>
                     <li>
                       You can change your consent preference at any time by
-                      clearing the <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">cookie_consent</code> cookie, which
+                      clearing the <code className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">bg-remover-cookie-consent</code> localStorage entry, which
                       will cause the banner to reappear.
                     </li>
                   </ol>
@@ -959,7 +985,8 @@ export default function CookiePolicyPage() {
                       your consent at any time. Withdrawing consent does not
                       affect the lawfulness of processing based on consent before
                       its withdrawal. To withdraw consent, simply clear the
-                      cookie_consent cookie in your browser settings and then
+                      bg-remover-cookie-consent entry in your browser&apos;s localStorage
+                      (via Developer Tools → Application → Local Storage) and then
                       reject cookies when the banner reappears.
                     </p>
                   </div>
@@ -1096,9 +1123,15 @@ export default function CookiePolicyPage() {
         {/* ─── Footer ────────────────────────────────────────────── */}
         <footer className="border-t border-border bg-muted/30 mt-auto">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <p className="text-sm text-muted-foreground text-center">
-              &copy; {new Date().getFullYear()} Background Remover. All rights
-              reserved.{" "}
+            <nav aria-label="Footer navigation" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+              <Link href="/privacy" className="hover:text-emerald-600 transition-colors">Privacy Policy</Link>
+              <span aria-hidden="true">·</span>
+              <Link href="/terms" className="hover:text-emerald-600 transition-colors">Terms of Service</Link>
+              <span aria-hidden="true">·</span>
+              <Link href="/dmca" className="hover:text-emerald-600 transition-colors">DMCA</Link>
+            </nav>
+            <p className="mt-3 text-center text-sm text-muted-foreground">
+              &copy; {new Date().getFullYear()} Background Remover. All rights reserved.{" "}
               <Link
                 href="/"
                 className="text-emerald-600 hover:text-emerald-700 transition-colors"

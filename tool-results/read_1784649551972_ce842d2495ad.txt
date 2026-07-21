@@ -1,0 +1,502 @@
+   460→            operatingSystem: "All",
+   461→            browserRequirements: "Requires JavaScript. Requires HTML5.",
+   462→            offers: {
+   463→              "@type": "Offer",
+   464→              price: "0",
+   465→              priceCurrency: "USD",
+   466→            },
+   467→            featureList: [
+   468→              "AI background removal",
+   469→              "Full subject preservation with edge padding",
+   470→              "Batch processing up to 10 images",
+   471→              "Free to use — no limits",
+   472→              "No signup required",
+   473→              "Supports PNG, JPG, WebP input",
+   474→              "Transparent PNG output",
+   475→              "Privacy-first — images never stored",
+   476→              "Instant processing",
+   477→              "Works on any device",
+   478→            ],
+   479→            screenshot: "https://backgroundremover.app/og-image.png",
+   480→            aggregateRating: {
+   481→              "@type": "AggregateRating",
+   482→              ratingValue: "4.9",
+   483→              ratingCount: "2847",
+   484→              bestRating: "5",
+   485→              worstRating: "1",
+   486→            },
+   487→          }),
+   488→        }}
+   489→      />
+   490→      <script
+   491→        type="application/ld+json"
+   492→        dangerouslySetInnerHTML={{
+   493→          __html: JSON.stringify({
+   494→            "@context": "https://schema.org",
+   495→            "@type": "HowTo",
+   496→            name: "How to Remove a Background from Any Image",
+   497→            description: "Remove image backgrounds instantly using AI. Upload your image, let AI do the work, and download your transparent PNG.",
+   498→            step: [
+   499→              {
+   500→                "@type": "HowToStep",
+   501→                position: 1,
+   502→                name: "Upload Your Image",
+   503→                text: "Drag and drop, click to browse, or select multiple files for batch processing. We support PNG, JPG, and WebP.",
+   504→              },
+   505→              {
+   506→                "@type": "HowToStep",
+   507→                position: 2,
+   508→                name: "AI Does the Work",
+   509→                text: "Our AI precisely identifies the subject and removes the background. Edge-padding technology ensures nothing gets cut off.",
+   510→              },
+   511→              {
+   512→                "@type": "HowToStep",
+   513→                position: 3,
+   514→                name: "Download and Use",
+   515→                text: "Get a crisp transparent PNG instantly. Use it for e-commerce, design projects, presentations, or social media.",
+   516→              },
+   517→            ],
+   518→          }),
+   519→        }}
+   520→      />
+   521→      <script
+   522→        type="application/ld+json"
+   523→        dangerouslySetInnerHTML={{
+   524→          __html: JSON.stringify({
+   525→            "@context": "https://schema.org",
+   526→            "@type": "FAQPage",
+   527→            mainEntity: [
+   528→              {
+   529→                "@type": "Question",
+   530→                name: "Is Background Remover really free?",
+   531→                acceptedAnswer: {
+   532→                  "@type": "Answer",
+   533→                  text: "Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone.",
+   534→                },
+   535→              },
+   536→              {
+   537→                "@type": "Question",
+   538→                name: "What image formats are supported?",
+   539→                acceptedAnswer: {
+   540→                  "@type": "Answer",
+   541→                  text: "Background Remover supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG.",
+   542→                },
+   543→              },
+   544→              {
+   545→                "@type": "Question",
+   546→                name: "Are my images stored on your servers?",
+   547→                acceptedAnswer: {
+   548→                  "@type": "Answer",
+   549→                  text: "No. Your images are processed in real-time and immediately deleted from our servers. We never store, share, or analyze your uploads.",
+   550→                },
+   551→              },
+   552→              {
+   553→                "@type": "Question",
+   554→                name: "Why does the full subject get preserved?",
+   555→                acceptedAnswer: {
+   556→                  "@type": "Answer",
+   557→                  text: "We use advanced AI padding technology that gives the model context beyond image edges, preventing any cutoff. Combined with alpha matting and edge recovery, your subject stays intact.",
+   558→                },
+   559→              },
+   560→              {
+   561→                "@type": "Question",
+   562→                name: "How many images can I process at once?",
+   563→                acceptedAnswer: {
+   564→                  "@type": "Answer",
+   565→                  text: "You can process up to 10 images simultaneously in Batch Mode. Each image is processed sequentially to ensure quality.",
+   566→                },
+   567→              },
+   568→              {
+   569→                "@type": "Question",
+   570→                name: "What is the maximum file size?",
+   571→                acceptedAnswer: {
+   572→                  "@type": "Answer",
+   573→                  text: "Each image can be up to 10MB. For best results, we recommend images under 2MB for faster processing.",
+   574→                },
+   575→              },
+   576→              {
+   577→                "@type": "Question",
+   578→                name: "Does Background Remover work on mobile devices?",
+   579→                acceptedAnswer: {
+   580→                  "@type": "Answer",
+   581→                  text: "Yes! Background Remover is fully responsive and works on any device — phones, tablets, and desktops.",
+   582→                },
+   583→              },
+   584→              {
+   585→                "@type": "Question",
+   586→                name: "Can I use the processed images commercially?",
+   587→                acceptedAnswer: {
+   588→                  "@type": "Answer",
+   589→                  text: "Absolutely. The output images are yours. Use them for e-commerce, design, presentations, social media — anything.",
+   590→                },
+   591→              },
+   592→            ],
+   593→          }),
+   594→        }}
+   595→      />
+   596→
+   597→      {/* Skip link */}
+   598→      <a
+   599→        href="#main-content"
+   600→        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg"
+   601→      >
+   602→        Skip to main content
+   603→      </a>
+   604→
+   605→      {/* ─── Header ───────────────────────────────────────────── */}
+   606→      <header role="banner" className="sticky top-0 z-50 w-full border-b border-slate-200/60 dark:border-slate-800/60 bg-white/80 backdrop-blur-lg dark:bg-slate-950/80">
+   607→        <nav className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+   608→          <motion.div
+   609→            className="flex items-center gap-2.5"
+   610→            initial={{ opacity: 0, x: -20 }}
+   611→            animate={{ opacity: 1, x: 0 }}
+   612→            transition={{ duration: 0.4 }}
+   613→          >
+   614→            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-sm" aria-hidden="true">
+   615→              <Eraser className="h-4.5 w-4.5" />
+   616→            </div>
+   617→            <div>
+   618→              <div className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-50 leading-none">
+   619→                Background Remover
+   620→              </div>
+   621→              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-none mt-0.5">
+   622→                AI Background Remover
+   623→              </p>
+   624→            </div>
+   625→          </motion.div>
+   626→
+   627→          <div className="flex items-center gap-3">
+   628→            <Badge variant="secondary" className="hidden sm:flex gap-1.5 px-2.5 py-0.5 text-xs">
+   629→              <Sparkles className="h-3 w-3 text-emerald-600" aria-hidden="true" />
+   630→              Free &amp; Private
+   631→            </Badge>
+   632→            <Button onClick={scrollToTool} size="sm" className="gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm hidden sm:flex">
+   633→              <Scissors className="h-3.5 w-3.5" aria-hidden="true" />
+   634→              Try Now
+   635→            </Button>
+   636→          </div>
+   637→        </nav>
+   638→      </header>
+   639→
+   640→      <main id="main-content" role="main">
+   641→
+   642→        {/* ─── Hero Section ───────────────────────────────────── */}
+   643→        <section aria-label="Hero" className="relative overflow-hidden">
+   644→          {/* Background decoration */}
+   645→          <div className="absolute inset-0 -z-10">
+   646→            <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-100 dark:bg-emerald-900/20 rounded-full blur-3xl opacity-50" />
+   647→            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-teal-100 dark:bg-teal-900/20 rounded-full blur-3xl opacity-40" />
+   648→          </div>
+   649→
+   650→          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-16 sm:pb-20">
+   651→            <motion.div
+   652→              className="max-w-3xl mx-auto text-center"
+   653→              initial={{ opacity: 0, y: 30 }}
+   654→              animate={{ opacity: 1, y: 0 }}
+   655→              transition={{ duration: 0.6 }}
+   656→            >
+   657→              {/* Badge */}
+   658→              <motion.div
+   659→                className="inline-flex items-center gap-2 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 px-4 py-1.5 mb-6"
+   660→                initial={{ opacity: 0, scale: 0.9 }}
+   661→                animate={{ opacity: 1, scale: 1 }}
+   662→                transition={{ delay: 0.1 }}
+   663→              >
+   664→                <Sparkles className="h-3.5 w-3.5 text-emerald-600" aria-hidden="true" />
+   665→                <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">AI-Powered · 100% Free · No Signup</span>
+   666→              </motion.div>
+   667→
+   668→              {/* Heading — h1, the only h1 on the page */}
+   669→              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-5 leading-[1.1]">
+   670→                Remove Any Background{' '}
+   671→                <span className="text-emerald-600 dark:text-emerald-400">in Seconds</span>
+   672→              </h1>
+   673→
+   674→              {/* Subheading */}
+   675→              <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+   676→                Upload any image — our AI precisely removes the background while
+   677→                preserving every detail of your subject. Nothing gets cut off.
+   678→              </p>
+   679→
+   680→              {/* CTA buttons */}
+   681→              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+   682→                <Button
+   683→                  onClick={scrollToTool}
+   684→                  size="lg"
+   685→                  className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/25 min-w-[220px] h-12 text-base"
+   686→                >
+   687→                  <Scissors className="h-5 w-5" aria-hidden="true" />
+   688→                  Remove Background
+   689→                  <ArrowRight className="h-4 w-4 ml-1" aria-hidden="true" />
+   690→                </Button>
+   691→                <Button
+   692→                  variant="outline"
+   693→                  size="lg"
+   694→                  className="gap-2 min-w-[180px] h-12 text-base border-slate-300 dark:border-slate-700"
+   695→                  onClick={() => {
+   696→                    setMode('batch')
+   697→                    setTimeout(scrollToTool, 100)
+   698→                  }}
+   699→                >
+   700→                  <Layers className="h-5 w-5" aria-hidden="true" />
+   701→                  Batch Mode
+   702→                </Button>
+   703→              </div>
+   704→
+   705→              {/* Trust signals */}
+   706→              <div className="flex flex-wrap items-center justify-center gap-6 mt-10 text-sm text-slate-500 dark:text-slate-400">
+   707→                <span className="flex items-center gap-1.5">
+   708→                  <ShieldCheck className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+   709→                  Privacy First
+   710→                </span>
+   711→                <span className="flex items-center gap-1.5">
+   712→                  <Zap className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+   713→                  Instant Results
+   714→                </span>
+   715→                <span className="flex items-center gap-1.5">
+   716→                  <Eye className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+   717→                  Full Subject Preserved
+   718→                </span>
+   719→              </div>
+   720→            </motion.div>
+   721→          </div>
+   722→        </section>
+   723→
+   724→        {/* ─── Tool Section ───────────────────────────────────── */}
+   725→        <section ref={toolRef} aria-label="Background removal tool" className="bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
+   726→          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+   727→
+   728→            {/* Section header */}
+   729→            <div className="text-center mb-8">
+   730→              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-50 mb-2">
+   731→                Start Removing Backgrounds
+   732→              </h2>
+   733→              <p className="text-slate-500 dark:text-slate-400">
+   734→                Single image or batch — your choice.
+   735→              </p>
+   736→            </div>
+   737→
+   738→            {/* Mode Tabs */}
+   739→            <div className="mb-8">
+   740→              <Tabs value={mode} onValueChange={(v) => setMode(v as AppMode)} className="w-full">
+   741→                <TabsList className="grid w-full grid-cols-2 max-w-sm mx-auto">
+   742→                  <TabsTrigger value="single" className="gap-2">
+   743→                    <ImageIcon className="h-4 w-4" aria-hidden="true" />
+   744→                    Single Image
+   745→                  </TabsTrigger>
+   746→                  <TabsTrigger value="batch" className="gap-2">
+   747→                    <Layers className="h-4 w-4" aria-hidden="true" />
+   748→                    Batch Process
+   749→                  </TabsTrigger>
+   750→                </TabsList>
+   751→              </Tabs>
+   752→            </div>
+   753→
+   754→            <AnimatePresence mode="wait">
+   755→              {/* ═══════════════════ SINGLE MODE ═══════════════════ */}
+   756→              {mode === 'single' && (
+   757→                <motion.div key="single-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+   758→
+   759→                  {singleState === 'idle' && (
+   760→                    <motion.div key="upload" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }} className="mx-auto max-w-2xl">
+   761→                      <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800">
+   762→                        <CardContent className="p-0">
+   763→                          <div
+   764→                            onClick={handleSingleClick}
+   765→                            onDrop={handleSingleDrop}
+   766→                            onDragOver={handleSingleDragOver}
+   767→                            onDragLeave={handleSingleDragLeave}
+   768→                            role="button"
+   769→                            tabIndex={0}
+   770→                            aria-label="Upload image: click or drag and drop"
+   771→                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSingleClick() } }}
+   772→                            className={`
+   773→                              relative cursor-pointer transition-all duration-300 ease-in-out
+   774→                              border-2 border-dashed rounded-lg m-6 p-8 sm:p-12
+   775→                              flex flex-col items-center justify-center gap-4
+   776→                              min-h-[280px] sm:min-h-[320px]
+   777→                              focus-visible:outline-2 focus-visible:outline-emerald-500 focus-visible:outline-offset-2
+   778→                              ${isDragging
+   779→                                ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 scale-[1.02]'
+   780→                                : 'border-slate-300 dark:border-slate-700 hover:border-emerald-400 hover:bg-slate-50 dark:hover:bg-slate-900/50'
+   781→                              }
+   782→                            `}
+   783→                          >
+   784→                            <motion.div
+   785→                              className={`flex h-16 w-16 items-center justify-center rounded-2xl transition-colors duration-300 ${
+   786→                                isDragging ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
+   787→                              }`}
+   788→                              aria-hidden="true"
+   789→                              animate={isDragging ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
+   790→                              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+   791→                            >
+   792→                              <Upload className="h-7 w-7" />
+   793→                            </motion.div>
+   794→                            <div className="text-center space-y-1.5">
+   795→                              <p className="text-lg font-semibold text-slate-700 dark:text-slate-200">
+   796→                                {isDragging ? 'Drop your image here' : 'Drop your image here or click to browse'}
+   797→                              </p>
+   798→                              <p className="text-sm text-slate-500 dark:text-slate-400">
+   799→                                Select an image file from your device
+   800→                              </p>
+   801→                            </div>
+   802→                            <div className="flex flex-wrap items-center justify-center gap-1.5 mt-2">
+   803→                              {['PNG', 'JPG', 'JPEG', 'WebP'].map((fmt) => (
+   804→                                <Badge key={fmt} variant="outline" className="text-xs font-mono text-slate-500 border-slate-200 dark:border-slate-700">{fmt}</Badge>
+   805→                              ))}
+   806→                            </div>
+   807→                            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Max 10MB per image</p>
+   808→                            <input ref={fileInputRef} type="file" accept=".png,.jpg,.jpeg,.webp" onChange={handleSingleInputChange} className="hidden" aria-label="Upload image file" />
+   809→                          </div>
+   810→                        </CardContent>
+   811→                      </Card>
+   812→                    </motion.div>
+   813→                  )}
+   814→
+   815→                  {singleState === 'processing' && (
+   816→                    <motion.div key="processing" aria-live="polite" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }} className="mx-auto max-w-2xl">
+   817→                      <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800">
+   818→                        <CardHeader className="pb-2">
+   819→                          <CardTitle className="text-lg text-slate-900 dark:text-slate-50 flex items-center gap-2">
+   820→                            <Loader2 className="h-5 w-5 text-emerald-600 animate-spin" aria-hidden="true" />
+   821→                            Processing Your Image
+   822→                          </CardTitle>
+   823→                          <CardDescription>
+   824→                            AI is removing the background from &ldquo;{fileName}&rdquo; ({formatFileSize(fileSize)})
+   825→                            {imageDimensions && ` — ${imageDimensions.w}×${imageDimensions.h}`}
+   826→                          </CardDescription>
+   827→                        </CardHeader>
+   828→                        <CardContent className="space-y-6">
+   829→                          {originalImage && (
+   830→                            <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+   831→                              <img src={originalImage} alt="Original image being processed by AI background remover" className="w-full h-auto max-h-[400px] object-contain mx-auto opacity-60" width={imageDimensions?.w} height={imageDimensions?.h} />
+   832→                              <div className="absolute inset-0 flex items-center justify-center bg-slate-900/20 dark:bg-slate-900/40">
+   833→                                <div className="flex flex-col items-center gap-3 bg-white/90 dark:bg-slate-900/90 rounded-2xl px-6 py-5 shadow-xl backdrop-blur-sm">
+   834→                                  <Loader2 className="h-10 w-10 text-emerald-600 animate-spin" aria-hidden="true" />
+   835→                                  <p className="text-sm font-medium text-slate-700 dark:text-slate-200">Removing background...</p>
+   836→                                  <p className="text-xs text-slate-500 dark:text-slate-400">Preserving full subject with clean edges</p>
+   837→                                </div>
+   838→                              </div>
+   839→                            </div>
+   840→                          )}
+   841→                          <div className="space-y-2">
+   842→                            <div className="flex items-center justify-between text-sm">
+   843→                              <span className="text-slate-600 dark:text-slate-400">Progress</span>
+   844→                              <span className="font-medium text-emerald-600 tabular-nums" aria-live="polite">{Math.round(progress)}%</span>
+   845→                            </div>
+   846→                            <Progress value={progress} className="h-2.5 bg-slate-100 dark:bg-slate-800 [&>[data-slot=progress-indicator]]:bg-emerald-600" aria-label={`Processing progress: ${Math.round(progress)}%`} />
+   847→                          </div>
+   848→                          <div className="flex justify-center">
+   849→                            <Button variant="outline" onClick={handleSingleReset} className="gap-2">
+   850→                              <RefreshCw className="h-4 w-4" aria-hidden="true" />
+   851→                              Cancel
+   852→                            </Button>
+   853→                          </div>
+   854→                        </CardContent>
+   855→                      </Card>
+   856→                    </motion.div>
+   857→                  )}
+   858→
+   859→                  {singleState === 'done' && originalImage && processedImage && (
+   860→                    <motion.div key="done" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }} className="mx-auto max-w-5xl">
+   861→                      <motion.div
+   862→                        initial={{ opacity: 0, scale: 0.95 }}
+   863→                        animate={{ opacity: 1, scale: 1 }}
+   864→                        transition={{ delay: 0.1 }}
+   865→                        className="mb-6 flex items-center gap-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 p-4"
+   866→                        role="alert"
+   867→                      >
+   868→                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-white flex-shrink-0" aria-hidden="true">
+   869→                          <CheckCircle2 className="h-4 w-4" />
+   870→                        </div>
+   871→                        <div className="flex-1 min-w-0">
+   872→                          <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-200">Background removed successfully!</p>
+   873→                          <p className="text-xs text-emerald-600 dark:text-emerald-400 truncate">
+   874→                            {fileName} &middot; {formatFileSize(fileSize)}
+   875→                            {imageDimensions && ` · ${imageDimensions.w}×${imageDimensions.h}`}
+   876→                            {processingTime > 0 && ` · ${processingTime}s`}
+   877→                          </p>
+   878→                        </div>
+   879→                      </motion.div>
+   880→
+   881→                      <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800">
+   882→                        <CardHeader className="pb-3">
+   883→                          <div className="flex items-center justify-between">
+   884→                            <CardTitle className="text-lg text-slate-900 dark:text-slate-50">Result</CardTitle>
+   885→                            <Badge variant="secondary" className="gap-1.5 text-emerald-700 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-950/40">
+   886→                              <Sparkles className="h-3 w-3" aria-hidden="true" />
+   887→                              Completed
+   888→                            </Badge>
+   889→                          </div>
+   890→                        </CardHeader>
+   891→                        <CardContent>
+   892→                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+   893→                            <div className="space-y-2">
+   894→                              <div className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+   895→                                <ImageIcon className="h-4 w-4" aria-hidden="true" />Original
+   896→                              </div>
+   897→                              <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+   898→                                <img src={originalImage} alt="Original uploaded image before background removal" className="w-full h-auto max-h-[450px] object-contain" width={imageDimensions?.w} height={imageDimensions?.h} />
+   899→                              </div>
+   900→                            </div>
+   901→                            <div className="space-y-2">
+   902→                              <div className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+   903→                                <Eraser className="h-4 w-4 text-emerald-600" aria-hidden="true" />Background Removed
+   904→                              </div>
+   905→                              <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700" style={CHECKERBOARD_BG}>
+   906→                                <img src={processedImage} alt="Image with background removed showing transparent checkerboard pattern" className="w-full h-auto max-h-[450px] object-contain" width={imageDimensions?.w} height={imageDimensions?.h} />
+   907→                              </div>
+   908→                            </div>
+   909→                          </div>
+   910→                          <Separator className="my-6" />
+   911→                          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+   912→                            <Button onClick={handleDownload} size="lg" className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-md min-w-[200px]">
+   913→                              <Download className="h-4 w-4" aria-hidden="true" />
+   914→                              Download PNG
+   915→                            </Button>
+   916→                            <Button variant="outline" onClick={handleSingleReset} size="lg" className="gap-2 min-w-[200px]">
+   917→                              <RefreshCw className="h-4 w-4" aria-hidden="true" />
+   918→                              Upload New Image
+   919→                            </Button>
+   920→                          </div>
+   921→                        </CardContent>
+   922→                      </Card>
+   923→                    </motion.div>
+   924→                  )}
+   925→
+   926→                  {singleState === 'error' && (
+   927→                    <motion.div key="error" role="alert" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }} className="mx-auto max-w-2xl">
+   928→                      <Card className="overflow-hidden shadow-lg border-red-200 dark:border-red-900">
+   929→                        <CardHeader className="pb-3">
+   930→                          <CardTitle className="text-lg text-red-700 dark:text-red-400 flex items-center gap-2">
+   931→                            <AlertTriangle className="h-5 w-5" aria-hidden="true" />
+   932→                            Processing Failed
+   933→                          </CardTitle>
+   934→                          <CardDescription>{errorMsg || "We couldn't remove the background. Please try again."}</CardDescription>
+   935→                        </CardHeader>
+   936→                        <CardContent className="space-y-4">
+   937→                          <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+   938→                            <p className="text-xs text-amber-800 dark:text-amber-200">
+   939→                              <strong>Tips:</strong> Try a clearer image with a distinct subject. Images under 2MB work best.
+   940→                            </p>
+   941→                          </div>
+   942→                          <div className="flex justify-center">
+   943→                            <Button onClick={handleSingleReset} size="lg" className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-md min-w-[200px]">
+   944→                              <RefreshCw className="h-4 w-4" aria-hidden="true" />
+   945→                              Try Again
+   946→                            </Button>
+   947→                          </div>
+   948→                        </CardContent>
+   949→                      </Card>
+   950→                    </motion.div>
+   951→                  )}
+   952→                </motion.div>
+   953→              )}
+   954→
+   955→              {/* ═══════════════════ BATCH MODE ═══════════════════ */}
+   956→              {mode === 'batch' && (
+   957→                <motion.div key="batch-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="mx-auto max-w-5xl">
+   958→                  {/* Upload Zone */}
+   959→                  <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800 mb-6">
+
+[showing lines 460-959 of 1562; use offset=960 with limit to continue reading]

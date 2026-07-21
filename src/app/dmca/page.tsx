@@ -19,6 +19,29 @@ export const metadata: Metadata = {
   title: "DMCA / Copyright Policy",
   description:
     "DMCA and copyright policy for Background Remover. Learn how to report copyright infringement or file a counter-notification.",
+  keywords: [
+    "DMCA policy",
+    "copyright policy",
+    "background remover DMCA",
+    "takedown notice",
+    "counter-notification",
+    "copyright infringement",
+    "DMCA compliance",
+  ],
+  authors: [{ name: "Background Remover", url: SITE_URL }],
+  creator: "Background Remover",
+  publisher: "Background Remover",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   alternates: {
     canonical: `${SITE_URL}/dmca`,
   },
@@ -28,14 +51,14 @@ export const metadata: Metadata = {
       "DMCA and copyright policy for Background Remover. Learn how to report copyright infringement or file a counter-notification.",
     url: `${SITE_URL}/dmca`,
     siteName: "Background Remover",
-    type: "article",
+    type: "website",
     locale: "en_US",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Background Remover — DMCA / Copyright Policy",
+        alt: "DMCA / Copyright Policy — Background Remover",
       },
     ],
   },
@@ -45,10 +68,6 @@ export const metadata: Metadata = {
     description:
       "DMCA and copyright policy for Background Remover. Learn how to report copyright infringement or file a counter-notification.",
     images: ["/og-image.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
   },
 };
 
@@ -420,8 +439,12 @@ export default function DMCAPage() {
                     <p className="font-medium text-foreground">Background Remover</p>
                     <p>Attn: DMCA Designated Agent</p>
                     <p>dmca@backgroundremover.app</p>
-                    <p className="mt-2">
-                      Our designated DMCA agent is registered with the U.S. Copyright Office as required by 17 U.S.C. § 512(c)(2).
+                    <p className="mt-2 text-xs text-muted-foreground/70">
+                      Physical mailing address and telephone number are available
+                      upon request via email, and are registered with the U.S.
+                      Copyright Office as required by 17 U.S.C. § 512(c)(2).
+                      If you require our physical address or phone number for
+                      your notice, please email us and we will provide it promptly.
                     </p>
                   </div>
                 </div>
@@ -811,8 +834,10 @@ export default function DMCAPage() {
                     <p className="font-medium text-foreground">Background Remover</p>
                     <p>Attn: DMCA Designated Agent</p>
                     <p>dmca@backgroundremover.app</p>
-                    <p className="mt-2">
-                      Our designated DMCA agent is registered with the U.S. Copyright Office as required by 17 U.S.C. § 512(c)(2).
+                    <p className="mt-2 text-xs text-muted-foreground/70">
+                      Physical mailing address and telephone number are available
+                      upon request via email, and are registered with the U.S.
+                      Copyright Office as required by 17 U.S.C. § 512(c)(2).
                     </p>
                   </div>
                   <p className="mt-3 text-xs sm:text-sm text-muted-foreground">
@@ -869,17 +894,17 @@ export default function DMCAPage() {
 
         {/* ─── Footer ────────────────────────────────────────────── */}
         <footer className="border-t border-border bg-muted/30 mt-auto">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-xs sm:text-sm text-muted-foreground">
-              &copy; {new Date().getFullYear()} Background Remover. All rights
-              reserved.
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6">
+            <nav aria-label="Footer navigation" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+              <Link href="/privacy" className="hover:text-emerald-600 transition-colors">Privacy Policy</Link>
+              <span aria-hidden="true">·</span>
+              <Link href="/terms" className="hover:text-emerald-600 transition-colors">Terms of Service</Link>
+              <span aria-hidden="true">·</span>
+              <Link href="/cookies" className="hover:text-emerald-600 transition-colors">Cookie Policy</Link>
+            </nav>
+            <p className="mt-3 text-center text-sm text-muted-foreground">
+              &copy; {new Date().getFullYear()} Background Remover. All rights reserved.
             </p>
-            <Link
-              href="/"
-              className="text-xs sm:text-sm text-emerald-600 hover:text-emerald-700 transition-colors"
-            >
-              backgroundremover.app
-            </Link>
           </div>
         </footer>
       </div>

@@ -10,29 +10,53 @@ export const metadata: Metadata = {
   title: "Terms of Service",
   description:
     "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
+  keywords: [
+    "terms of service",
+    "background remover terms",
+    "user agreement",
+    "image ownership",
+    "AI tool terms",
+    "free tool terms",
+    "background removal terms",
+    "service agreement",
+  ],
+  authors: [{ name: "Background Remover", url: SITE_URL }],
+  creator: "Background Remover",
+  publisher: "Background Remover",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   alternates: {
     canonical: `${SITE_URL}/terms`,
   },
   openGraph: {
-    title: "Terms of Service",
+    title: "Terms of Service | Background Remover",
     description:
       "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
     url: `${SITE_URL}/terms`,
     siteName: "Background Remover",
-    type: "article",
+    type: "website",
     locale: "en_US",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Background Remover — Terms of Service",
+        alt: "Terms of Service — Background Remover",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terms of Service",
+    title: "Terms of Service | Background Remover",
     description:
       "Terms of Service for Background Remover — free AI background removal tool. You retain full ownership of all images and outputs.",
     images: ["/og-image.png"],
@@ -683,18 +707,18 @@ export default function TermsOfServicePage() {
                   15. Cookies
                 </h2>
                 <p>
-                  The Service may use cookies and similar tracking technologies to
-                  enhance your experience. For detailed information about the
-                  cookies we use and your choices regarding cookies, please see
-                  our{" "}
+                  The Service uses a minimal amount of localStorage for essential
+                  site functionality (storing your cookie consent preference).
+                  For detailed information about the cookies and localStorage we
+                  use and your choices regarding them, please see our{" "}
                   <Link
                     href="/cookies"
                     className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
                   >
                     Cookie Policy
                   </Link>
-                  . By using the Service, you consent to the use of cookies as
-                  described in our Cookie Policy.
+                  . By using the Service, you consent to the use of cookies and
+                  localStorage as described in our Cookie Policy.
                 </p>
               </section>
 
@@ -769,16 +793,20 @@ export default function TermsOfServicePage() {
                   <p>
                     <strong className="text-foreground">Governing Law.</strong>{" "}
                     These Terms shall be governed by and construed in accordance
-                    with the laws of the jurisdiction in which Background Remover
-                    operates, without regard to its conflict of law provisions.
+                    with the laws of the State of Delaware, United States of
+                    America, without regard to its conflict of law provisions.
+                    For users located in the European Union, nothing in these
+                    Terms shall limit any mandatory consumer protections you are
+                    entitled to under the laws of your country of residence.
                   </p>
                   <p>
                     <strong className="text-foreground">Jurisdiction.</strong>{" "}
                     Any disputes arising out of or relating to these Terms or the
-                    Service shall be resolved exclusively in the courts of
-                    competent jurisdiction in the jurisdiction where Background
-                    Remover operates. You consent to the personal jurisdiction of
-                    such courts and waive any objection to venue in such courts.
+                    Service shall be resolved exclusively in the state or federal
+                    courts located in Delaware, United States. You consent to the
+                    personal jurisdiction of such courts and waive any objection
+                    to venue in such courts. EU/EEA consumers retain the right
+                    to bring proceedings in their country of residence.
                   </p>
                   <p>
                     <strong className="text-foreground">Arbitration Option.</strong>{" "}
@@ -786,12 +814,16 @@ export default function TermsOfServicePage() {
                     to resolve the dispute through good-faith negotiation. If the
                     dispute cannot be resolved through negotiation within 30 days,
                     either party may submit the dispute to binding arbitration
-                    administered by a mutually agreed-upon arbitration service.
-                    The arbitration shall be conducted on an individual basis —
+                    administered by the American Arbitration Association (AAA)
+                    under its Consumer Arbitration Rules then in effect. The
+                    arbitration shall be conducted on an individual basis —
                     class arbitrations, class actions, and representative actions
                     are not permitted. The arbitrator&apos;s decision shall be final
                     and binding, and judgment on the award may be entered in any
-                    court of competent jurisdiction.
+                    court of competent jurisdiction. Arbitration hearings may be
+                    conducted by telephone or online. Each party shall bear its
+                    own costs for arbitration, except that if you prevail, we
+                    will reimburse your reasonable filing fee.
                   </p>
                   <p>
                     <strong className="text-foreground">Waiver of Class Actions.</strong>{" "}
@@ -866,10 +898,79 @@ export default function TermsOfServicePage() {
                 </p>
               </section>
 
-              {/* 21. Contact Information */}
+              {/* 21. Assignment */}
               <section>
                 <h2 className="text-xl font-semibold text-emerald-700 mb-3">
-                  21. Contact Information
+                  21. Assignment
+                </h2>
+                <p>
+                  You may not assign, transfer, or delegate these Terms or your
+                  rights or obligations hereunder, in whole or in part, without
+                  our prior written consent. Any attempted assignment without
+                  such consent shall be void. We may assign these Terms, in whole
+                  or in part, without your consent to a successor in connection
+                  with a merger, acquisition, sale of assets, or other corporate
+                  reorganization, provided that the assignee agrees to be bound
+                  by these Terms.
+                </p>
+              </section>
+
+              {/* 22. Force Majeure */}
+              <section>
+                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+                  22. Force Majeure
+                </h2>
+                <p>
+                  We shall not be liable for any delay or failure to perform our
+                  obligations under these Terms where such delay or failure
+                  results from circumstances beyond our reasonable control,
+                  including but not limited to: natural disasters, acts of God,
+                  war, terrorism, civil unrest, pandemic or epidemic, government
+                  actions or orders, internet or power outages, cyberattacks,
+                  failures of third-party infrastructure (including our hosting
+                  provider or CDN), or other force majeure events. If a force
+                  majeure event continues for more than 90 days, either party
+                  may terminate these Terms upon written notice.
+                </p>
+              </section>
+
+              {/* 23. Service Shutdown */}
+              <section>
+                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+                  23. Service Shutdown
+                </h2>
+                <p>
+                  If we discontinue the Service permanently, we will provide
+                  reasonable advance notice on our website when practicable.
+                  Because we do not store your images or Processed Output, there
+                  is no data to return, transfer, or delete upon shutdown. Any
+                  technical data retained in server logs will be purged within 30
+                  days of shutdown in accordance with our data retention policy.
+                </p>
+              </section>
+
+              {/* 24. Export Controls */}
+              <section>
+                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+                  24. Export Controls &amp; Sanctions
+                </h2>
+                <p>
+                  You represent and warrant that you are not located in, under the
+                  control of, or a national or resident of any country subject to
+                  comprehensive U.S. sanctions (including but not limited to Cuba,
+                  Iran, North Korea, Syria, or the Crimea, Donetsk, and Luhansk
+                  regions of Ukraine), and that you are not otherwise prohibited
+                  from receiving U.S.-origin products or services under applicable
+                  export control and sanctions laws. You agree not to use the
+                  Service for any purpose that would violate U.S. or international
+                  export control or sanctions regulations.
+                </p>
+              </section>
+
+              {/* 25. Contact Information */}
+              <section>
+                <h2 className="text-xl font-semibold text-emerald-700 mb-3">
+                  25. Contact Information
                 </h2>
                 <p>
                   If you have any questions, concerns, or feedback regarding these
@@ -940,9 +1041,17 @@ export default function TermsOfServicePage() {
 
         {/* ─── Footer ─────────────────────────────────────────────── */}
         <footer className="border-t border-border mt-auto">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Background Remover. All rights
-            reserved.
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-6">
+            <nav aria-label="Footer navigation" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+              <Link href="/privacy" className="hover:text-emerald-600 transition-colors">Privacy Policy</Link>
+              <span aria-hidden="true">·</span>
+              <Link href="/cookies" className="hover:text-emerald-600 transition-colors">Cookie Policy</Link>
+              <span aria-hidden="true">·</span>
+              <Link href="/dmca" className="hover:text-emerald-600 transition-colors">DMCA</Link>
+            </nav>
+            <p className="mt-3 text-center text-sm text-muted-foreground">
+              &copy; {new Date().getFullYear()} Background Remover. All rights reserved.
+            </p>
           </div>
         </footer>
       </div>

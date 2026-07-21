@@ -42,12 +42,26 @@ async function processSingleImage(inputPath: string, outputPath: string): Promis
   return outputBuffer;
 }
 
+function header2Str(uint8: Uint8Array, offset: number, length: number): string {
+  return String.fromCharCode(...uint8.slice(offset, offset + length));
+}
+
+function validateImageBytes(uint8: Uint8Array): boolean {
+  if (uint8.length < 12) return false;
+  const header = uint8.slice(0, 8);
+  const isPng = header[0] === 0x89 && header[1] === 0x50 && header[2] === 0x4E && header[3] === 0x47;
+  const isJpg = header[0] === 0xFF && header[1] === 0xD8 && header[2] === 0xFF;
+  const isWebp = header[0] === 0x52 && header[1] === 0x49 && header[2] === 0x46 && header[3] === 0x46 &&
+                 uint8.length > 11 && header2Str(uint8, 8, 4) === 'WEBP';
+  return isPng || isJpg || isWebp;
+}
+
 export async function POST(request: NextRequest) {
   // Rate limiting
   const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
   if (isRateLimited(ip)) {
     return NextResponse.json(
-      { error: 'Too many batch requests. Please wait before trying again.' },
+      { success: false, error: 'Too many batch requests. Please wait before trying again.' },
       { status: 429 }
     );
   }
@@ -56,7 +70,15 @@ export async function POST(request: NextRequest) {
   const sessionId = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
   try {
-    const formData = await request.formData();
+    let formData: FormData;
+    try {
+      formData = await request.formData();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: 'Invalid request. Please send a multipart/form-data request with image files.' },
+        { status: 400 }
+      );
+    }
     const files: File[] = [];
 
     // Collect all files from formData
@@ -68,12 +90,12 @@ export async function POST(request: NextRequest) {
     }
 
     if (files.length === 0) {
-      return NextResponse.json({ error: 'No files provided' }, { status: 400 });
+      return NextResponse.json({ success: false, error: 'No files provided' }, { status: 400 });
     }
 
     if (files.length > MAX_BATCH_SIZE) {
       return NextResponse.json(
-        { error: `Too many files. Maximum ${MAX_BATCH_SIZE} images per batch.` },
+        { success: false, error: `Too many files. Maximum ${MAX_BATCH_SIZE} images per batch.` },
         { status: 400 }
       );
     }
@@ -82,13 +104,31 @@ export async function POST(request: NextRequest) {
     for (const file of files) {
       if (!VALID_TYPES.includes(file.type)) {
         return NextResponse.json(
-          { error: `Invalid file type: ${file.name}. Only PNG, JPG, WebP allowed.` },
+          { success: false, error: `Invalid file type: ${file.name}. Only PNG, JPG, WebP allowed.` },
           { status: 400 }
         );
       }
       if (file.size > MAX_FILE_SIZE) {
         return NextResponse.json(
-          { error: `File too large: ${file.name}. Max 10MB per image.` },
+          { success: false, error: `File too large: ${file.name}. Max 10MB per image.` },
+          { status: 400 }
+        );
+      }
+      if (file.size === 0) {
+        return NextResponse.json(
+          { success: false, error: `File is empty: ${file.name}. Please upload valid images.` },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Validate actual file content (magic bytes)
+    for (const file of files) {
+      const arrayBuffer = await file.arrayBuffer();
+      const uint8 = new Uint8Array(arrayBuffer);
+      if (!validateImageBytes(uint8)) {
+        return NextResponse.json(
+          { success: false, error: `File content is not a valid image: ${file.name}. Please upload real PNG, JPG, or WebP images.` },
           { status: 400 }
         );
       }
@@ -149,17 +189,20 @@ export async function POST(request: NextRequest) {
 
     if (errorMessage.includes('signal') || errorMessage.includes('killed') || errorMessage.includes('ENOMEM')) {
       return NextResponse.json({
+        success: false,
         error: 'Processing failed: insufficient memory. Try smaller images or fewer files.',
       }, { status: 507 });
     }
 
     if (errorMessage.includes('timed out') || errorMessage.includes('ETIMEDOUT')) {
       return NextResponse.json({
+        success: false,
         error: 'Processing timed out. Try fewer or smaller images.',
       }, { status: 504 });
     }
 
     return NextResponse.json({
+      success: false,
       error: 'Batch processing failed. Please try again.',
     }, { status: 500 });
   }

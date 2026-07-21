@@ -28,32 +28,36 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-  },
-  alternates: {
-    canonical: `${SITE_URL}/privacy`,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   openGraph: {
-    title: "Privacy Policy",
+    title: "Privacy Policy | Background Remover",
     description:
-      "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant.",
+      "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant, privacy-first AI tool.",
     url: `${SITE_URL}/privacy`,
     siteName: SITE_NAME,
-    type: "article",
+    type: "website",
     locale: "en_US",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Background Remover — AI Background Removal Tool",
+        alt: "Privacy Policy — Background Remover",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy Policy",
+    title: "Privacy Policy | Background Remover",
     description:
-      "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant.",
+      "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant, privacy-first AI tool.",
     images: ["/og-image.png"],
   },
 };
@@ -85,6 +89,7 @@ const webPageJsonLd = {
   name: "Privacy Policy — Background Remover",
   description: "Privacy Policy for Background Remover AI tool",
   url: `${SITE_URL}/privacy`,
+  dateModified: "2026-03-04",
   isPartOf: {
     "@type": "WebSite",
     name: "Background Remover",
@@ -649,6 +654,14 @@ export default function PrivacyPolicyPage() {
               </p>
               <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
                 <li>
+                  <strong>AI Processing Library:</strong> We use rembg, an
+                  open-source AI library based on the U2-Net deep learning model,
+                  to perform background removal. This model runs entirely on our
+                  own servers and does not transmit your images to any external AI
+                  service or API. The AI model is pre-trained and your images are
+                  never used for training, fine-tuning, or evaluation.
+                </li>
+                <li>
                   <strong>Cloud Hosting Provider:</strong> Our Service is hosted
                   on a cloud infrastructure provider that processes requests on
                   our behalf. The hosting provider may have access to server
@@ -772,6 +785,54 @@ export default function PrivacyPolicyPage() {
                 for images significantly minimizes the potential impact of any
                 security incident, as there is simply no image data to
                 compromise.
+              </p>
+            </section>
+
+            {/* ─── 9b. Data Breach Notification ──────────────────── */}
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+                Data Breach Notification
+              </h2>
+              <p>
+                In the event of a personal data breach that is likely to result
+                in a risk to your rights and freedoms, we will comply with our
+                obligations under GDPR Articles 33 and 34:
+              </p>
+              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+                <li>
+                  <strong>Supervisory Authority Notification (Article 33):</strong>{" "}
+                  We will notify the relevant supervisory authority within 72
+                  hours of becoming aware of a breach that is likely to result
+                  in a risk to the rights and freedoms of individuals, unless
+                  the breach is unlikely to result in such a risk.
+                </li>
+                <li>
+                  <strong>Individual Notification (Article 34):</strong>{" "}
+                  If a breach is likely to result in a <em>high risk</em> to
+                  your rights and freedoms, we will also communicate the breach
+                  to you directly without undue delay, along with clear
+                  information about what happened, what data was affected, and
+                  what steps you can take to protect yourself.
+                </li>
+                <li>
+                  <strong>Our Mitigating Factor:</strong> Because we do not
+                  store your images and collect only minimal technical data (IP
+                  addresses, browser type) that is automatically purged after 30
+                  days, the potential impact of any data breach is significantly
+                  limited. No image data can be compromised in a breach because
+                  no image data is retained.
+                </li>
+              </ul>
+              <p className="mt-4">
+                If you believe a data breach has occurred that affects you,
+                please contact us immediately at{" "}
+                <a
+                  href="mailto:privacy@backgroundremover.app"
+                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                >
+                  privacy@backgroundremover.app
+                </a>
+                .
               </p>
             </section>
 
@@ -953,11 +1014,11 @@ export default function PrivacyPolicyPage() {
                         Image processing (background removal)
                       </td>
                       <td className="py-3 pr-4">
-                        Legitimate interest (Article 6(1)(f))
+                        Performance of a contract (Article 6(1)(b))
                       </td>
                       <td className="py-3">
-                        Processing is necessary to provide the service you
-                        requested
+                        Processing is necessary to perform the background
+                        removal service you have requested
                       </td>
                     </tr>
                     <tr className="border-b border-border/50">
@@ -1523,9 +1584,17 @@ export default function PrivacyPolicyPage() {
 
         {/* Footer */}
         <footer className="border-t border-border bg-muted/30 mt-auto">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Background Remover. All rights
-            reserved.
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <nav aria-label="Footer navigation" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+              <Link href="/terms" className="hover:text-emerald-600 transition-colors">Terms of Service</Link>
+              <span aria-hidden="true">·</span>
+              <Link href="/cookies" className="hover:text-emerald-600 transition-colors">Cookie Policy</Link>
+              <span aria-hidden="true">·</span>
+              <Link href="/dmca" className="hover:text-emerald-600 transition-colors">DMCA</Link>
+            </nav>
+            <p className="mt-3 text-center text-sm text-muted-foreground">
+              &copy; {new Date().getFullYear()} Background Remover. All rights reserved.
+            </p>
           </div>
         </footer>
       </div>
