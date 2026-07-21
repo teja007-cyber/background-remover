@@ -93,3 +93,63 @@ Stage Summary:
 - ✅ Production: rate limiting, file validation, error handling
 - ✅ Accessibility: skip link, ARIA roles, keyboard nav
 - ✅ "How it Works" section for content SEO
+
+---
+Task ID: 6
+Agent: Main Orchestrator
+Task: Fix persistent image cutoff + add batch processing mode
+
+Work Log:
+- Rewrote scripts/remove_bg.py with INPUT PADDING approach (30px border extension)
+- Before processing: pad image on all sides with replicated border pixels
+- After processing: crop back to original dimensions
+- This gives the AI model context beyond image edges — prevents edge cutoff
+- Strengthened edge recovery: dilation radius 3, threshold 80, gaussian blur 1.5
+- Created /api/remove-bg-batch/route.ts for batch processing (up to 10 images)
+- Batch API: sequential processing to avoid OOM, per-image error handling
+- Completely rebuilt page.tsx with Single/Batch mode tabs
+- Batch mode: multi-file upload, queue list, per-item progress, download all
+
+Stage Summary:
+- ✅ Image cutoff fixed with padding approach (model sees beyond edges)
+- ✅ Batch processing: up to 10 images, sequential, download all
+- ✅ Both single and batch tabs in one tool section
+
+---
+Task ID: 7
+Agent: Main Orchestrator
+Task: Build full production website — brand, SEO, all sections
+
+Work Log:
+- Named brand: "ClearCut" — short, memorable, implies precise cutting
+- Generated logo.svg (emerald eraser icon) and favicon.svg
+- Generated og-image.png (1152x864 AI-generated social card)
+- Rebuilt page.tsx as full landing page with:
+  - Sticky header with brand + CTA
+  - Hero section with gradient decorations, compelling H2, dual CTAs
+  - Tool section with Single/Batch tabs (the actual working tool)
+  - Features section (6 cards: Full Subject, Batch, Privacy, PNG, Fast, Responsive)
+  - How It Works (3 steps: Upload → AI → Download)
+  - Use Cases (6 categories: E-Commerce, Design, Presentations, etc.)
+  - FAQ section (8 accordion items with AnimatePresence)
+  - CTA section ("Ready to Cut the Clutter?")
+  - Rich footer (brand, features, info columns)
+- Updated layout.tsx with keyword-first SEO:
+  - Title: "Free Background Remover — Remove BG Instantly with AI | ClearCut"
+  - Description: keyword-rich, action-oriented
+  - OG/Twitter: keyword-first titles
+  - 4 JSON-LD schemas: WebApplication, SoftwareApplication, FAQPage, Organization
+  - 20+ keywords including "background remover", "remove bg", "erase background"
+- Created robots.ts (allows /, disallows /api/, sitemap link)
+- Created sitemap.ts (auto-generated)
+- Fixed dynamic Tailwind class issue in feature cards
+- Full browser verification: hero, tool, FAQ, batch mode, mobile responsive
+- No console errors, clean lint
+
+Stage Summary:
+- ✅ Full production website with 8+ sections
+- ✅ SEO: keyword-first titles, 4 structured data schemas, 20+ keywords
+- ✅ Brand: ClearCut with logo, favicon, OG image
+- ✅ robots.txt + sitemap.xml
+- ✅ Mobile responsive, accessible, zero errors
+- ✅ Ready for deployment
