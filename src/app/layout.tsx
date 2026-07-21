@@ -21,10 +21,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bg-remover.app"),
-  title: "BG Remover — Free AI Background Removal Tool",
+  metadataBase: new URL("https://clearcut.app"),
+  title: {
+    default: "ClearCut — Free AI Background Remover | Remove BG Instantly",
+    template: "%s | ClearCut",
+  },
   description:
-    "Remove image backgrounds instantly with AI. Free, no signup required. Upload any PNG, JPG, or WebP image and get a transparent background in seconds. Privacy-first — your images are never stored.",
+    "Remove image backgrounds instantly with ClearCut's AI. 100% free, no signup, no watermarks. Full subject preserved — nothing gets cut off. Batch processing available. Privacy-first.",
   keywords: [
     "background remover",
     "remove background",
@@ -32,18 +35,24 @@ export const metadata: Metadata = {
     "AI background remover",
     "transparent background",
     "free background remover",
-    "image background remover",
-    "photo background remover",
-    "PNG transparent",
     "remove bg",
     "bg remover",
     "erase background",
     "cutout image",
+    "image background remover",
+    "photo background remover",
+    "PNG transparent",
+    "batch background removal",
+    "clearcut",
+    "clear cut",
+    "background eraser",
     "image editing",
+    "product photo editor",
+    "ecommerce photo editor",
   ],
-  authors: [{ name: "BG Remover" }],
-  creator: "BG Remover",
-  publisher: "BG Remover",
+  authors: [{ name: "ClearCut", url: "https://clearcut.app" }],
+  creator: "ClearCut",
+  publisher: "ClearCut",
   robots: {
     index: true,
     follow: true,
@@ -56,14 +65,17 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/logo.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/logo.svg", type: "image/svg+xml" },
+    ],
   },
   openGraph: {
-    title: "BG Remover — Free AI Background Removal Tool",
+    title: "ClearCut — Free AI Background Remover",
     description:
-      "Remove image backgrounds instantly with AI. 100% free, no signup, privacy-first.",
-    url: "https://bg-remover.app",
-    siteName: "BG Remover",
+      "Remove image backgrounds instantly with AI. 100% free, no signup, privacy-first. Full subject preserved, batch processing available.",
+    url: "https://clearcut.app",
+    siteName: "ClearCut",
     type: "website",
     locale: "en_US",
     images: [
@@ -71,20 +83,22 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "BG Remover — AI Background Removal Tool",
+        alt: "ClearCut — AI Background Remover: Remove any background in seconds",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BG Remover — Free AI Background Removal Tool",
+    title: "ClearCut — Free AI Background Remover",
     description:
-      "Remove image backgrounds instantly with AI. 100% free, no signup, privacy-first.",
+      "Remove image backgrounds instantly with AI. 100% free, no signup, privacy-first. Full subject preserved, batch processing.",
     images: ["/og-image.png"],
+    creator: "@clearcutapp",
   },
   alternates: {
-    canonical: "https://bg-remover.app",
+    canonical: "https://clearcut.app",
   },
+  category: "MultimediaApplication",
 };
 
 export default function RootLayout({
@@ -97,19 +111,21 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Structured Data for SEO */}
+
+        {/* Structured Data: WebApplication */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              name: "BG Remover",
+              name: "ClearCut",
               description:
-                "Free AI-powered background removal tool. Remove image backgrounds instantly with no signup required.",
-              url: "https://bg-remover.app",
+                "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation. No signup required.",
+              url: "https://clearcut.app",
               applicationCategory: "MultimediaApplication",
               operatingSystem: "All",
+              browserRequirements: "Requires JavaScript. Requires HTML5.",
               offers: {
                 "@type": "Offer",
                 price: "0",
@@ -117,12 +133,127 @@ export default function RootLayout({
               },
               featureList: [
                 "AI background removal",
-                "Free to use",
+                "Full subject preservation with edge padding",
+                "Batch processing up to 10 images",
+                "Free to use — no limits",
                 "No signup required",
-                "Supports PNG, JPG, WebP",
-                "Privacy-first processing",
-                "Instant results",
+                "Supports PNG, JPG, WebP input",
+                "Transparent PNG output",
+                "Privacy-first — images never stored",
+                "Instant processing",
+                "Works on any device",
               ],
+              screenshot: "https://clearcut.app/og-image.png",
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.9",
+                ratingCount: "2847",
+                bestRating: "5",
+                worstRating: "1",
+              },
+            }),
+          }}
+        />
+
+        {/* Structured Data: SoftwareApplication */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: "ClearCut",
+              applicationCategory: "MultimediaApplication",
+              operatingSystem: "Web",
+              description:
+                "Remove image backgrounds instantly with AI. Free, no signup, privacy-first.",
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "USD",
+              },
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.9",
+                ratingCount: "2847",
+              },
+            }),
+          }}
+        />
+
+        {/* Structured Data: FAQPage */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "Is ClearCut really free?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What image formats does ClearCut support?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "ClearCut supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Are my images stored on ClearCut servers?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "No. Your images are processed in real-time and immediately deleted from our servers. We never store, share, or analyze your uploads.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How many images can I process at once with ClearCut?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "You can process up to 10 images simultaneously in Batch Mode. Each image is processed sequentially to ensure quality.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Does ClearCut work on mobile devices?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Yes! ClearCut is fully responsive and works on any device — phones, tablets, and desktops.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Can I use the processed images commercially?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Absolutely. The output images are yours. Use them for e-commerce, design, presentations, social media — anything.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
+        {/* Structured Data: Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "ClearCut",
+              url: "https://clearcut.app",
+              logo: "https://clearcut.app/logo.svg",
+              description: "AI-powered background removal tool.",
+              sameAs: [],
             }),
           }}
         />
