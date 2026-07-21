@@ -104,12 +104,12 @@ function readFileAsDataUrl(file: File): Promise<string> {
 
 const FAQ_ITEMS = [
   {
-    q: 'Is ClearCut really free?',
+    q: 'Is Background Remover really free?',
     a: 'Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone.',
   },
   {
     q: 'What image formats are supported?',
-    a: 'ClearCut supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG.',
+    a: 'Background Remover supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG.',
   },
   {
     q: 'Are my images stored on your servers?',
@@ -128,8 +128,8 @@ const FAQ_ITEMS = [
     a: 'Each image can be up to 10MB. For best results, we recommend images under 2MB for faster processing.',
   },
   {
-    q: 'Does ClearCut work on mobile devices?',
-    a: 'Yes! ClearCut is fully responsive and works on any device — phones, tablets, and desktops.',
+    q: 'Does Background Remover work on mobile devices?',
+    a: 'Yes! Background Remover is fully responsive and works on any device — phones, tablets, and desktops.',
   },
   {
     q: 'Can I use the processed images commercially?',
@@ -268,7 +268,7 @@ export default function Home() {
     if (!processedImage) return
     const link = document.createElement('a')
     link.href = processedImage
-    link.download = fileName.replace(/\.[^.]+$/, '') + '-clearcut.png'
+    link.download = fileName.replace(/\.[^.]+$/, '') + '-no-bg.png'
     document.body.appendChild(link); link.click(); document.body.removeChild(link)
     toast.success('Download started!', { description: 'Saving as transparent PNG.' })
   }, [processedImage, fileName])
@@ -396,7 +396,7 @@ export default function Home() {
     if (!item.processedDataUrl) return
     const link = document.createElement('a')
     link.href = item.processedDataUrl
-    link.download = item.name.replace(/\.[^.]+$/, '') + '-clearcut.png'
+    link.download = item.name.replace(/\.[^.]+$/, '') + '-no-bg.png'
     document.body.appendChild(link); link.click(); document.body.removeChild(link)
   }, [])
 
@@ -453,7 +453,7 @@ export default function Home() {
             </div>
             <div>
               <h1 className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-50 leading-none">
-                ClearCut
+                Background Remover
               </h1>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-none mt-0.5">
                 AI Background Remover
@@ -510,7 +510,7 @@ export default function Home() {
 
               {/* Subheading */}
               <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-                Upload any image — ClearCut&apos;s AI precisely removes the background while
+                Upload any image — our AI precisely removes the background while
                 preserving every detail of your subject. Nothing gets cut off.
               </p>
 
@@ -1024,7 +1024,7 @@ export default function Home() {
             <div className="text-center mb-12">
               <Badge variant="secondary" className="gap-1.5 px-3 py-1 text-xs mb-4">
                 <Zap className="h-3 w-3 text-emerald-600" aria-hidden="true" />
-                Why ClearCut
+                Why Choose Us
               </Badge>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-3">
                 Everything You Need, Nothing You Don&apos;t
@@ -1064,7 +1064,7 @@ export default function Home() {
                 {
                   icon: Globe,
                   title: 'Works Everywhere',
-                  desc: 'Fully responsive — use ClearCut on any device, any browser. No downloads or installs needed.',
+                  desc: 'Fully responsive — works on any device, any browser. No downloads or installs needed.',
                 },
               ].map(({ icon: Icon, title, desc }) => (
                 <motion.div
@@ -1153,7 +1153,7 @@ export default function Home() {
                 Built for Every Use Case
               </h2>
               <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                From e-commerce to design, ClearCut delivers professional results.
+                From e-commerce to design, get professional results every time.
               </p>
             </div>
 
@@ -1291,7 +1291,7 @@ export default function Home() {
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white" aria-hidden="true">
                   <Eraser className="h-4 w-4" />
                 </div>
-                <span className="text-base font-bold text-slate-900 dark:text-slate-50">ClearCut</span>
+                <span className="text-base font-bold text-slate-900 dark:text-slate-50">Background Remover</span>
               </div>
               <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                 AI-powered background removal tool. Free, private, and precise.
@@ -1325,7 +1325,7 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-xs text-slate-400 dark:text-slate-500">
-              © {new Date().getFullYear()} ClearCut — AI Background Remover. All rights reserved.
+              © {new Date().getFullYear()} Background Remover — Free AI Tool. All rights reserved.
             </p>
             <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-slate-500">
               <span className="flex items-center gap-1">

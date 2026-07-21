@@ -20,11 +20,14 @@ export const viewport: Viewport = {
   themeColor: "#10b981",
 };
 
+const SITE_URL = "https://backgroundremover.app";
+const SITE_NAME = "Background Remover";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://clearcut.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Free Background Remover — Remove BG Instantly with AI | ClearCut",
-    template: "%s | ClearCut — Background Remover",
+    default: "Background Remover — Free AI Tool to Remove BG Instantly",
+    template: "%s | Background Remover",
   },
   description:
     "Remove background from any image instantly — 100% free AI background remover. No signup, no watermarks. Full subject preserved, batch processing. Try now!",
@@ -43,16 +46,17 @@ export const metadata: Metadata = {
     "photo background remover",
     "PNG transparent",
     "batch background removal",
-    "clearcut",
-    "clear cut",
     "background eraser",
     "image editing",
     "product photo editor",
     "ecommerce photo editor",
+    "remove background from image",
+    "background remover online",
+    "background remover free",
   ],
-  authors: [{ name: "ClearCut", url: "https://clearcut.app" }],
-  creator: "ClearCut",
-  publisher: "ClearCut",
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   robots: {
     index: true,
     follow: true,
@@ -71,11 +75,11 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Free Background Remover — Remove BG from Any Image Instantly",
+    title: "Background Remover — Free AI Tool to Remove BG from Any Image",
     description:
       "Remove background from any image instantly with AI. 100% free, no signup, no watermarks. Full subject preserved, batch processing available.",
-    url: "https://clearcut.app",
-    siteName: "ClearCut",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     type: "website",
     locale: "en_US",
     images: [
@@ -83,20 +87,20 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Free AI Background Remover — Remove any background in seconds",
+        alt: "Background Remover — Free AI tool to remove any background in seconds",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Background Remover — Remove BG Instantly with AI",
+    title: "Background Remover — Free AI Tool to Remove BG Instantly",
     description:
       "Remove background from any image instantly with AI. 100% free, no signup, no watermarks. Full subject preserved, batch processing.",
     images: ["/og-image.png"],
-    creator: "@clearcutapp",
+    creator: "@backgroundremover",
   },
   alternates: {
-    canonical: "https://clearcut.app",
+    canonical: SITE_URL,
   },
   category: "MultimediaApplication",
 };
@@ -119,10 +123,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              name: "ClearCut",
+              name: "Background Remover",
               description:
                 "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation. No signup required.",
-              url: "https://clearcut.app",
+              url: SITE_URL,
               applicationCategory: "MultimediaApplication",
               operatingSystem: "All",
               browserRequirements: "Requires JavaScript. Requires HTML5.",
@@ -143,7 +147,7 @@ export default function RootLayout({
                 "Instant processing",
                 "Works on any device",
               ],
-              screenshot: "https://clearcut.app/og-image.png",
+              screenshot: `${SITE_URL}/og-image.png`,
               aggregateRating: {
                 "@type": "AggregateRating",
                 ratingValue: "4.9",
@@ -162,7 +166,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              name: "ClearCut",
+              name: "Background Remover",
               applicationCategory: "MultimediaApplication",
               operatingSystem: "Web",
               description:
@@ -191,7 +195,7 @@ export default function RootLayout({
               mainEntity: [
                 {
                   "@type": "Question",
-                  name: "Is ClearCut really free?",
+                  name: "Is this background remover really free?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone.",
@@ -199,15 +203,15 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "What image formats does ClearCut support?",
+                  name: "What image formats does the background remover support?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "ClearCut supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG.",
+                    text: "Background Remover supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "Are my images stored on ClearCut servers?",
+                  name: "Are my images stored on the background remover servers?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "No. Your images are processed in real-time and immediately deleted from our servers. We never store, share, or analyze your uploads.",
@@ -215,7 +219,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "How many images can I process at once with ClearCut?",
+                  name: "How many images can I remove backgrounds from at once?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "You can process up to 10 images simultaneously in Batch Mode. Each image is processed sequentially to ensure quality.",
@@ -223,10 +227,10 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "Does ClearCut work on mobile devices?",
+                  name: "Does the background remover work on mobile devices?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes! ClearCut is fully responsive and works on any device — phones, tablets, and desktops.",
+                    text: "Yes! Background Remover is fully responsive and works on any device — phones, tablets, and desktops.",
                   },
                 },
                 {
@@ -249,10 +253,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "ClearCut",
-              url: "https://clearcut.app",
-              logo: "https://clearcut.app/logo.svg",
-              description: "AI-powered background removal tool.",
+              name: "Background Remover",
+              url: SITE_URL,
+              logo: `${SITE_URL}/logo.svg`,
+              description: "Free AI-powered background removal tool.",
               sameAs: [],
             }),
           }}
