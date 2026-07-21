@@ -29,6 +29,9 @@ import {
   ImagePlus,
   Gauge,
   Palette,
+  Cookie,
+  FileText,
+  Scale,
 } from 'lucide-react'
 import { toast, Toaster } from 'sonner'
 import {
@@ -43,6 +46,14 @@ import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog'
 
 // ─── Types ───────────────────────────────────────────────────────
 
@@ -167,6 +178,17 @@ export default function Home() {
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
+  // Legal dialog state
+  const [privacyOpen, setPrivacyOpen] = useState(false)
+  const [termsOpen, setTermsOpen] = useState(false)
+  const [dmcaOpen, setDmcaOpen] = useState(false)
+
+  // Cookie consent state — lazy init to avoid calling setState in effect
+  const [showCookieBanner, setShowCookieBanner] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return !localStorage.getItem('bg-remover-cookie-consent')
+  })
+
   // Tool section ref for smooth scroll
   const toolRef = useRef<HTMLDivElement>(null)
 
@@ -175,6 +197,11 @@ export default function Home() {
       if (abortControllerRef.current) abortControllerRef.current.abort()
       if (batchAbortRef.current) batchAbortRef.current.abort()
     }
+  }, [])
+
+  const dismissCookieBanner = useCallback(() => {
+    localStorage.setItem('bg-remover-cookie-consent', 'dismissed')
+    setShowCookieBanner(false)
   }, [])
 
   // ─── Single: Handle File ─────────────────────────────────────
@@ -452,9 +479,9 @@ export default function Home() {
               <Eraser className="h-4.5 w-4.5" />
             </div>
             <div>
-              <h1 className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-50 leading-none">
+              <div className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-50 leading-none">
                 Background Remover
-              </h1>
+              </div>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-none mt-0.5">
                 AI Background Remover
               </p>
@@ -502,11 +529,11 @@ export default function Home() {
                 <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">AI-Powered · 100% Free · No Signup</span>
               </motion.div>
 
-              {/* Heading */}
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-5 leading-[1.1]">
+              {/* Heading — h1, the only h1 on the page */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-5 leading-[1.1]">
                 Remove Any Background{' '}
                 <span className="text-emerald-600 dark:text-emerald-400">in Seconds</span>
-              </h2>
+              </h1>
 
               {/* Subheading */}
               <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
@@ -665,7 +692,7 @@ export default function Home() {
                         <CardContent className="space-y-6">
                           {originalImage && (
                             <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
-                              <img src={originalImage} alt="Original image being processed" className="w-full h-auto max-h-[400px] object-contain mx-auto opacity-60" width={imageDimensions?.w} height={imageDimensions?.h} />
+                              <img src={originalImage} alt="Original image being processed by AI background remover" className="w-full h-auto max-h-[400px] object-contain mx-auto opacity-60" width={imageDimensions?.w} height={imageDimensions?.h} />
                               <div className="absolute inset-0 flex items-center justify-center bg-slate-900/20 dark:bg-slate-900/40">
                                 <div className="flex flex-col items-center gap-3 bg-white/90 dark:bg-slate-900/90 rounded-2xl px-6 py-5 shadow-xl backdrop-blur-sm">
                                   <Loader2 className="h-10 w-10 text-emerald-600 animate-spin" aria-hidden="true" />
@@ -732,7 +759,7 @@ export default function Home() {
                                 <ImageIcon className="h-4 w-4" aria-hidden="true" />Original
                               </div>
                               <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
-                                <img src={originalImage} alt="Original image" className="w-full h-auto max-h-[450px] object-contain" width={imageDimensions?.w} height={imageDimensions?.h} />
+                                <img src={originalImage} alt="Original uploaded image before background removal" className="w-full h-auto max-h-[450px] object-contain" width={imageDimensions?.w} height={imageDimensions?.h} />
                               </div>
                             </div>
                             <div className="space-y-2">
@@ -740,7 +767,7 @@ export default function Home() {
                                 <Eraser className="h-4 w-4 text-emerald-600" aria-hidden="true" />Background Removed
                               </div>
                               <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700" style={CHECKERBOARD_BG}>
-                                <img src={processedImage} alt="Image with background removed, transparent" className="w-full h-auto max-h-[450px] object-contain" width={imageDimensions?.w} height={imageDimensions?.h} />
+                                <img src={processedImage} alt="Image with background removed showing transparent checkerboard pattern" className="w-full h-auto max-h-[450px] object-contain" width={imageDimensions?.w} height={imageDimensions?.h} />
                               </div>
                             </div>
                           </div>
@@ -915,7 +942,7 @@ export default function Home() {
                               `}
                             >
                               <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
-                                <img src={item.status === 'done' && item.processedDataUrl ? item.processedDataUrl : item.originalDataUrl} alt={item.name} className="w-full h-full object-cover" />
+                                <img src={item.status === 'done' && item.processedDataUrl ? item.processedDataUrl : item.originalDataUrl} alt={`${item.name} thumbnail for batch background removal`} className="w-full h-full object-cover" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium text-slate-900 dark:text-slate-50 truncate">{item.name}</p>
@@ -940,7 +967,7 @@ export default function Home() {
                                     <Badge variant="secondary" className="text-xs text-emerald-700 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-950/40">
                                       <CheckCircle2 className="h-3 w-3 mr-1" aria-hidden="true" />Done
                                     </Badge>
-                                    <Button onClick={() => downloadBatchItem(item)} size="icon" variant="ghost" className="h-8 w-8 text-slate-500 hover:text-emerald-600" aria-label={`Download ${item.name}`}>
+                                    <Button onClick={() => downloadBatchItem(item)} size="icon" variant="ghost" className="h-8 w-8 text-slate-500 hover:text-emerald-600" aria-label={`Download ${item.name} with background removed`}>
                                       <Download className="h-4 w-4" />
                                     </Button>
                                   </>
@@ -951,7 +978,7 @@ export default function Home() {
                                   </Badge>
                                 )}
                                 {!batchProcessing && item.status !== 'processing' && (
-                                  <Button onClick={() => removeBatchItem(item.id)} size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-red-500" aria-label={`Remove ${item.name}`}>
+                                  <Button onClick={() => removeBatchItem(item.id)} size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-red-500" aria-label={`Remove ${item.name} from batch queue`}>
                                     <X className="h-4 w-4" />
                                   </Button>
                                 )}
@@ -981,7 +1008,7 @@ export default function Home() {
                           {batchItems.filter(bi => bi.status === 'done' && bi.processedDataUrl).map(item => (
                             <motion.div key={item.id} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="group relative">
                               <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 aspect-square" style={CHECKERBOARD_BG}>
-                                <img src={item.processedDataUrl!} alt={`${item.name} - background removed`} className="w-full h-full object-contain p-2" />
+                                <img src={item.processedDataUrl!} alt={`${item.name} with background removed, transparent PNG result`} className="w-full h-full object-contain p-2" />
                                 <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                                   <Button onClick={() => downloadBatchItem(item)} size="sm" variant="secondary" className="gap-1.5">
                                     <Download className="h-3.5 w-3.5" aria-hidden="true" />Save
@@ -1298,9 +1325,9 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Features */}
+            {/* Features — using div with aria-label instead of orphaned h4 */}
             <div>
-              <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3">Features</h4>
+              <div className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3" aria-label="Features" role="heading" aria-level={2}>Features</div>
               <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
                 <li>Single Image Removal</li>
                 <li>Batch Processing</li>
@@ -1309,9 +1336,9 @@ export default function Home() {
               </ul>
             </div>
 
-            {/* Info */}
+            {/* Info — using div with aria-label instead of orphaned h4 */}
             <div>
-              <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3">Info</h4>
+              <div className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3" aria-label="Info" role="heading" aria-level={2}>Info</div>
               <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
                 <li>100% Free — No Limits</li>
                 <li>No Signup Required</li>
@@ -1327,16 +1354,255 @@ export default function Home() {
             <p className="text-xs text-slate-400 dark:text-slate-500">
               © {new Date().getFullYear()} Background Remover — Free AI Tool. All rights reserved.
             </p>
-            <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-slate-500">
-              <span className="flex items-center gap-1">
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs">
+              <button
+                onClick={() => setPrivacyOpen(true)}
+                className="text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors underline-offset-2 hover:underline"
+              >
+                Privacy Policy
+              </button>
+              <button
+                onClick={() => setTermsOpen(true)}
+                className="text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors underline-offset-2 hover:underline"
+              >
+                Terms of Service
+              </button>
+              <button
+                onClick={() => setDmcaOpen(true)}
+                className="text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors underline-offset-2 hover:underline"
+              >
+                DMCA
+              </button>
+              <span className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
                 <ShieldCheck className="h-3 w-3" aria-hidden="true" />
-                Privacy First
+                Images processed securely &amp; never stored
               </span>
-              <span>Images processed securely &amp; never stored</span>
             </div>
           </div>
         </div>
       </footer>
+
+      {/* ─── Legal Dialogs ────────────────────────────────────── */}
+
+      {/* Privacy Policy Dialog */}
+      <Dialog open={privacyOpen} onOpenChange={setPrivacyOpen}>
+        <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <ShieldCheck className="h-5 w-5 text-emerald-600" aria-hidden="true" />
+              Privacy Policy
+            </DialogTitle>
+            <DialogDescription>
+              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">1. What Data We Collect</h3>
+              <p>When you use Background Remover, we temporarily receive the image files you upload for the purpose of removing their backgrounds. That is the only data we process. We do not collect names, email addresses, phone numbers, or any other personal information.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">2. How We Process Your Data</h3>
+              <p>Uploaded images are sent to our AI background removal service for processing. The AI analyzes the image, identifies the subject, and removes the background. Processing occurs in real-time and the result is returned directly to your browser.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">3. Data Retention</h3>
+              <p>Your images are deleted immediately after processing is complete. We do not store, cache, or retain any uploaded images or processed results on our servers. Once you close the page, the data is gone.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">4. Cookies</h3>
+              <p>We use only essential cookies necessary for the basic functioning of this website. We do not use tracking cookies, analytics cookies, or advertising cookies. A single essential cookie is used to remember your cookie consent preference.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">5. Third-Party Sharing</h3>
+              <p>We do not share your images, processed results, or any other data with third parties. Your data is never sold, rented, or distributed.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">6. Personal Data</h3>
+              <p>We do not collect personal data. No account, no signup, no email — nothing that identifies you as an individual is collected or stored.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">7. GDPR Compliance</h3>
+              <p>Background Remover is compliant with the General Data Protection Regulation (GDPR). Since we do not collect or store personal data, the risk of data breaches involving personal information is eliminated. If you are an EU resident and have any concerns, please contact us using the information below.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">8. CCPA Compliance</h3>
+              <p>Background Remover is compliant with the California Consumer Privacy Act (CCPA). We do not sell personal information, we do not collect personal information beyond what is necessary for the service, and we do not share information with third parties. California residents have the right to know what data is collected — and the answer is: only the images you temporarily upload, which are deleted immediately.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">9. Children&apos;s Privacy</h3>
+              <p>Background Remover is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us and we will take steps to remove such information.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">10. Contact Information</h3>
+              <p>If you have any questions about this Privacy Policy, please contact us at: privacy@backgroundremover.app</p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={() => setPrivacyOpen(false)} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+              I Understand
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Terms of Service Dialog */}
+      <Dialog open={termsOpen} onOpenChange={setTermsOpen}>
+        <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5 text-emerald-600" aria-hidden="true" />
+              Terms of Service
+            </DialogTitle>
+            <DialogDescription>
+              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">1. Acceptance of Terms</h3>
+              <p>By accessing and using Background Remover, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not use our service.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">2. Description of Service</h3>
+              <p>Background Remover is a free, AI-powered web application that removes backgrounds from images. The service processes uploaded images and returns transparent PNG files with the background removed.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">3. User Responsibilities</h3>
+              <p>You represent and warrant that you own or have the legal right to upload and process any images you submit to Background Remover. You are solely responsible for ensuring that your use of the service complies with all applicable laws and regulations.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">4. Intellectual Property</h3>
+              <p>You retain full ownership and intellectual property rights to all images you upload and the processed results. Background Remover does not claim any ownership or license over your images or outputs. The service is a tool — what you create with it belongs to you.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">5. Prohibited Uses</h3>
+              <p>You may not use Background Remover to:</p>
+              <ul className="list-disc pl-5 mt-1 space-y-1">
+                <li>Process images depicting illegal content</li>
+                <li>Process images involving child sexual abuse material (CSAM)</li>
+                <li>Process images that infringe on someone&apos;s likeness or identity without authorization</li>
+                <li>Process images that violate any applicable law or regulation</li>
+                <li>Attempt to disrupt, overload, or compromise the service</li>
+                <li>Use the service for any purpose that is unlawful or harmful</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">6. Service Availability</h3>
+              <p>Background Remover is provided &ldquo;as is&rdquo; and &ldquo;as available.&rdquo; We do not guarantee uninterrupted or error-free service. We reserve the right to modify, suspend, or discontinue the service at any time without notice.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">7. Limitation of Liability</h3>
+              <p>To the fullest extent permitted by law, Background Remover and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the service. This includes, without limitation, damages for loss of data, images, or profits.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">8. DMCA / Copyright Policy</h3>
+              <p>We respect intellectual property rights. If you believe your copyrighted work has been processed through our service in a way that constitutes copyright infringement, please see our <button onClick={() => { setTermsOpen(false); setTimeout(() => setDmcaOpen(true), 200) }} className="text-emerald-600 dark:text-emerald-400 underline">DMCA Policy</button> for instructions on filing a notice.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">9. Governing Law</h3>
+              <p>These Terms of Service shall be governed by and construed in accordance with applicable laws, without regard to conflict of law principles. Any disputes arising from these terms shall be resolved in the courts of competent jurisdiction.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">10. Changes to Terms</h3>
+              <p>We reserve the right to modify these Terms of Service at any time. Changes will be effective immediately upon posting. Your continued use of the service after any changes constitutes acceptance of the updated terms. We encourage you to review these terms periodically.</p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={() => setTermsOpen(false)} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+              I Agree
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* DMCA / Copyright Policy Dialog */}
+      <Dialog open={dmcaOpen} onOpenChange={setDmcaOpen}>
+        <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Scale className="h-5 w-5 text-emerald-600" aria-hidden="true" />
+              DMCA / Copyright Policy
+            </DialogTitle>
+            <DialogDescription>
+              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">1. Copyright Infringement Reporting</h3>
+              <p>Background Remover respects the intellectual property rights of others and expects its users to do the same. If you believe that your copyrighted work has been copied or processed through our service in a way that constitutes copyright infringement, please notify us.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">2. DMCA Takedown Procedure</h3>
+              <p>Pursuant to the Digital Millennium Copyright Act (17 U.S.C. § 512), copyright owners or their agents may submit a DMCA takedown notice to our designated copyright agent. To be valid, the notice must include:</p>
+              <ul className="list-disc pl-5 mt-1 space-y-1">
+                <li>A physical or electronic signature of the copyright owner or authorized agent</li>
+                <li>Identification of the copyrighted work claimed to have been infringed</li>
+                <li>Identification of the material that is claimed to be infringing and that is to be removed</li>
+                <li>Sufficient information to permit us to contact the complaining party (address, phone number, or email)</li>
+                <li>A statement that the complaining party has a good faith belief that use of the material is not authorized</li>
+                <li>A statement that the information in the notice is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the copyright owner</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">3. Counter-Notification</h3>
+              <p>If you believe that your content was removed or disabled as a result of a mistake or misidentification, you may submit a counter-notification. To be valid, the counter-notification must include:</p>
+              <ul className="list-disc pl-5 mt-1 space-y-1">
+                <li>Your physical or electronic signature</li>
+                <li>Identification of the material that was removed and the location where it previously appeared</li>
+                <li>A statement under penalty of perjury that you have a good faith belief that the material was removed as a result of mistake or misidentification</li>
+                <li>Your name, address, phone number, and a statement consenting to jurisdiction of the federal court in your district</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">4. Repeat Infringer Policy</h3>
+              <p>In accordance with the DMCA and other applicable law, Background Remover has adopted a policy of terminating access for users who are found to be repeat infringers. We may terminate access for any user who has been the subject of multiple valid DMCA takedown notices.</p>
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">5. Contact for DMCA Notices</h3>
+              <p>Please send all DMCA takedown notices and counter-notifications to: dmca@backgroundremover.app</p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={() => setDmcaOpen(false)} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+              I Understand
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* ─── Cookie Consent Banner ────────────────────────────── */}
+      <AnimatePresence>
+        {showCookieBanner && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-0 left-0 right-0 z-[60] p-4 sm:p-0"
+          >
+            <div className="container mx-auto max-w-4xl">
+              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-4 shadow-xl">
+                <Cookie className="h-6 w-6 text-emerald-600 flex-shrink-0" aria-hidden="true" />
+                <p className="text-sm text-slate-600 dark:text-slate-400 text-center sm:text-left flex-1">
+                  We only use essential cookies for basic site functionality. We do not track you, use analytics cookies, or share data with third parties.
+                </p>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <Button
+                    onClick={dismissCookieBanner}
+                    size="sm"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5"
+                  >
+                    Got it
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   )
 }

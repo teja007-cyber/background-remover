@@ -1,0 +1,1343 @@
+     1→     1→'use client'
+     2→     2→
+     3→     3→import { useState, useRef, useCallback, useEffect } from 'react'
+     4→     4→import { motion, AnimatePresence } from 'framer-motion'
+     5→     5→import {
+     6→     6→  Eraser,
+     7→     7→  Upload,
+     8→     8→  Download,
+     9→     9→  RefreshCw,
+    10→    10→  ImageIcon,
+    11→    11→  Loader2,
+    12→    12→  Sparkles,
+    13→    13→  CheckCircle2,
+    14→    14→  AlertTriangle,
+    15→    15→  ShieldCheck,
+    16→    16→  Zap,
+    17→    17→  Eye,
+    18→    18→  Scissors,
+    19→    19→  Layers,
+    20→    20→  X,
+    21→    21→  FileImage,
+    22→    22→  Archive,
+    23→    23→  Clock,
+    24→    24→  ChevronDown,
+    25→    25→  ArrowRight,
+    26→    26→  Globe,
+    27→    27→  Lock,
+    28→    28→  Heart,
+    29→    29→  ImagePlus,
+    30→    30→  Gauge,
+    31→    31→  Palette,
+    32→    32→} from 'lucide-react'
+    33→    33→import { toast, Toaster } from 'sonner'
+    34→    34→import {
+    35→    35→  Card,
+    36→    36→  CardContent,
+    37→    37→  CardDescription,
+    38→    38→  CardHeader,
+    39→    39→  CardTitle,
+    40→    40→} from '@/components/ui/card'
+    41→    41→import { Button } from '@/components/ui/button'
+    42→    42→import { Badge } from '@/components/ui/badge'
+    43→    43→import { Progress } from '@/components/ui/progress'
+    44→    44→import { Separator } from '@/components/ui/separator'
+    45→    45→import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+    46→    46→
+    47→    47→// ─── Types ───────────────────────────────────────────────────────
+    48→    48→
+    49→    49→type AppMode = 'single' | 'batch'
+    50→    50→type SingleState = 'idle' | 'processing' | 'done' | 'error'
+    51→    51→
+    52→    52→interface BatchItem {
+    53→    53→  id: string
+    54→    54→  file: File
+    55→    55→  name: string
+    56→    56→  size: number
+    57→    57→  originalDataUrl: string
+    58→    58→  processedDataUrl: string | null
+    59→    59→  status: 'pending' | 'processing' | 'done' | 'error'
+    60→    60→  error?: string
+    61→    61→  processingTime?: number
+    62→    62→}
+    63→    63→
+    64→    64→// ─── Constants ───────────────────────────────────────────────────
+    65→    65→
+    66→    66→const CHECKERBOARD_BG = {
+    67→    67→  backgroundImage: [
+    68→    68→    'linear-gradient(45deg, #e0e0e0 25%, transparent 25%)',
+    69→    69→    'linear-gradient(-45deg, #e0e0e0 25%, transparent 25%)',
+    70→    70→    'linear-gradient(45deg, transparent 75%, #e0e0e0 75%)',
+    71→    71→    'linear-gradient(-45deg, transparent 75%, #e0e0e0 75%)',
+    72→    72→  ].join(', '),
+    73→    73→  backgroundSize: '20px 20px',
+    74→    74→  backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+    75→    75→  backgroundColor: '#ffffff',
+    76→    76→}
+    77→    77→
+    78→    78→const VALID_TYPES = ['image/png', 'image/jpeg', 'image/webp']
+    79→    79→const MAX_FILE_SIZE = 10 * 1024 * 1024
+    80→    80→const MAX_BATCH_FILES = 10
+    81→    81→
+    82→    82→// ─── Helpers ─────────────────────────────────────────────────────
+    83→    83→
+    84→    84→function formatFileSize(bytes: number) {
+    85→    85→  if (bytes < 1024) return `${bytes} B`
+    86→    86→  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+    87→    87→  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+    88→    88→}
+    89→    89→
+    90→    90→function generateId() {
+    91→    91→  return Math.random().toString(36).slice(2, 10)
+    92→    92→}
+    93→    93→
+    94→    94→function readFileAsDataUrl(file: File): Promise<string> {
+    95→    95→  return new Promise((resolve, reject) => {
+    96→    96→    const reader = new FileReader()
+    97→    97→    reader.onload = (e) => resolve(e.target?.result as string)
+    98→    98→    reader.onerror = reject
+    99→    99→    reader.readAsDataURL(file)
+   100→   100→  })
+   101→   101→}
+   102→   102→
+   103→   103→// ─── FAQ Data ────────────────────────────────────────────────────
+   104→   104→
+   105→   105→const FAQ_ITEMS = [
+   106→   106→  {
+   107→   107→    q: 'Is Background Remover really free?',
+   108→   108→    a: 'Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone.',
+   109→   109→  },
+   110→   110→  {
+   111→   111→    q: 'What image formats are supported?',
+   112→   112→    a: 'Background Remover supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG.',
+   113→   113→  },
+   114→   114→  {
+   115→   115→    q: 'Are my images stored on your servers?',
+   116→   116→    a: 'No. Your images are processed in real-time and immediately deleted from our servers. We never store, share, or analyze your uploads.',
+   117→   117→  },
+   118→   118→  {
+   119→   119→    q: 'Why does the full subject get preserved?',
+   120→   120→    a: 'We use advanced AI padding technology that gives the model context beyond image edges, preventing any cutoff. Combined with alpha matting and edge recovery, your subject stays intact.',
+   121→   121→  },
+   122→   122→  {
+   123→   123→    q: 'How many images can I process at once?',
+   124→   124→    a: 'You can process up to 10 images simultaneously in Batch Mode. Each image is processed sequentially to ensure quality.',
+   125→   125→  },
+   126→   126→  {
+   127→   127→    q: 'What is the maximum file size?',
+   128→   128→    a: 'Each image can be up to 10MB. For best results, we recommend images under 2MB for faster processing.',
+   129→   129→  },
+   130→   130→  {
+   131→   131→    q: 'Does Background Remover work on mobile devices?',
+   132→   132→    a: 'Yes! Background Remover is fully responsive and works on any device — phones, tablets, and desktops.',
+   133→   133→  },
+   134→   134→  {
+   135→   135→    q: 'Can I use the processed images commercially?',
+   136→   136→    a: 'Absolutely. The output images are yours. Use them for e-commerce, design, presentations, social media — anything.',
+   137→   137→  },
+   138→   138→]
+   139→   139→
+   140→   140→// ─── Main Component ──────────────────────────────────────────────
+   141→   141→
+   142→   142→export default function Home() {
+   143→   143→  const [mode, setMode] = useState<AppMode>('single')
+   144→   144→
+   145→   145→  // Single image state
+   146→   146→  const [singleState, setSingleState] = useState<SingleState>('idle')
+   147→   147→  const [originalImage, setOriginalImage] = useState<string | null>(null)
+   148→   148→  const [processedImage, setProcessedImage] = useState<string | null>(null)
+   149→   149→  const [progress, setProgress] = useState(0)
+   150→   150→  const [fileName, setFileName] = useState('')
+   151→   151→  const [fileSize, setFileSize] = useState(0)
+   152→   152→  const [imageDimensions, setImageDimensions] = useState<{ w: number; h: number } | null>(null)
+   153→   153→  const [isDragging, setIsDragging] = useState(false)
+   154→   154→  const [errorMsg, setErrorMsg] = useState('')
+   155→   155→  const [processingTime, setProcessingTime] = useState(0)
+   156→   156→  const fileInputRef = useRef<HTMLInputElement>(null)
+   157→   157→  const abortControllerRef = useRef<AbortController | null>(null)
+   158→   158→
+   159→   159→  // Batch state
+   160→   160→  const [batchItems, setBatchItems] = useState<BatchItem[]>([])
+   161→   161→  const [batchProcessing, setBatchProcessing] = useState(false)
+   162→   162→  const [batchCurrentIndex, setBatchCurrentIndex] = useState(-1)
+   163→   163→  const [isBatchDragging, setIsBatchDragging] = useState(false)
+   164→   164→  const batchFileInputRef = useRef<HTMLInputElement>(null)
+   165→   165→  const batchAbortRef = useRef<AbortController | null>(null)
+   166→   166→
+   167→   167→  // FAQ state
+   168→   168→  const [openFaq, setOpenFaq] = useState<number | null>(null)
+   169→   169→
+   170→   170→  // Tool section ref for smooth scroll
+   171→   171→  const toolRef = useRef<HTMLDivElement>(null)
+   172→   172→
+   173→   173→  useEffect(() => {
+   174→   174→    return () => {
+   175→   175→      if (abortControllerRef.current) abortControllerRef.current.abort()
+   176→   176→      if (batchAbortRef.current) batchAbortRef.current.abort()
+   177→   177→    }
+   178→   178→  }, [])
+   179→   179→
+   180→   180→  // ─── Single: Handle File ─────────────────────────────────────
+   181→   181→
+   182→   182→  const handleSingleFile = useCallback(async (file: File) => {
+   183→   183→    if (!VALID_TYPES.includes(file.type)) {
+   184→   184→      toast.error('Invalid file type', { description: 'Please upload a PNG, JPG, or WebP image.' })
+   185→   185→      return
+   186→   186→    }
+   187→   187→    if (file.size > MAX_FILE_SIZE) {
+   188→   188→      toast.error('File too large', { description: 'Please upload an image smaller than 10MB.' })
+   189→   189→      return
+   190→   190→    }
+   191→   191→
+   192→   192→    const dataUrl = await readFileAsDataUrl(file)
+   193→   193→    setOriginalImage(dataUrl)
+   194→   194→    const img = new window.Image()
+   195→   195→    img.onload = () => setImageDimensions({ w: img.naturalWidth, h: img.naturalHeight })
+   196→   196→    img.src = dataUrl
+   197→   197→
+   198→   198→    setFileName(file.name)
+   199→   199→    setFileSize(file.size)
+   200→   200→    setSingleState('processing')
+   201→   201→    setProgress(0)
+   202→   202→    setErrorMsg('')
+   203→   203→    setProcessingTime(0)
+   204→   204→
+   205→   205→    let currentProgress = 0
+   206→   206→    const startTime = Date.now()
+   207→   207→    const progressInterval = setInterval(() => {
+   208→   208→      currentProgress += Math.random() * 6
+   209→   209→      if (currentProgress >= 85) { currentProgress = 85; clearInterval(progressInterval) }
+   210→   210→      setProgress(Math.min(currentProgress, 85))
+   211→   211→    }, 500)
+   212→   212→
+   213→   213→    try {
+   214→   214→      const formData = new FormData()
+   215→   215→      formData.append('file', file)
+   216→   216→      abortControllerRef.current = new AbortController()
+   217→   217→
+   218→   218→      const response = await fetch('/api/remove-bg', {
+   219→   219→        method: 'POST',
+   220→   220→        body: formData,
+   221→   221→        signal: abortControllerRef.current.signal,
+   222→   222→      })
+   223→   223→
+   224→   224→      const data = await response.json()
+   225→   225→      clearInterval(progressInterval)
+   226→   226→
+   227→   227→      if (!response.ok || !data.success) {
+   228→   228→        setSingleState('error')
+   229→   229→        setErrorMsg(data.error || `Server error (${response.status})`)
+   230→   230→        toast.error('Processing failed', { description: data.error || 'Something went wrong.' })
+   231→   231→        return
+   232→   232→      }
+   233→   233→
+   234→   234→      const elapsed = ((Date.now() - startTime) / 1000).toFixed(1)
+   235→   235→      setProcessingTime(Number(elapsed))
+   236→   236→      setProgress(100)
+   237→   237→      setTimeout(() => {
+   238→   238→        setProcessedImage(data.image)
+   239→   239→        setSingleState('done')
+   240→   240→      }, 300)
+   241→   241→      toast.success('Background removed!', { description: `Processed in ${elapsed}s` })
+   242→   242→    } catch (err) {
+   243→   243→      clearInterval(progressInterval)
+   244→   244→      if (err instanceof DOMException && err.name === 'AbortError') return
+   245→   245→      setSingleState('error')
+   246→   246→      setErrorMsg('Failed to connect to the server. Please try again.')
+   247→   247→      toast.error('Network error', { description: 'Failed to connect to the server.' })
+   248→   248→    }
+   249→   249→  }, [])
+   250→   250→
+   251→   251→  // ─── Single: Drag/Drop/Click ─────────────────────────────────
+   252→   252→
+   253→   253→  const handleSingleDrop = useCallback((e: React.DragEvent) => {
+   254→   254→    e.preventDefault(); e.stopPropagation(); setIsDragging(false)
+   255→   255→    const file = e.dataTransfer.files[0]
+   256→   256→    if (file) handleSingleFile(file)
+   257→   257→  }, [handleSingleFile])
+   258→   258→
+   259→   259→  const handleSingleDragOver = useCallback((e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setIsDragging(true) }, [])
+   260→   260→  const handleSingleDragLeave = useCallback((e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setIsDragging(false) }, [])
+   261→   261→  const handleSingleClick = useCallback(() => { fileInputRef.current?.click() }, [])
+   262→   262→  const handleSingleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+   263→   263→    const file = e.target.files?.[0]
+   264→   264→    if (file) handleSingleFile(file)
+   265→   265→  }, [handleSingleFile])
+   266→   266→
+   267→   267→  const handleDownload = useCallback(() => {
+   268→   268→    if (!processedImage) return
+   269→   269→    const link = document.createElement('a')
+   270→   270→    link.href = processedImage
+   271→   271→    link.download = fileName.replace(/\.[^.]+$/, '') + '-no-bg.png'
+   272→   272→    document.body.appendChild(link); link.click(); document.body.removeChild(link)
+   273→   273→    toast.success('Download started!', { description: 'Saving as transparent PNG.' })
+   274→   274→  }, [processedImage, fileName])
+   275→   275→
+   276→   276→  const handleSingleReset = useCallback(() => {
+   277→   277→    if (abortControllerRef.current) abortControllerRef.current.abort()
+   278→   278→    setSingleState('idle')
+   279→   279→    setOriginalImage(null); setProcessedImage(null); setProgress(0)
+   280→   280→    setFileName(''); setFileSize(0); setImageDimensions(null); setErrorMsg(''); setProcessingTime(0)
+   281→   281→    if (fileInputRef.current) fileInputRef.current.value = ''
+   282→   282→  }, [])
+   283→   283→
+   284→   284→  // ─── Batch: Add Files ────────────────────────────────────────
+   285→   285→
+   286→   286→  const addBatchFiles = useCallback(async (files: FileList | File[]) => {
+   287→   287→    const fileArray = Array.from(files)
+   288→   288→    const newItems: BatchItem[] = []
+   289→   289→
+   290→   290→    for (const file of fileArray) {
+   291→   291→      if (!VALID_TYPES.includes(file.type)) {
+   292→   292→        toast.error(`Skipped ${file.name}`, { description: 'Invalid file type.' })
+   293→   293→        continue
+   294→   294→      }
+   295→   295→      if (file.size > MAX_FILE_SIZE) {
+   296→   296→        toast.error(`Skipped ${file.name}`, { description: 'File too large (max 10MB).' })
+   297→   297→        continue
+   298→   298→      }
+   299→   299→      const dataUrl = await readFileAsDataUrl(file)
+   300→   300→      newItems.push({
+   301→   301→        id: generateId(), file, name: file.name, size: file.size,
+   302→   302→        originalDataUrl: dataUrl, processedDataUrl: null, status: 'pending',
+   303→   303→      })
+   304→   304→    }
+   305→   305→
+   306→   306→    setBatchItems(prev => {
+   307→   307→      const combined = [...prev, ...newItems]
+   308→   308→      if (combined.length > MAX_BATCH_FILES) {
+   309→   309→        toast.warning(`Max ${MAX_BATCH_FILES} images. Extras trimmed.`)
+   310→   310→        return combined.slice(0, MAX_BATCH_FILES)
+   311→   311→      }
+   312→   312→      return combined
+   313→   313→    })
+   314→   314→
+   315→   315→    if (newItems.length > 0) {
+   316→   316→      toast.success(`${newItems.length} image${newItems.length > 1 ? 's' : ''} added`)
+   317→   317→    }
+   318→   318→  }, [])
+   319→   319→
+   320→   320→  const handleBatchDrop = useCallback(async (e: React.DragEvent) => {
+   321→   321→    e.preventDefault(); e.stopPropagation(); setIsBatchDragging(false)
+   322→   322→    if (e.dataTransfer.files.length) addBatchFiles(e.dataTransfer.files)
+   323→   323→  }, [addBatchFiles])
+   324→   324→
+   325→   325→  const handleBatchDragOver = useCallback((e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setIsBatchDragging(true) }, [])
+   326→   326→  const handleBatchDragLeave = useCallback((e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setIsBatchDragging(false) }, [])
+   327→   327→  const handleBatchInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+   328→   328→    if (e.target.files) addBatchFiles(e.target.files)
+   329→   329→  }, [addBatchFiles])
+   330→   330→
+   331→   331→  const removeBatchItem = useCallback((id: string) => {
+   332→   332→    setBatchItems(prev => prev.filter(item => item.id !== id))
+   333→   333→  }, [])
+   334→   334→
+   335→   335→  // ─── Batch: Process ──────────────────────────────────────────
+   336→   336→
+   337→   337→  const processBatch = useCallback(async () => {
+   338→   338→    const pendingItems = batchItems.filter(item => item.status === 'pending')
+   339→   339→    if (pendingItems.length === 0) return
+   340→   340→
+   341→   341→    setBatchProcessing(true)
+   342→   342→    batchAbortRef.current = new AbortController()
+   343→   343→
+   344→   344→    for (let i = 0; i < pendingItems.length; i++) {
+   345→   345→      const item = pendingItems[i]
+   346→   346→      setBatchCurrentIndex(i)
+   347→   347→
+   348→   348→      setBatchItems(prev => prev.map(bi =>
+   349→   349→        bi.id === item.id ? { ...bi, status: 'processing' as const } : bi
+   350→   350→      ))
+   351→   351→
+   352→   352→      const startTime = Date.now()
+   353→   353→
+   354→   354→      try {
+   355→   355→        const formData = new FormData()
+   356→   356→        formData.append('file', item.file)
+   357→   357→
+   358→   358→        const response = await fetch('/api/remove-bg', {
+   359→   359→          method: 'POST',
+   360→   360→          body: formData,
+   361→   361→          signal: batchAbortRef.current?.signal,
+   362→   362→        })
+   363→   363→
+   364→   364→        const data = await response.json()
+   365→   365→        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1)
+   366→   366→
+   367→   367→        if (!response.ok || !data.success) {
+   368→   368→          setBatchItems(prev => prev.map(bi =>
+   369→   369→            bi.id === item.id ? { ...bi, status: 'error' as const, error: data.error || 'Failed' } : bi
+   370→   370→          ))
+   371→   371→          continue
+   372→   372→        }
+   373→   373→
+   374→   374→        setBatchItems(prev => prev.map(bi =>
+   375→   375→          bi.id === item.id ? {
+   376→   376→            ...bi, status: 'done' as const,
+   377→   377→            processedDataUrl: data.image, processingTime: Number(elapsed),
+   378→   378→          } : bi
+   379→   379→        ))
+   380→   380→      } catch (err) {
+   381→   381→        if (err instanceof DOMException && err.name === 'AbortError') break
+   382→   382→        setBatchItems(prev => prev.map(bi =>
+   383→   383→          bi.id === item.id ? { ...bi, status: 'error' as const, error: 'Network error' } : bi
+   384→   384→        ))
+   385→   385→      }
+   386→   386→    }
+   387→   387→
+   388→   388→    setBatchProcessing(false)
+   389→   389→    setBatchCurrentIndex(-1)
+   390→   390→    toast.success('Batch complete!', { description: 'Check your results below.' })
+   391→   391→  }, [batchItems])
+   392→   392→
+   393→   393→  // ─── Batch: Download ─────────────────────────────────────────
+   394→   394→
+   395→   395→  const downloadBatchItem = useCallback((item: BatchItem) => {
+   396→   396→    if (!item.processedDataUrl) return
+   397→   397→    const link = document.createElement('a')
+   398→   398→    link.href = item.processedDataUrl
+   399→   399→    link.download = item.name.replace(/\.[^.]+$/, '') + '-no-bg.png'
+   400→   400→    document.body.appendChild(link); link.click(); document.body.removeChild(link)
+   401→   401→  }, [])
+   402→   402→
+   403→   403→  const downloadAllBatch = useCallback(() => {
+   404→   404→    const doneItems = batchItems.filter(item => item.status === 'done' && item.processedDataUrl)
+   405→   405→    if (doneItems.length === 0) return
+   406→   406→    doneItems.forEach((item, i) => {
+   407→   407→      setTimeout(() => downloadBatchItem(item), i * 200)
+   408→   408→    })
+   409→   409→    toast.success(`Downloading ${doneItems.length} image${doneItems.length > 1 ? 's' : ''}`)
+   410→   410→  }, [batchItems, downloadBatchItem])
+   411→   411→
+   412→   412→  const resetBatch = useCallback(() => {
+   413→   413→    if (batchAbortRef.current) batchAbortRef.current.abort()
+   414→   414→    setBatchItems([]); setBatchProcessing(false); setBatchCurrentIndex(-1)
+   415→   415→    if (batchFileInputRef.current) batchFileInputRef.current.value = ''
+   416→   416→  }, [])
+   417→   417→
+   418→   418→  const batchDoneCount = batchItems.filter(bi => bi.status === 'done').length
+   419→   419→  const batchTotalCount = batchItems.length
+   420→   420→  const batchProgressPercent = batchTotalCount > 0 ? Math.round((batchDoneCount / batchTotalCount) * 100) : 0
+   421→   421→
+   422→   422→  const scrollToTool = useCallback(() => {
+   423→   423→    toolRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+   424→   424→  }, [])
+   425→   425→
+   426→   426→  // ═══════════════════════════════════════════════════════════════
+   427→   427→  // RENDER
+   428→   428→  // ═══════════════════════════════════════════════════════════════
+   429→   429→
+   430→   430→  return (
+   431→   431→    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+   432→   432→      <Toaster position="top-center" richColors closeButton />
+   433→   433→
+   434→   434→      {/* Skip link */}
+   435→   435→      <a
+   436→   436→        href="#main-content"
+   437→   437→        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg"
+   438→   438→      >
+   439→   439→        Skip to main content
+   440→   440→      </a>
+   441→   441→
+   442→   442→      {/* ─── Header ───────────────────────────────────────────── */}
+   443→   443→      <header role="banner" className="sticky top-0 z-50 w-full border-b border-slate-200/60 dark:border-slate-800/60 bg-white/80 backdrop-blur-lg dark:bg-slate-950/80">
+   444→   444→        <nav className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+   445→   445→          <motion.div
+   446→   446→            className="flex items-center gap-2.5"
+   447→   447→            initial={{ opacity: 0, x: -20 }}
+   448→   448→            animate={{ opacity: 1, x: 0 }}
+   449→   449→            transition={{ duration: 0.4 }}
+   450→   450→          >
+   451→   451→            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-sm" aria-hidden="true">
+   452→   452→              <Eraser className="h-4.5 w-4.5" />
+   453→   453→            </div>
+   454→   454→            <div>
+   455→   455→              <h1 className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-50 leading-none">
+   456→   456→                Background Remover
+   457→   457→              </h1>
+   458→   458→              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-none mt-0.5">
+   459→   459→                AI Background Remover
+   460→   460→              </p>
+   461→   461→            </div>
+   462→   462→          </motion.div>
+   463→   463→
+   464→   464→          <div className="flex items-center gap-3">
+   465→   465→            <Badge variant="secondary" className="hidden sm:flex gap-1.5 px-2.5 py-0.5 text-xs">
+   466→   466→              <Sparkles className="h-3 w-3 text-emerald-600" aria-hidden="true" />
+   467→   467→              Free &amp; Private
+   468→   468→            </Badge>
+   469→   469→            <Button onClick={scrollToTool} size="sm" className="gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm hidden sm:flex">
+   470→   470→              <Scissors className="h-3.5 w-3.5" aria-hidden="true" />
+   471→   471→              Try Now
+   472→   472→            </Button>
+   473→   473→          </div>
+   474→   474→        </nav>
+   475→   475→      </header>
+   476→   476→
+   477→   477→      <main id="main-content" role="main">
+   478→   478→
+   479→   479→        {/* ─── Hero Section ───────────────────────────────────── */}
+   480→   480→        <section aria-label="Hero" className="relative overflow-hidden">
+   481→   481→          {/* Background decoration */}
+   482→   482→          <div className="absolute inset-0 -z-10">
+   483→   483→            <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-100 dark:bg-emerald-900/20 rounded-full blur-3xl opacity-50" />
+   484→   484→            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-teal-100 dark:bg-teal-900/20 rounded-full blur-3xl opacity-40" />
+   485→   485→          </div>
+   486→   486→
+   487→   487→          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-16 sm:pb-20">
+   488→   488→            <motion.div
+   489→   489→              className="max-w-3xl mx-auto text-center"
+   490→   490→              initial={{ opacity: 0, y: 30 }}
+   491→   491→              animate={{ opacity: 1, y: 0 }}
+   492→   492→              transition={{ duration: 0.6 }}
+   493→   493→            >
+   494→   494→              {/* Badge */}
+   495→   495→              <motion.div
+   496→   496→                className="inline-flex items-center gap-2 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 px-4 py-1.5 mb-6"
+   497→   497→                initial={{ opacity: 0, scale: 0.9 }}
+   498→   498→                animate={{ opacity: 1, scale: 1 }}
+   499→   499→                transition={{ delay: 0.1 }}
+   500→   500→              >
+   501→   501→                <Sparkles className="h-3.5 w-3.5 text-emerald-600" aria-hidden="true" />
+   502→   502→                <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">AI-Powered · 100% Free · No Signup</span>
+   503→   503→              </motion.div>
+   504→   504→
+   505→   505→              {/* Heading */}
+   506→   506→              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 mb-5 leading-[1.1]">
+   507→   507→                Remove Any Background{' '}
+   508→   508→                <span className="text-emerald-600 dark:text-emerald-400">in Seconds</span>
+   509→   509→              </h2>
+   510→   510→
+   511→   511→              {/* Subheading */}
+   512→   512→              <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+   513→   513→                Upload any image — our AI precisely removes the background while
+   514→   514→                preserving every detail of your subject. Nothing gets cut off.
+   515→   515→              </p>
+   516→   516→
+   517→   517→              {/* CTA buttons */}
+   518→   518→              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+   519→   519→                <Button
+   520→   520→                  onClick={scrollToTool}
+   521→   521→                  size="lg"
+   522→   522→                  className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/25 min-w-[220px] h-12 text-base"
+   523→   523→                >
+   524→   524→                  <Scissors className="h-5 w-5" aria-hidden="true" />
+   525→   525→                  Remove Background
+   526→   526→                  <ArrowRight className="h-4 w-4 ml-1" aria-hidden="true" />
+   527→   527→                </Button>
+   528→   528→                <Button
+   529→   529→                  variant="outline"
+   530→   530→                  size="lg"
+   531→   531→                  className="gap-2 min-w-[180px] h-12 text-base border-slate-300 dark:border-slate-700"
+   532→   532→                  onClick={() => {
+   533→   533→                    setMode('batch')
+   534→   534→                    setTimeout(scrollToTool, 100)
+   535→   535→                  }}
+   536→   536→                >
+   537→   537→                  <Layers className="h-5 w-5" aria-hidden="true" />
+   538→   538→                  Batch Mode
+   539→   539→                </Button>
+   540→   540→              </div>
+   541→   541→
+   542→   542→              {/* Trust signals */}
+   543→   543→              <div className="flex flex-wrap items-center justify-center gap-6 mt-10 text-sm text-slate-500 dark:text-slate-400">
+   544→   544→                <span className="flex items-center gap-1.5">
+   545→   545→                  <ShieldCheck className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+   546→   546→                  Privacy First
+   547→   547→                </span>
+   548→   548→                <span className="flex items-center gap-1.5">
+   549→   549→                  <Zap className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+   550→   550→                  Instant Results
+   551→   551→                </span>
+   552→   552→                <span className="flex items-center gap-1.5">
+   553→   553→                  <Eye className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+   554→   554→                  Full Subject Preserved
+   555→   555→                </span>
+   556→   556→              </div>
+   557→   557→            </motion.div>
+   558→   558→          </div>
+   559→   559→        </section>
+   560→   560→
+   561→   561→        {/* ─── Tool Section ───────────────────────────────────── */}
+   562→   562→        <section ref={toolRef} aria-label="Background removal tool" className="bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
+   563→   563→          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+   564→   564→
+   565→   565→            {/* Section header */}
+   566→   566→            <div className="text-center mb-8">
+   567→   567→              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-50 mb-2">
+   568→   568→                Start Removing Backgrounds
+   569→   569→              </h2>
+   570→   570→              <p className="text-slate-500 dark:text-slate-400">
+   571→   571→                Single image or batch — your choice.
+   572→   572→              </p>
+   573→   573→            </div>
+   574→   574→
+   575→   575→            {/* Mode Tabs */}
+   576→   576→            <div className="mb-8">
+   577→   577→              <Tabs value={mode} onValueChange={(v) => setMode(v as AppMode)} className="w-full">
+   578→   578→                <TabsList className="grid w-full grid-cols-2 max-w-sm mx-auto">
+   579→   579→                  <TabsTrigger value="single" className="gap-2">
+   580→   580→                    <ImageIcon className="h-4 w-4" aria-hidden="true" />
+   581→   581→                    Single Image
+   582→   582→                  </TabsTrigger>
+   583→   583→                  <TabsTrigger value="batch" className="gap-2">
+   584→   584→                    <Layers className="h-4 w-4" aria-hidden="true" />
+   585→   585→                    Batch Process
+   586→   586→                  </TabsTrigger>
+   587→   587→                </TabsList>
+   588→   588→              </Tabs>
+   589→   589→            </div>
+   590→   590→
+   591→   591→            <AnimatePresence mode="wait">
+   592→   592→              {/* ═══════════════════ SINGLE MODE ═══════════════════ */}
+   593→   593→              {mode === 'single' && (
+   594→   594→                <motion.div key="single-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+   595→   595→
+   596→   596→                  {singleState === 'idle' && (
+   597→   597→                    <motion.div key="upload" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }} className="mx-auto max-w-2xl">
+   598→   598→                      <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800">
+   599→   599→                        <CardContent className="p-0">
+   600→   600→                          <div
+   601→   601→                            onClick={handleSingleClick}
+   602→   602→                            onDrop={handleSingleDrop}
+   603→   603→                            onDragOver={handleSingleDragOver}
+   604→   604→                            onDragLeave={handleSingleDragLeave}
+   605→   605→                            role="button"
+   606→   606→                            tabIndex={0}
+   607→   607→                            aria-label="Upload image: click or drag and drop"
+   608→   608→                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSingleClick() } }}
+   609→   609→                            className={`
+   610→   610→                              relative cursor-pointer transition-all duration-300 ease-in-out
+   611→   611→                              border-2 border-dashed rounded-lg m-6 p-8 sm:p-12
+   612→   612→                              flex flex-col items-center justify-center gap-4
+   613→   613→                              min-h-[280px] sm:min-h-[320px]
+   614→   614→                              focus-visible:outline-2 focus-visible:outline-emerald-500 focus-visible:outline-offset-2
+   615→   615→                              ${isDragging
+   616→   616→                                ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 scale-[1.02]'
+   617→   617→                                : 'border-slate-300 dark:border-slate-700 hover:border-emerald-400 hover:bg-slate-50 dark:hover:bg-slate-900/50'
+   618→   618→                              }
+   619→   619→                            `}
+   620→   620→                          >
+   621→   621→                            <motion.div
+   622→   622→                              className={`flex h-16 w-16 items-center justify-center rounded-2xl transition-colors duration-300 ${
+   623→   623→                                isDragging ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
+   624→   624→                              }`}
+   625→   625→                              aria-hidden="true"
+   626→   626→                              animate={isDragging ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
+   627→   627→                              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+   628→   628→                            >
+   629→   629→                              <Upload className="h-7 w-7" />
+   630→   630→                            </motion.div>
+   631→   631→                            <div className="text-center space-y-1.5">
+   632→   632→                              <p className="text-lg font-semibold text-slate-700 dark:text-slate-200">
+   633→   633→                                {isDragging ? 'Drop your image here' : 'Drop your image here or click to browse'}
+   634→   634→                              </p>
+   635→   635→                              <p className="text-sm text-slate-500 dark:text-slate-400">
+   636→   636→                                Select an image file from your device
+   637→   637→                              </p>
+   638→   638→                            </div>
+   639→   639→                            <div className="flex flex-wrap items-center justify-center gap-1.5 mt-2">
+   640→   640→                              {['PNG', 'JPG', 'JPEG', 'WebP'].map((fmt) => (
+   641→   641→                                <Badge key={fmt} variant="outline" className="text-xs font-mono text-slate-500 border-slate-200 dark:border-slate-700">{fmt}</Badge>
+   642→   642→                              ))}
+   643→   643→                            </div>
+   644→   644→                            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Max 10MB per image</p>
+   645→   645→                            <input ref={fileInputRef} type="file" accept=".png,.jpg,.jpeg,.webp" onChange={handleSingleInputChange} className="hidden" aria-label="Upload image file" />
+   646→   646→                          </div>
+   647→   647→                        </CardContent>
+   648→   648→                      </Card>
+   649→   649→                    </motion.div>
+   650→   650→                  )}
+   651→   651→
+   652→   652→                  {singleState === 'processing' && (
+   653→   653→                    <motion.div key="processing" aria-live="polite" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }} className="mx-auto max-w-2xl">
+   654→   654→                      <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800">
+   655→   655→                        <CardHeader className="pb-2">
+   656→   656→                          <CardTitle className="text-lg text-slate-900 dark:text-slate-50 flex items-center gap-2">
+   657→   657→                            <Loader2 className="h-5 w-5 text-emerald-600 animate-spin" aria-hidden="true" />
+   658→   658→                            Processing Your Image
+   659→   659→                          </CardTitle>
+   660→   660→                          <CardDescription>
+   661→   661→                            AI is removing the background from &ldquo;{fileName}&rdquo; ({formatFileSize(fileSize)})
+   662→   662→                            {imageDimensions && ` — ${imageDimensions.w}×${imageDimensions.h}`}
+   663→   663→                          </CardDescription>
+   664→   664→                        </CardHeader>
+   665→   665→                        <CardContent className="space-y-6">
+   666→   666→                          {originalImage && (
+   667→   667→                            <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+   668→   668→                              <img src={originalImage} alt="Original image being processed" className="w-full h-auto max-h-[400px] object-contain mx-auto opacity-60" width={imageDimensions?.w} height={imageDimensions?.h} />
+   669→   669→                              <div className="absolute inset-0 flex items-center justify-center bg-slate-900/20 dark:bg-slate-900/40">
+   670→   670→                                <div className="flex flex-col items-center gap-3 bg-white/90 dark:bg-slate-900/90 rounded-2xl px-6 py-5 shadow-xl backdrop-blur-sm">
+   671→   671→                                  <Loader2 className="h-10 w-10 text-emerald-600 animate-spin" aria-hidden="true" />
+   672→   672→                                  <p className="text-sm font-medium text-slate-700 dark:text-slate-200">Removing background...</p>
+   673→   673→                                  <p className="text-xs text-slate-500 dark:text-slate-400">Preserving full subject with clean edges</p>
+   674→   674→                                </div>
+   675→   675→                              </div>
+   676→   676→                            </div>
+   677→   677→                          )}
+   678→   678→                          <div className="space-y-2">
+   679→   679→                            <div className="flex items-center justify-between text-sm">
+   680→   680→                              <span className="text-slate-600 dark:text-slate-400">Progress</span>
+   681→   681→                              <span className="font-medium text-emerald-600 tabular-nums" aria-live="polite">{Math.round(progress)}%</span>
+   682→   682→                            </div>
+   683→   683→                            <Progress value={progress} className="h-2.5 bg-slate-100 dark:bg-slate-800 [&>[data-slot=progress-indicator]]:bg-emerald-600" aria-label={`Processing progress: ${Math.round(progress)}%`} />
+   684→   684→                          </div>
+   685→   685→                          <div className="flex justify-center">
+   686→   686→                            <Button variant="outline" onClick={handleSingleReset} className="gap-2">
+   687→   687→                              <RefreshCw className="h-4 w-4" aria-hidden="true" />
+   688→   688→                              Cancel
+   689→   689→                            </Button>
+   690→   690→                          </div>
+   691→   691→                        </CardContent>
+   692→   692→                      </Card>
+   693→   693→                    </motion.div>
+   694→   694→                  )}
+   695→   695→
+   696→   696→                  {singleState === 'done' && originalImage && processedImage && (
+   697→   697→                    <motion.div key="done" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }} className="mx-auto max-w-5xl">
+   698→   698→                      <motion.div
+   699→   699→                        initial={{ opacity: 0, scale: 0.95 }}
+   700→   700→                        animate={{ opacity: 1, scale: 1 }}
+   701→   701→                        transition={{ delay: 0.1 }}
+   702→   702→                        className="mb-6 flex items-center gap-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 p-4"
+   703→   703→                        role="alert"
+   704→   704→                      >
+   705→   705→                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-white flex-shrink-0" aria-hidden="true">
+   706→   706→                          <CheckCircle2 className="h-4 w-4" />
+   707→   707→                        </div>
+   708→   708→                        <div className="flex-1 min-w-0">
+   709→   709→                          <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-200">Background removed successfully!</p>
+   710→   710→                          <p className="text-xs text-emerald-600 dark:text-emerald-400 truncate">
+   711→   711→                            {fileName} &middot; {formatFileSize(fileSize)}
+   712→   712→                            {imageDimensions && ` · ${imageDimensions.w}×${imageDimensions.h}`}
+   713→   713→                            {processingTime > 0 && ` · ${processingTime}s`}
+   714→   714→                          </p>
+   715→   715→                        </div>
+   716→   716→                      </motion.div>
+   717→   717→
+   718→   718→                      <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800">
+   719→   719→                        <CardHeader className="pb-3">
+   720→   720→                          <div className="flex items-center justify-between">
+   721→   721→                            <CardTitle className="text-lg text-slate-900 dark:text-slate-50">Result</CardTitle>
+   722→   722→                            <Badge variant="secondary" className="gap-1.5 text-emerald-700 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-950/40">
+   723→   723→                              <Sparkles className="h-3 w-3" aria-hidden="true" />
+   724→   724→                              Completed
+   725→   725→                            </Badge>
+   726→   726→                          </div>
+   727→   727→                        </CardHeader>
+   728→   728→                        <CardContent>
+   729→   729→                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+   730→   730→                            <div className="space-y-2">
+   731→   731→                              <div className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+   732→   732→                                <ImageIcon className="h-4 w-4" aria-hidden="true" />Original
+   733→   733→                              </div>
+   734→   734→                              <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+   735→   735→                                <img src={originalImage} alt="Original image" className="w-full h-auto max-h-[450px] object-contain" width={imageDimensions?.w} height={imageDimensions?.h} />
+   736→   736→                              </div>
+   737→   737→                            </div>
+   738→   738→                            <div className="space-y-2">
+   739→   739→                              <div className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+   740→   740→                                <Eraser className="h-4 w-4 text-emerald-600" aria-hidden="true" />Background Removed
+   741→   741→                              </div>
+   742→   742→                              <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700" style={CHECKERBOARD_BG}>
+   743→   743→                                <img src={processedImage} alt="Image with background removed, transparent" className="w-full h-auto max-h-[450px] object-contain" width={imageDimensions?.w} height={imageDimensions?.h} />
+   744→   744→                              </div>
+   745→   745→                            </div>
+   746→   746→                          </div>
+   747→   747→                          <Separator className="my-6" />
+   748→   748→                          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+   749→   749→                            <Button onClick={handleDownload} size="lg" className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-md min-w-[200px]">
+   750→   750→                              <Download className="h-4 w-4" aria-hidden="true" />
+   751→   751→                              Download PNG
+   752→   752→                            </Button>
+   753→   753→                            <Button variant="outline" onClick={handleSingleReset} size="lg" className="gap-2 min-w-[200px]">
+   754→   754→                              <RefreshCw className="h-4 w-4" aria-hidden="true" />
+   755→   755→                              Upload New Image
+   756→   756→                            </Button>
+   757→   757→                          </div>
+   758→   758→                        </CardContent>
+   759→   759→                      </Card>
+   760→   760→                    </motion.div>
+   761→   761→                  )}
+   762→   762→
+   763→   763→                  {singleState === 'error' && (
+   764→   764→                    <motion.div key="error" role="alert" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }} className="mx-auto max-w-2xl">
+   765→   765→                      <Card className="overflow-hidden shadow-lg border-red-200 dark:border-red-900">
+   766→   766→                        <CardHeader className="pb-3">
+   767→   767→                          <CardTitle className="text-lg text-red-700 dark:text-red-400 flex items-center gap-2">
+   768→   768→                            <AlertTriangle className="h-5 w-5" aria-hidden="true" />
+   769→   769→                            Processing Failed
+   770→   770→                          </CardTitle>
+   771→   771→                          <CardDescription>{errorMsg || "We couldn't remove the background. Please try again."}</CardDescription>
+   772→   772→                        </CardHeader>
+   773→   773→                        <CardContent className="space-y-4">
+   774→   774→                          <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+   775→   775→                            <p className="text-xs text-amber-800 dark:text-amber-200">
+   776→   776→                              <strong>Tips:</strong> Try a clearer image with a distinct subject. Images under 2MB work best.
+   777→   777→                            </p>
+   778→   778→                          </div>
+   779→   779→                          <div className="flex justify-center">
+   780→   780→                            <Button onClick={handleSingleReset} size="lg" className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-md min-w-[200px]">
+   781→   781→                              <RefreshCw className="h-4 w-4" aria-hidden="true" />
+   782→   782→                              Try Again
+   783→   783→                            </Button>
+   784→   784→                          </div>
+   785→   785→                        </CardContent>
+   786→   786→                      </Card>
+   787→   787→                    </motion.div>
+   788→   788→                  )}
+   789→   789→                </motion.div>
+   790→   790→              )}
+   791→   791→
+   792→   792→              {/* ═══════════════════ BATCH MODE ═══════════════════ */}
+   793→   793→              {mode === 'batch' && (
+   794→   794→                <motion.div key="batch-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="mx-auto max-w-5xl">
+   795→   795→                  {/* Upload Zone */}
+   796→   796→                  <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800 mb-6">
+   797→   797→                    <CardContent className="p-0">
+   798→   798→                      <div
+   799→   799→                        onClick={() => !batchProcessing && batchFileInputRef.current?.click()}
+   800→   800→                        onDrop={handleBatchDrop}
+   801→   801→                        onDragOver={handleBatchDragOver}
+   802→   802→                        onDragLeave={handleBatchDragLeave}
+   803→   803→                        role="button"
+   804→   804→                        tabIndex={batchProcessing ? -1 : 0}
+   805→   805→                        aria-label="Upload multiple images for batch processing"
+   806→   806→                        onKeyDown={(e) => { if ((e.key === 'Enter' || e.key === ' ') && !batchProcessing) { e.preventDefault(); batchFileInputRef.current?.click() } }}
+   807→   807→                        className={`
+   808→   808→                          relative transition-all duration-300 ease-in-out
+   809→   809→                          border-2 border-dashed rounded-lg m-6 p-6 sm:p-8
+   810→   810→                          flex flex-col items-center justify-center gap-3 min-h-[180px]
+   811→   811→                          ${batchProcessing ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}
+   812→   812→                          ${isBatchDragging ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 scale-[1.02]' : 'border-slate-300 dark:border-slate-700 hover:border-emerald-400 hover:bg-slate-50 dark:hover:bg-slate-900/50'}
+   813→   813→                        `}
+   814→   814→                      >
+   815→   815→                        <motion.div
+   816→   816→                          className={`flex h-12 w-12 items-center justify-center rounded-xl transition-colors duration-300 ${
+   817→   817→                            isBatchDragging ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
+   818→   818→                          }`}
+   819→   819→                          aria-hidden="true"
+   820→   820→                          animate={isBatchDragging ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
+   821→   821→                          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+   822→   822→                        >
+   823→   823→                          <Layers className="h-6 w-6" />
+   824→   824→                        </motion.div>
+   825→   825→                        <div className="text-center space-y-1">
+   826→   826→                          <p className="text-base font-semibold text-slate-700 dark:text-slate-200">
+   827→   827→                            {isBatchDragging ? 'Drop images here' : 'Drop multiple images or click to browse'}
+   828→   828→                          </p>
+   829→   829→                          <p className="text-sm text-slate-500 dark:text-slate-400">
+   830→   830→                            PNG, JPG, WebP · Max 10MB each · Up to {MAX_BATCH_FILES} images
+   831→   831→                          </p>
+   832→   832→                        </div>
+   833→   833→                        <input ref={batchFileInputRef} type="file" accept=".png,.jpg,.jpeg,.webp" multiple onChange={handleBatchInputChange} className="hidden" aria-label="Upload multiple image files" disabled={batchProcessing} />
+   834→   834→                      </div>
+   835→   835→                    </CardContent>
+   836→   836→                  </Card>
+   837→   837→
+   838→   838→                  {/* Batch File List */}
+   839→   839→                  {batchItems.length > 0 && (
+   840→   840→                    <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800 mb-6">
+   841→   841→                      <CardHeader className="pb-3">
+   842→   842→                        <div className="flex items-center justify-between flex-wrap gap-3">
+   843→   843→                          <CardTitle className="text-lg text-slate-900 dark:text-slate-50 flex items-center gap-2">
+   844→   844→                            <FileImage className="h-5 w-5 text-emerald-600" aria-hidden="true" />
+   845→   845→                            Queue
+   846→   846→                            <Badge variant="secondary" className="text-xs">{batchItems.length} image{batchItems.length !== 1 ? 's' : ''}</Badge>
+   847→   847→                          </CardTitle>
+   848→   848→                          <div className="flex items-center gap-2">
+   849→   849→                            {!batchProcessing && batchItems.some(bi => bi.status === 'pending') && (
+   850→   850→                              <Button onClick={processBatch} size="sm" className="gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white">
+   851→   851→                                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+   852→   852→                                Process All
+   853→   853→                              </Button>
+   854→   854→                            )}
+   855→   855→                            {!batchProcessing && batchDoneCount > 0 && (
+   856→   856→                              <Button onClick={downloadAllBatch} size="sm" variant="outline" className="gap-1.5">
+   857→   857→                                <Archive className="h-3.5 w-3.5" aria-hidden="true" />
+   858→   858→                                Download All ({batchDoneCount})
+   859→   859→                              </Button>
+   860→   860→                            )}
+   861→   861→                            {!batchProcessing && (
+   862→   862→                              <Button onClick={resetBatch} size="sm" variant="ghost" className="gap-1.5 text-slate-500">
+   863→   863→                                <RefreshCw className="h-3.5 w-3.5" aria-hidden="true" />
+   864→   864→                                Clear
+   865→   865→                              </Button>
+   866→   866→                            )}
+   867→   867→                            {batchProcessing && (
+   868→   868→                              <Button onClick={() => { batchAbortRef.current?.abort(); setBatchProcessing(false); setBatchCurrentIndex(-1) }} size="sm" variant="destructive" className="gap-1.5">
+   869→   869→                                <X className="h-3.5 w-3.5" aria-hidden="true" />
+   870→   870→                                Stop
+   871→   871→                              </Button>
+   872→   872→                            )}
+   873→   873→                          </div>
+   874→   874→                        </div>
+   875→   875→                        {batchProcessing && (
+   876→   876→                          <div className="space-y-2 mt-2">
+   877→   877→                            <div className="flex items-center justify-between text-sm">
+   878→   878→                              <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+   879→   879→                                <Loader2 className="h-3.5 w-3.5 animate-spin text-emerald-600" aria-hidden="true" />
+   880→   880→                                Processing image {batchCurrentIndex + 1}...
+   881→   881→                              </span>
+   882→   882→                              <span className="font-medium text-emerald-600 tabular-nums">{batchProgressPercent}%</span>
+   883→   883→                            </div>
+   884→   884→                            <Progress value={batchProgressPercent} className="h-2 bg-slate-100 dark:bg-slate-800 [&>[data-slot=progress-indicator]]:bg-emerald-600" />
+   885→   885→                          </div>
+   886→   886→                        )}
+   887→   887→                        {batchDoneCount > 0 && !batchProcessing && (
+   888→   888→                          <div className="flex items-center gap-2 text-sm text-emerald-700 dark:text-emerald-300 mt-2">
+   889→   889→                            <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+   890→   890→                            {batchDoneCount} of {batchTotalCount} completed
+   891→   891→                            {batchItems.filter(bi => bi.status === 'error').length > 0 && (
+   892→   892→                              <span className="text-red-600 dark:text-red-400 ml-2">· {batchItems.filter(bi => bi.status === 'error').length} failed</span>
+   893→   893→                            )}
+   894→   894→                          </div>
+   895→   895→                        )}
+   896→   896→                      </CardHeader>
+   897→   897→                      <CardContent>
+   898→   898→                        <div className="space-y-2 max-h-[500px] overflow-y-auto pr-1" style={{ scrollbarWidth: 'thin' }}>
+   899→   899→                          {batchItems.map((item) => (
+   900→   900→                            <motion.div
+   901→   901→                              key={item.id}
+   902→   902→                              layout
+   903→   903→                              initial={{ opacity: 0, y: 10 }}
+   904→   904→                              animate={{ opacity: 1, y: 0 }}
+   905→   905→                              className={`
+   906→   906→                                flex items-center gap-3 p-3 rounded-lg border transition-colors
+   907→   907→                                ${item.status === 'done'
+   908→   908→                                  ? 'border-emerald-200 bg-emerald-50/50 dark:border-emerald-800 dark:bg-emerald-950/20'
+   909→   909→                                  : item.status === 'error'
+   910→   910→                                  ? 'border-red-200 bg-red-50/50 dark:border-red-900 dark:bg-red-950/20'
+   911→   911→                                  : item.status === 'processing'
+   912→   912→                                  ? 'border-amber-200 bg-amber-50/50 dark:border-amber-800 dark:bg-amber-950/20'
+   913→   913→                                  : 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900'
+   914→   914→                                }
+   915→   915→                              `}
+   916→   916→                            >
+   917→   917→                              <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
+   918→   918→                                <img src={item.status === 'done' && item.processedDataUrl ? item.processedDataUrl : item.originalDataUrl} alt={item.name} className="w-full h-full object-cover" />
+   919→   919→                              </div>
+   920→   920→                              <div className="flex-1 min-w-0">
+   921→   921→                                <p className="text-sm font-medium text-slate-900 dark:text-slate-50 truncate">{item.name}</p>
+   922→   922→                                <p className="text-xs text-slate-500 dark:text-slate-400">
+   923→   923→                                  {formatFileSize(item.size)}
+   924→   924→                                  {item.processingTime ? ` · ${item.processingTime}s` : ''}
+   925→   925→                                </p>
+   926→   926→                              </div>
+   927→   927→                              <div className="flex items-center gap-2 flex-shrink-0">
+   928→   928→                                {item.status === 'pending' && (
+   929→   929→                                  <Badge variant="outline" className="text-xs text-slate-500 dark:text-slate-400">
+   930→   930→                                    <Clock className="h-3 w-3 mr-1" aria-hidden="true" />Pending
+   931→   931→                                  </Badge>
+   932→   932→                                )}
+   933→   933→                                {item.status === 'processing' && (
+   934→   934→                                  <Badge variant="secondary" className="text-xs text-amber-700 bg-amber-50 dark:text-amber-300 dark:bg-amber-950/40">
+   935→   935→                                    <Loader2 className="h-3 w-3 mr-1 animate-spin" aria-hidden="true" />Processing
+   936→   936→                                  </Badge>
+   937→   937→                                )}
+   938→   938→                                {item.status === 'done' && (
+   939→   939→                                  <>
+   940→   940→                                    <Badge variant="secondary" className="text-xs text-emerald-700 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-950/40">
+   941→   941→                                      <CheckCircle2 className="h-3 w-3 mr-1" aria-hidden="true" />Done
+   942→   942→                                    </Badge>
+   943→   943→                                    <Button onClick={() => downloadBatchItem(item)} size="icon" variant="ghost" className="h-8 w-8 text-slate-500 hover:text-emerald-600" aria-label={`Download ${item.name}`}>
+   944→   944→                                      <Download className="h-4 w-4" />
+   945→   945→                                    </Button>
+   946→   946→                                  </>
+   947→   947→                                )}
+   948→   948→                                {item.status === 'error' && (
+   949→   949→                                  <Badge variant="destructive" className="text-xs">
+   950→   950→                                    <AlertTriangle className="h-3 w-3 mr-1" aria-hidden="true" />Failed
+   951→   951→                                  </Badge>
+   952→   952→                                )}
+   953→   953→                                {!batchProcessing && item.status !== 'processing' && (
+   954→   954→                                  <Button onClick={() => removeBatchItem(item.id)} size="icon" variant="ghost" className="h-8 w-8 text-slate-400 hover:text-red-500" aria-label={`Remove ${item.name}`}>
+   955→   955→                                    <X className="h-4 w-4" />
+   956→   956→                                  </Button>
+   957→   957→                                )}
+   958→   958→                              </div>
+   959→   959→                            </motion.div>
+   960→   960→                          ))}
+   961→   961→                        </div>
+   962→   962→                      </CardContent>
+   963→   963→                    </Card>
+   964→   964→                  )}
+   965→   965→
+   966→   966→                  {/* Batch Results Preview */}
+   967→   967→                  {batchItems.some(bi => bi.status === 'done' && bi.processedDataUrl) && (
+   968→   968→                    <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800">
+   969→   969→                      <CardHeader className="pb-3">
+   970→   970→                        <div className="flex items-center justify-between">
+   971→   971→                          <CardTitle className="text-lg text-slate-900 dark:text-slate-50 flex items-center gap-2">
+   972→   972→                            <Eye className="h-5 w-5 text-emerald-600" aria-hidden="true" />Results Preview
+   973→   973→                          </CardTitle>
+   974→   974→                          <Button onClick={downloadAllBatch} size="sm" className="gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white">
+   975→   975→                            <Download className="h-3.5 w-3.5" aria-hidden="true" />Download All
+   976→   976→                          </Button>
+   977→   977→                        </div>
+   978→   978→                      </CardHeader>
+   979→   979→                      <CardContent>
+   980→   980→                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+   981→   981→                          {batchItems.filter(bi => bi.status === 'done' && bi.processedDataUrl).map(item => (
+   982→   982→                            <motion.div key={item.id} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="group relative">
+   983→   983→                              <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 aspect-square" style={CHECKERBOARD_BG}>
+   984→   984→                                <img src={item.processedDataUrl!} alt={`${item.name} - background removed`} className="w-full h-full object-contain p-2" />
+   985→   985→                                <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+   986→   986→                                  <Button onClick={() => downloadBatchItem(item)} size="sm" variant="secondary" className="gap-1.5">
+   987→   987→                                    <Download className="h-3.5 w-3.5" aria-hidden="true" />Save
+   988→   988→                                  </Button>
+   989→   989→                                </div>
+   990→   990→                              </div>
+   991→   991→                              <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-1.5 text-center">{item.name}</p>
+   992→   992→                            </motion.div>
+   993→   993→                          ))}
+   994→   994→                        </div>
+   995→   995→                      </CardContent>
+   996→   996→                    </Card>
+   997→   997→                  )}
+   998→   998→
+   999→   999→                  {/* Empty state */}
+  1000→  1000→                  {batchItems.length === 0 && (
+  1001→  1001→                    <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
+  1002→  1002→                      {[
+  1003→  1003→                        { icon: Layers, label: 'Up to 10 Images' },
+  1004→  1004→                        { icon: Zap, label: 'Sequential Processing' },
+  1005→  1005→                        { icon: Eye, label: 'Full Subject Preserved' },
+  1006→  1006→                        { icon: Archive, label: 'Download All' },
+  1007→  1007→                      ].map(({ icon: Icon, label }) => (
+  1008→  1008→                        <div key={label} className="flex items-center justify-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 rounded-lg py-2 px-3 border border-slate-100 dark:border-slate-800">
+  1009→  1009→                          <Icon className="h-3.5 w-3.5 text-emerald-500" aria-hidden="true" />
+  1010→  1010→                          <span>{label}</span>
+  1011→  1011→                        </div>
+  1012→  1012→                      ))}
+  1013→  1013→                    </div>
+  1014→  1014→                  )}
+  1015→  1015→                </motion.div>
+  1016→  1016→              )}
+  1017→  1017→            </AnimatePresence>
+  1018→  1018→          </div>
+  1019→  1019→        </section>
+  1020→  1020→
+  1021→  1021→        {/* ─── Features Section ───────────────────────────────── */}
+  1022→  1022→        <section aria-label="Features" className="py-16 sm:py-24">
+  1023→  1023→          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+  1024→  1024→            <div className="text-center mb-12">
+  1025→  1025→              <Badge variant="secondary" className="gap-1.5 px-3 py-1 text-xs mb-4">
+  1026→  1026→                <Zap className="h-3 w-3 text-emerald-600" aria-hidden="true" />
+  1027→  1027→                Why Choose Us
+  1028→  1028→              </Badge>
+  1029→  1029→              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-3">
+  1030→  1030→                Everything You Need, Nothing You Don&apos;t
+  1031→  1031→              </h2>
+  1032→  1032→              <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+  1033→  1033→                Professional-grade background removal without the complexity or cost.
+  1034→  1034→              </p>
+  1035→  1035→            </div>
+  1036→  1036→
+  1037→  1037→            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+  1038→  1038→              {[
+  1039→  1039→                {
+  1040→  1040→                  icon: Scissors,
+  1041→  1041→                  title: 'Full Subject Preserved',
+  1042→  1042→                  desc: 'Advanced AI padding ensures every detail of your subject stays intact — no cutoff, no missing edges.',
+  1043→  1043→                },
+  1044→  1044→                {
+  1045→  1045→                  icon: Layers,
+  1046→  1046→                  title: 'Batch Processing',
+  1047→  1047→                  desc: 'Upload up to 10 images at once. Process them all and download in one click.',
+  1048→  1048→                },
+  1049→  1049→                {
+  1050→  1050→                  icon: Lock,
+  1051→  1051→                  title: 'Privacy First',
+  1052→  1052→                  desc: 'Your images are processed in real-time and immediately deleted. We never store or share your data.',
+  1053→  1053→                },
+  1054→  1054→                {
+  1055→  1055→                  icon: Palette,
+  1056→  1056→                  title: 'Transparent PNG Output',
+  1057→  1057→                  desc: 'Every result is a high-quality transparent PNG ready for design, e-commerce, or presentations.',
+  1058→  1058→                },
+  1059→  1059→                {
+  1060→  1060→                  icon: Gauge,
+  1061→  1061→                  title: 'Lightning Fast',
+  1062→  1062→                  desc: 'AI-powered processing completes in seconds, not minutes. No queues, no waiting.',
+  1063→  1063→                },
+  1064→  1064→                {
+  1065→  1065→                  icon: Globe,
+  1066→  1066→                  title: 'Works Everywhere',
+  1067→  1067→                  desc: 'Fully responsive — works on any device, any browser. No downloads or installs needed.',
+  1068→  1068→                },
+  1069→  1069→              ].map(({ icon: Icon, title, desc }) => (
+  1070→  1070→                <motion.div
+  1071→  1071→                  key={title}
+  1072→  1072→                  initial={{ opacity: 0, y: 20 }}
+  1073→  1073→                  whileInView={{ opacity: 1, y: 0 }}
+  1074→  1074→                  viewport={{ once: true }}
+  1075→  1075→                  transition={{ duration: 0.4 }}
+  1076→  1076→                >
+  1077→  1077→                  <Card className="h-full border-slate-200 dark:border-slate-800 hover:shadow-md transition-shadow">
+  1078→  1078→                    <CardContent className="p-6">
+  1079→  1079→                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-4" aria-hidden="true">
+  1080→  1080→                        <Icon className="h-5 w-5" />
+  1081→  1081→                      </div>
+  1082→  1082→                      <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">{title}</h3>
+  1083→  1083→                      <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{desc}</p>
+  1084→  1084→                    </CardContent>
+  1085→  1085→                  </Card>
+  1086→  1086→                </motion.div>
+  1087→  1087→              ))}
+  1088→  1088→            </div>
+  1089→  1089→          </div>
+  1090→  1090→        </section>
+  1091→  1091→
+  1092→  1092→        {/* ─── How It Works Section ───────────────────────────── */}
+  1093→  1093→        <section aria-label="How it works" className="py-16 sm:py-24 bg-slate-50 dark:bg-slate-900/50">
+  1094→  1094→          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+  1095→  1095→            <div className="text-center mb-12">
+  1096→  1096→              <Badge variant="secondary" className="gap-1.5 px-3 py-1 text-xs mb-4">
+  1097→  1097→                <ImagePlus className="h-3 w-3 text-emerald-600" aria-hidden="true" />
+  1098→  1098→                Simple Process
+  1099→  1099→              </Badge>
+  1100→  1100→              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-3">
+  1101→  1101→                Three Steps. Zero Hassle.
+  1102→  1102→              </h2>
+  1103→  1103→            </div>
+  1104→  1104→
+  1105→  1105→            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+  1106→  1106→              {[
+  1107→  1107→                {
+  1108→  1108→                  step: '01',
+  1109→  1109→                  icon: Upload,
+  1110→  1110→                  title: 'Upload Your Image',
+  1111→  1111→                  desc: 'Drag & drop, click to browse, or select multiple files for batch processing. We support PNG, JPG, and WebP.',
+  1112→  1112→                },
+  1113→  1113→                {
+  1114→  1114→                  step: '02',
+  1115→  1115→                  icon: Sparkles,
+  1116→  1116→                  title: 'AI Does the Work',
+  1117→  1117→                  desc: 'Our AI precisely identifies the subject and removes the background. Edge-padding technology ensures nothing gets cut off.',
+  1118→  1118→                },
+  1119→  1119→                {
+  1120→  1120→                  step: '03',
+  1121→  1121→                  icon: Download,
+  1122→  1122→                  title: 'Download & Use',
+  1123→  1123→                  desc: 'Get a crisp transparent PNG instantly. Use it for e-commerce, design projects, presentations, or social media.',
+  1124→  1124→                },
+  1125→  1125→              ].map(({ step, icon: Icon, title, desc }) => (
+  1126→  1126→                <motion.div
+  1127→  1127→                  key={step}
+  1128→  1128→                  className="text-center"
+  1129→  1129→                  initial={{ opacity: 0, y: 20 }}
+  1130→  1130→                  whileInView={{ opacity: 1, y: 0 }}
+  1131→  1131→                  viewport={{ once: true }}
+  1132→  1132→                  transition={{ duration: 0.4, delay: parseInt(step) * 0.1 }}
+  1133→  1133→                >
+  1134→  1134→                  <div className="flex items-center justify-center mb-5">
+  1135→  1135→                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-600/25" aria-hidden="true">
+  1136→  1136→                      <Icon className="h-6 w-6" />
+  1137→  1137→                    </div>
+  1138→  1138→                  </div>
+  1139→  1139→                  <p className="text-xs font-mono text-emerald-600 dark:text-emerald-400 mb-1">Step {step}</p>
+  1140→  1140→                  <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-2">{title}</h3>
+  1141→  1141→                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{desc}</p>
+  1142→  1142→                </motion.div>
+  1143→  1143→              ))}
+  1144→  1144→            </div>
+  1145→  1145→          </div>
+  1146→  1146→        </section>
+  1147→  1147→
+  1148→  1148→        {/* ─── Use Cases Section ──────────────────────────────── */}
+  1149→  1149→        <section aria-label="Use cases" className="py-16 sm:py-24">
+  1150→  1150→          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+  1151→  1151→            <div className="text-center mb-12">
+  1152→  1152→              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-3">
+  1153→  1153→                Built for Every Use Case
+  1154→  1154→              </h2>
+  1155→  1155→              <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+  1156→  1156→                From e-commerce to design, get professional results every time.
+  1157→  1157→              </p>
+  1158→  1158→            </div>
+  1159→  1159→
+  1160→  1160→            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
+  1161→  1161→              {[
+  1162→  1162→                'E-Commerce',
+  1163→  1163→                'Graphic Design',
+  1164→  1164→                'Presentations',
+  1165→  1165→                'Social Media',
+  1166→  1166→                'Photo Editing',
+  1167→  1167→                'Marketing',
+  1168→  1168→              ].map((useCase) => (
+  1169→  1169→                <motion.div
+  1170→  1170→                  key={useCase}
+  1171→  1171→                  initial={{ opacity: 0, scale: 0.9 }}
+  1172→  1172→                  whileInView={{ opacity: 1, scale: 1 }}
+  1173→  1173→                  viewport={{ once: true }}
+  1174→  1174→                  transition={{ duration: 0.3 }}
+  1175→  1175→                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors"
+  1176→  1176→                >
+  1177→  1177→                  <Heart className="h-3.5 w-3.5 text-emerald-500 flex-shrink-0" aria-hidden="true" />
+  1178→  1178→                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{useCase}</span>
+  1179→  1179→                </motion.div>
+  1180→  1180→              ))}
+  1181→  1181→            </div>
+  1182→  1182→          </div>
+  1183→  1183→        </section>
+  1184→  1184→
+  1185→  1185→        {/* ─── FAQ Section ────────────────────────────────────── */}
+  1186→  1186→        <section aria-label="Frequently asked questions" className="py-16 sm:py-24 bg-slate-50 dark:bg-slate-900/50">
+  1187→  1187→          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+  1188→  1188→            <div className="text-center mb-12">
+  1189→  1189→              <Badge variant="secondary" className="gap-1.5 px-3 py-1 text-xs mb-4">
+  1190→  1190→                <Eye className="h-3 w-3 text-emerald-600" aria-hidden="true" />
+  1191→  1191→                FAQ
+  1192→  1192→              </Badge>
+  1193→  1193→              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-3">
+  1194→  1194→                Frequently Asked Questions
+  1195→  1195→              </h2>
+  1196→  1196→            </div>
+  1197→  1197→
+  1198→  1198→            <div className="max-w-3xl mx-auto space-y-3">
+  1199→  1199→              {FAQ_ITEMS.map((item, i) => (
+  1200→  1200→                <motion.div
+  1201→  1201→                  key={i}
+  1202→  1202→                  initial={{ opacity: 0, y: 10 }}
+  1203→  1203→                  whileInView={{ opacity: 1, y: 0 }}
+  1204→  1204→                  viewport={{ once: true }}
+  1205→  1205→                  transition={{ duration: 0.3, delay: i * 0.05 }}
+  1206→  1206→                >
+  1207→  1207→                  <Card className="border-slate-200 dark:border-slate-800">
+  1208→  1208→                    <button
+  1209→  1209→                      className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 focus-visible:outline-2 focus-visible:outline-emerald-500 focus-visible:outline-offset-2 rounded-lg"
+  1210→  1210→                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
+  1211→  1211→                      aria-expanded={openFaq === i}
+  1212→  1212→                      aria-controls={`faq-answer-${i}`}
+  1213→  1213→                    >
+  1214→  1214→                      <h3 className="text-sm sm:text-base font-semibold text-slate-900 dark:text-slate-50">
+  1215→  1215→                        {item.q}
+  1216→  1216→                      </h3>
+  1217→  1217→                      <ChevronDown
+  1218→  1218→                        className={`h-4 w-4 text-slate-400 flex-shrink-0 transition-transform duration-200 ${openFaq === i ? 'rotate-180' : ''}`}
+  1219→  1219→                        aria-hidden="true"
+  1220→  1220→                      />
+  1221→  1221→                    </button>
+  1222→  1222→                    <AnimatePresence>
+  1223→  1223→                      {openFaq === i && (
+  1224→  1224→                        <motion.div
+  1225→  1225→                          id={`faq-answer-${i}`}
+  1226→  1226→                          role="region"
+  1227→  1227→                          initial={{ height: 0, opacity: 0 }}
+  1228→  1228→                          animate={{ height: 'auto', opacity: 1 }}
+  1229→  1229→                          exit={{ height: 0, opacity: 0 }}
+  1230→  1230→                          transition={{ duration: 0.2 }}
+  1231→  1231→                          className="overflow-hidden"
+  1232→  1232→                        >
+  1233→  1233→                          <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0">
+  1234→  1234→                            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+  1235→  1235→                              {item.a}
+  1236→  1236→                            </p>
+  1237→  1237→                          </div>
+  1238→  1238→                        </motion.div>
+  1239→  1239→                      )}
+  1240→  1240→                    </AnimatePresence>
+  1241→  1241→                  </Card>
+  1242→  1242→                </motion.div>
+  1243→  1243→              ))}
+  1244→  1244→            </div>
+  1245→  1245→          </div>
+  1246→  1246→        </section>
+  1247→  1247→
+  1248→  1248→        {/* ─── CTA Section ────────────────────────────────────── */}
+  1249→  1249→        <section aria-label="Call to action" className="py-16 sm:py-24">
+  1250→  1250→          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+  1251→  1251→            <motion.div
+  1252→  1252→              className="max-w-2xl mx-auto text-center"
+  1253→  1253→              initial={{ opacity: 0, y: 20 }}
+  1254→  1254→              whileInView={{ opacity: 1, y: 0 }}
+  1255→  1255→              viewport={{ once: true }}
+  1256→  1256→              transition={{ duration: 0.5 }}
+  1257→  1257→            >
+  1258→  1258→              <div className="flex items-center justify-center mb-6">
+  1259→  1259→                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-600/25" aria-hidden="true">
+  1260→  1260→                  <Eraser className="h-7 w-7" />
+  1261→  1261→                </div>
+  1262→  1262→              </div>
+  1263→  1263→              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">
+  1264→  1264→                Ready to Cut the Clutter?
+  1265→  1265→              </h2>
+  1266→  1266→              <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-lg mx-auto">
+  1267→  1267→                Start removing backgrounds in seconds. Free forever, no signup, no watermarks.
+  1268→  1268→              </p>
+  1269→  1269→              <Button
+  1270→  1270→                onClick={scrollToTool}
+  1271→  1271→                size="lg"
+  1272→  1272→                className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/25 min-w-[240px] h-13 text-base"
+  1273→  1273→              >
+  1274→  1274→                <Scissors className="h-5 w-5" aria-hidden="true" />
+  1275→  1275→                Start for Free
+  1276→  1276→                <ArrowRight className="h-4 w-4 ml-1" aria-hidden="true" />
+  1277→  1277→              </Button>
+  1278→  1278→            </motion.div>
+  1279→  1279→          </div>
+  1280→  1280→        </section>
+  1281→  1281→
+  1282→  1282→      </main>
+  1283→  1283→
+  1284→  1284→      {/* ─── Footer ───────────────────────────────────────────── */}
+  1285→  1285→      <footer role="contentinfo" className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 mt-auto">
+  1286→  1286→        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  1287→  1287→          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+  1288→  1288→            {/* Brand */}
+  1289→  1289→            <div>
+  1290→  1290→              <div className="flex items-center gap-2 mb-3">
+  1291→  1291→                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white" aria-hidden="true">
+  1292→  1292→                  <Eraser className="h-4 w-4" />
+  1293→  1293→                </div>
+  1294→  1294→                <span className="text-base font-bold text-slate-900 dark:text-slate-50">Background Remover</span>
+  1295→  1295→              </div>
+  1296→  1296→              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+  1297→  1297→                AI-powered background removal tool. Free, private, and precise.
+  1298→  1298→              </p>
+  1299→  1299→            </div>
+  1300→  1300→
+  1301→  1301→            {/* Features */}
+  1302→  1302→            <div>
+  1303→  1303→              <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3">Features</h4>
+  1304→  1304→              <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+  1305→  1305→                <li>Single Image Removal</li>
+  1306→  1306→                <li>Batch Processing</li>
+  1307→  1307→                <li>Full Subject Preservation</li>
+  1308→  1308→                <li>Transparent PNG Export</li>
+  1309→  1309→              </ul>
+  1310→  1310→            </div>
+  1311→  1311→
+  1312→  1312→            {/* Info */}
+  1313→  1313→            <div>
+  1314→  1314→              <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3">Info</h4>
+  1315→  1315→              <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+  1316→  1316→                <li>100% Free — No Limits</li>
+  1317→  1317→                <li>No Signup Required</li>
+  1318→  1318→                <li>Privacy First — Never Stored</li>
+  1319→  1319→                <li>Works on Any Device</li>
+  1320→  1320→              </ul>
+  1321→  1321→            </div>
+  1322→  1322→          </div>
+  1323→  1323→
+  1324→  1324→          <Separator className="my-6" />
+  1325→  1325→
+  1326→  1326→          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+  1327→  1327→            <p className="text-xs text-slate-400 dark:text-slate-500">
+  1328→  1328→              © {new Date().getFullYear()} Background Remover — Free AI Tool. All rights reserved.
+  1329→  1329→            </p>
+  1330→  1330→            <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-slate-500">
+  1331→  1331→              <span className="flex items-center gap-1">
+  1332→  1332→                <ShieldCheck className="h-3 w-3" aria-hidden="true" />
+  1333→  1333→                Privacy First
+  1334→  1334→              </span>
+  1335→  1335→              <span>Images processed securely &amp; never stored</span>
+  1336→  1336→            </div>
+  1337→  1337→          </div>
+  1338→  1338→        </div>
+  1339→  1339→      </footer>
+  1340→  1340→    </div>
+  1341→  1341→  )
+  1342→  1342→}
+  1343→  1343→

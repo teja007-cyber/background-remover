@@ -153,3 +153,51 @@ Stage Summary:
 - ✅ robots.txt + sitemap.xml
 - ✅ Mobile responsive, accessible, zero errors
 - ✅ Ready for deployment
+
+## Task 1: SEO Fixes & Legal Protection — Background Remover
+
+### SEO Fixes Applied
+
+1. **Heading hierarchy fixed:**
+   - Removed `h1` from nav header (changed to `div`)
+   - Changed hero `h2` to `h1` (the single h1 on the page)
+   - All section headings remain `h2` (Tool, Features, How It Works, Use Cases, FAQ, CTA)
+   - Sub-items (feature cards, how-it-works steps, FAQ questions) use `h3`
+
+2. **Structured data fixes in layout.tsx:**
+   - Removed duplicate `SoftwareApplication` schema (kept only `WebApplication`)
+   - Added `BreadcrumbList` schema with Home item
+   - Added `HowTo` schema with 3 steps matching visible "How It Works" section
+   - Fixed FAQ `FAQPage` schema to exactly match visible FAQ question text on the page
+   - Kept `Organization` schema
+
+3. **Alt text improved on images:**
+   - Processing state: "Original image being processed by AI background remover"
+   - Done state original: "Original uploaded image before background removal"
+   - Done state result: "Image with background removed showing transparent checkerboard pattern"
+   - Batch thumbnails: "[filename] thumbnail for batch background removal"
+   - Batch results: "[filename] with background removed, transparent PNG result"
+
+4. **Meta description:** Checked — 158 chars, within 150-160 range
+5. **Title:** 58 chars — under 60 char limit ✓
+
+6. **Footer heading hierarchy fixed:**
+   - Changed `h4` "Features" and "Info" to `div` elements with `role="heading" aria-level={2}` — avoids orphaned h4 without parent h2/h3
+
+### Legal Protection Added
+
+1. **Privacy Policy dialog** — Covers: data collection, processing, retention (immediate deletion), cookies (essential only), no third-party sharing, no personal data, GDPR compliance, CCPA compliance, children's privacy, contact info
+
+2. **Terms of Service dialog** — Covers: acceptance, service description, user responsibilities (own images), IP rights (users own outputs), prohibited uses (illegal, CSAM, unauthorized likenesses), service availability (as-is), limitation of liability, DMCA reference, governing law, changes to terms
+
+3. **DMCA/Copyright Policy dialog** — Covers: copyright infringement reporting, DMCA takedown procedure (6 requirements), counter-notification (4 requirements), repeat infringer policy, contact for DMCA notices
+
+4. **Footer legal links** — Privacy Policy | Terms of Service | DMCA — each opens the corresponding Dialog
+
+5. **Cookie consent banner** — Dismissible, stored in localStorage, states we only use essential cookies and don't track users. Uses lazy useState init to avoid setState-in-effect lint error.
+
+### Technical Details
+- All dialogs use shadcn `Dialog` component with `DialogContent`, `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter`
+- Cookie banner uses `AnimatePresence` + `motion.div` for smooth entrance/exit
+- Zero lint errors after fixes
+- All existing functionality preserved (single, batch, upload, processing, download)

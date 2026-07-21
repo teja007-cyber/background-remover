@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Background Remover",
   },
   description:
-    "Remove background from any image instantly — 100% free AI background remover. No signup, no watermarks. Full subject preserved, batch processing. Try now!",
+    "Remove image backgrounds instantly with our free AI background remover. No signup, no watermarks. Full subject preserved, batch processing. Try now!",
   keywords: [
     "background remover",
     "remove background",
@@ -159,28 +159,55 @@ export default function RootLayout({
           }}
         />
 
-        {/* Structured Data: SoftwareApplication */}
+        {/* Structured Data: BreadcrumbList */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              name: "Background Remover",
-              applicationCategory: "MultimediaApplication",
-              operatingSystem: "Web",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: SITE_URL,
+                },
+              ],
+            }),
+          }}
+        />
+
+        {/* Structured Data: HowTo */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "HowTo",
+              name: "How to Remove a Background from Any Image",
               description:
-                "Remove image backgrounds instantly with AI. Free, no signup, privacy-first.",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "USD",
-              },
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "4.9",
-                ratingCount: "2847",
-              },
+                "Remove image backgrounds instantly using AI. Upload your image, let AI do the work, and download your transparent PNG.",
+              step: [
+                {
+                  "@type": "HowToStep",
+                  position: 1,
+                  name: "Upload Your Image",
+                  text: "Drag and drop, click to browse, or select multiple files for batch processing. We support PNG, JPG, and WebP.",
+                },
+                {
+                  "@type": "HowToStep",
+                  position: 2,
+                  name: "AI Does the Work",
+                  text: "Our AI precisely identifies the subject and removes the background. Edge-padding technology ensures nothing gets cut off.",
+                },
+                {
+                  "@type": "HowToStep",
+                  position: 3,
+                  name: "Download and Use",
+                  text: "Get a crisp transparent PNG instantly. Use it for e-commerce, design projects, presentations, or social media.",
+                },
+              ],
             }),
           }}
         />
@@ -195,7 +222,7 @@ export default function RootLayout({
               mainEntity: [
                 {
                   "@type": "Question",
-                  name: "Is this background remover really free?",
+                  name: "Is Background Remover really free?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "Yes, 100% free. No hidden charges, no premium tiers, no watermarks. Every feature is available to everyone.",
@@ -203,7 +230,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "What image formats does the background remover support?",
+                  name: "What image formats are supported?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "Background Remover supports PNG, JPG/JPEG, and WebP. The output is always a high-quality transparent PNG.",
@@ -211,7 +238,7 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "Are my images stored on the background remover servers?",
+                  name: "Are my images stored on your servers?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "No. Your images are processed in real-time and immediately deleted from our servers. We never store, share, or analyze your uploads.",
@@ -219,7 +246,15 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "How many images can I remove backgrounds from at once?",
+                  name: "Why does the full subject get preserved?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "We use advanced AI padding technology that gives the model context beyond image edges, preventing any cutoff. Combined with alpha matting and edge recovery, your subject stays intact.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How many images can I process at once?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "You can process up to 10 images simultaneously in Batch Mode. Each image is processed sequentially to ensure quality.",
@@ -227,7 +262,15 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Question",
-                  name: "Does the background remover work on mobile devices?",
+                  name: "What is the maximum file size?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Each image can be up to 10MB. For best results, we recommend images under 2MB for faster processing.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Does Background Remover work on mobile devices?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "Yes! Background Remover is fully responsive and works on any device — phones, tablets, and desktops.",
