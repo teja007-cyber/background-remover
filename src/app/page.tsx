@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Eraser,
@@ -30,8 +31,6 @@ import {
   Gauge,
   Palette,
   Cookie,
-  FileText,
-  Scale,
 } from 'lucide-react'
 import { toast, Toaster } from 'sonner'
 import {
@@ -46,14 +45,7 @@ import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog'
+
 
 // ─── Types ───────────────────────────────────────────────────────
 
@@ -178,10 +170,6 @@ export default function Home() {
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
-  // Legal dialog state
-  const [privacyOpen, setPrivacyOpen] = useState(false)
-  const [termsOpen, setTermsOpen] = useState(false)
-  const [dmcaOpen, setDmcaOpen] = useState(false)
 
   // Cookie consent state — lazy init to avoid calling setState in effect
   const [showCookieBanner, setShowCookieBanner] = useState(() => {
@@ -1355,24 +1343,30 @@ export default function Home() {
               © {new Date().getFullYear()} Background Remover — Free AI Tool. All rights reserved.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs">
-              <button
-                onClick={() => setPrivacyOpen(true)}
+              <Link
+                href="/privacy"
                 className="text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors underline-offset-2 hover:underline"
               >
                 Privacy Policy
-              </button>
-              <button
-                onClick={() => setTermsOpen(true)}
+              </Link>
+              <Link
+                href="/terms"
                 className="text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors underline-offset-2 hover:underline"
               >
                 Terms of Service
-              </button>
-              <button
-                onClick={() => setDmcaOpen(true)}
+              </Link>
+              <Link
+                href="/cookies"
+                className="text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors underline-offset-2 hover:underline"
+              >
+                Cookie Policy
+              </Link>
+              <Link
+                href="/dmca"
                 className="text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors underline-offset-2 hover:underline"
               >
                 DMCA
-              </button>
+              </Link>
               <span className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
                 <ShieldCheck className="h-3 w-3" aria-hidden="true" />
                 Images processed securely &amp; never stored
@@ -1381,196 +1375,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-
-      {/* ─── Legal Dialogs ────────────────────────────────────── */}
-
-      {/* Privacy Policy Dialog */}
-      <Dialog open={privacyOpen} onOpenChange={setPrivacyOpen}>
-        <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <ShieldCheck className="h-5 w-5 text-emerald-600" aria-hidden="true" />
-              Privacy Policy
-            </DialogTitle>
-            <DialogDescription>
-              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">1. What Data We Collect</h3>
-              <p>When you use Background Remover, we temporarily receive the image files you upload for the purpose of removing their backgrounds. That is the only data we process. We do not collect names, email addresses, phone numbers, or any other personal information.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">2. How We Process Your Data</h3>
-              <p>Uploaded images are sent to our AI background removal service for processing. The AI analyzes the image, identifies the subject, and removes the background. Processing occurs in real-time and the result is returned directly to your browser.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">3. Data Retention</h3>
-              <p>Your images are deleted immediately after processing is complete. We do not store, cache, or retain any uploaded images or processed results on our servers. Once you close the page, the data is gone.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">4. Cookies</h3>
-              <p>We use only essential cookies necessary for the basic functioning of this website. We do not use tracking cookies, analytics cookies, or advertising cookies. A single essential cookie is used to remember your cookie consent preference.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">5. Third-Party Sharing</h3>
-              <p>We do not share your images, processed results, or any other data with third parties. Your data is never sold, rented, or distributed.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">6. Personal Data</h3>
-              <p>We do not collect personal data. No account, no signup, no email — nothing that identifies you as an individual is collected or stored.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">7. GDPR Compliance</h3>
-              <p>Background Remover is compliant with the General Data Protection Regulation (GDPR). Since we do not collect or store personal data, the risk of data breaches involving personal information is eliminated. If you are an EU resident and have any concerns, please contact us using the information below.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">8. CCPA Compliance</h3>
-              <p>Background Remover is compliant with the California Consumer Privacy Act (CCPA). We do not sell personal information, we do not collect personal information beyond what is necessary for the service, and we do not share information with third parties. California residents have the right to know what data is collected — and the answer is: only the images you temporarily upload, which are deleted immediately.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">9. Children&apos;s Privacy</h3>
-              <p>Background Remover is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us and we will take steps to remove such information.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">10. Contact Information</h3>
-              <p>If you have any questions about this Privacy Policy, please contact us at: privacy@backgroundremover.app</p>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={() => setPrivacyOpen(false)} className="bg-emerald-600 hover:bg-emerald-700 text-white">
-              I Understand
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Terms of Service Dialog */}
-      <Dialog open={termsOpen} onOpenChange={setTermsOpen}>
-        <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <FileText className="h-5 w-5 text-emerald-600" aria-hidden="true" />
-              Terms of Service
-            </DialogTitle>
-            <DialogDescription>
-              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">1. Acceptance of Terms</h3>
-              <p>By accessing and using Background Remover, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not use our service.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">2. Description of Service</h3>
-              <p>Background Remover is a free, AI-powered web application that removes backgrounds from images. The service processes uploaded images and returns transparent PNG files with the background removed.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">3. User Responsibilities</h3>
-              <p>You represent and warrant that you own or have the legal right to upload and process any images you submit to Background Remover. You are solely responsible for ensuring that your use of the service complies with all applicable laws and regulations.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">4. Intellectual Property</h3>
-              <p>You retain full ownership and intellectual property rights to all images you upload and the processed results. Background Remover does not claim any ownership or license over your images or outputs. The service is a tool — what you create with it belongs to you.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">5. Prohibited Uses</h3>
-              <p>You may not use Background Remover to:</p>
-              <ul className="list-disc pl-5 mt-1 space-y-1">
-                <li>Process images depicting illegal content</li>
-                <li>Process images involving child sexual abuse material (CSAM)</li>
-                <li>Process images that infringe on someone&apos;s likeness or identity without authorization</li>
-                <li>Process images that violate any applicable law or regulation</li>
-                <li>Attempt to disrupt, overload, or compromise the service</li>
-                <li>Use the service for any purpose that is unlawful or harmful</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">6. Service Availability</h3>
-              <p>Background Remover is provided &ldquo;as is&rdquo; and &ldquo;as available.&rdquo; We do not guarantee uninterrupted or error-free service. We reserve the right to modify, suspend, or discontinue the service at any time without notice.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">7. Limitation of Liability</h3>
-              <p>To the fullest extent permitted by law, Background Remover and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the service. This includes, without limitation, damages for loss of data, images, or profits.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">8. DMCA / Copyright Policy</h3>
-              <p>We respect intellectual property rights. If you believe your copyrighted work has been processed through our service in a way that constitutes copyright infringement, please see our <button onClick={() => { setTermsOpen(false); setTimeout(() => setDmcaOpen(true), 200) }} className="text-emerald-600 dark:text-emerald-400 underline">DMCA Policy</button> for instructions on filing a notice.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">9. Governing Law</h3>
-              <p>These Terms of Service shall be governed by and construed in accordance with applicable laws, without regard to conflict of law principles. Any disputes arising from these terms shall be resolved in the courts of competent jurisdiction.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">10. Changes to Terms</h3>
-              <p>We reserve the right to modify these Terms of Service at any time. Changes will be effective immediately upon posting. Your continued use of the service after any changes constitutes acceptance of the updated terms. We encourage you to review these terms periodically.</p>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={() => setTermsOpen(false)} className="bg-emerald-600 hover:bg-emerald-700 text-white">
-              I Agree
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* DMCA / Copyright Policy Dialog */}
-      <Dialog open={dmcaOpen} onOpenChange={setDmcaOpen}>
-        <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Scale className="h-5 w-5 text-emerald-600" aria-hidden="true" />
-              DMCA / Copyright Policy
-            </DialogTitle>
-            <DialogDescription>
-              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">1. Copyright Infringement Reporting</h3>
-              <p>Background Remover respects the intellectual property rights of others and expects its users to do the same. If you believe that your copyrighted work has been copied or processed through our service in a way that constitutes copyright infringement, please notify us.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">2. DMCA Takedown Procedure</h3>
-              <p>Pursuant to the Digital Millennium Copyright Act (17 U.S.C. § 512), copyright owners or their agents may submit a DMCA takedown notice to our designated copyright agent. To be valid, the notice must include:</p>
-              <ul className="list-disc pl-5 mt-1 space-y-1">
-                <li>A physical or electronic signature of the copyright owner or authorized agent</li>
-                <li>Identification of the copyrighted work claimed to have been infringed</li>
-                <li>Identification of the material that is claimed to be infringing and that is to be removed</li>
-                <li>Sufficient information to permit us to contact the complaining party (address, phone number, or email)</li>
-                <li>A statement that the complaining party has a good faith belief that use of the material is not authorized</li>
-                <li>A statement that the information in the notice is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the copyright owner</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">3. Counter-Notification</h3>
-              <p>If you believe that your content was removed or disabled as a result of a mistake or misidentification, you may submit a counter-notification. To be valid, the counter-notification must include:</p>
-              <ul className="list-disc pl-5 mt-1 space-y-1">
-                <li>Your physical or electronic signature</li>
-                <li>Identification of the material that was removed and the location where it previously appeared</li>
-                <li>A statement under penalty of perjury that you have a good faith belief that the material was removed as a result of mistake or misidentification</li>
-                <li>Your name, address, phone number, and a statement consenting to jurisdiction of the federal court in your district</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">4. Repeat Infringer Policy</h3>
-              <p>In accordance with the DMCA and other applicable law, Background Remover has adopted a policy of terminating access for users who are found to be repeat infringers. We may terminate access for any user who has been the subject of multiple valid DMCA takedown notices.</p>
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50 mb-2">5. Contact for DMCA Notices</h3>
-              <p>Please send all DMCA takedown notices and counter-notifications to: dmca@backgroundremover.app</p>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={() => setDmcaOpen(false)} className="bg-emerald-600 hover:bg-emerald-700 text-white">
-              I Understand
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
 
       {/* ─── Cookie Consent Banner ────────────────────────────── */}
       <AnimatePresence>
@@ -1586,7 +1390,8 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-4 shadow-xl">
                 <Cookie className="h-6 w-6 text-emerald-600 flex-shrink-0" aria-hidden="true" />
                 <p className="text-sm text-slate-600 dark:text-slate-400 text-center sm:text-left flex-1">
-                  We only use essential cookies for basic site functionality. We do not track you, use analytics cookies, or share data with third parties.
+                  We only use essential cookies for basic site functionality. We do not track you, use analytics cookies, or share data with third parties.{' '}
+                  <Link href="/cookies" className="text-emerald-600 dark:text-emerald-400 underline underline-offset-2 hover:text-emerald-700 dark:hover:text-emerald-300">Learn more</Link>
                 </p>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <Button

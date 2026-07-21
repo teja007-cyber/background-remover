@@ -299,8 +299,32 @@ export default function RootLayout({
               name: "Background Remover",
               url: SITE_URL,
               logo: `${SITE_URL}/logo.svg`,
-              description: "Free AI-powered background removal tool.",
-              sameAs: [],
+              description: "Free AI-powered background removal tool. Remove image backgrounds instantly with full subject preservation, batch processing, and zero data retention.",
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer support",
+                email: "support@backgroundremover.app",
+              },
+            }),
+          }}
+        />
+
+        {/* Structured Data: WebSite with SearchAction */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Background Remover",
+              url: SITE_URL,
+              description: "Free AI background removal tool — remove image backgrounds instantly with no signup, no watermarks, and full subject preservation.",
+              potentialAction: {
+                "@type": "UseAction",
+                name: "Remove Background from Image",
+                description: "Upload an image and remove its background using AI",
+                target: SITE_URL,
+              },
             }),
           }}
         />
