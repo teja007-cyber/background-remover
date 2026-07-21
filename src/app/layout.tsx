@@ -23,11 +23,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://clearcut.app"),
   title: {
-    default: "ClearCut — Free AI Background Remover | Remove BG Instantly",
-    template: "%s | ClearCut",
+    default: "Free Background Remover — Remove BG Instantly with AI | ClearCut",
+    template: "%s | ClearCut — Background Remover",
   },
   description:
-    "Remove image backgrounds instantly with ClearCut's AI. 100% free, no signup, no watermarks. Full subject preserved — nothing gets cut off. Batch processing available. Privacy-first.",
+    "Remove background from any image instantly — 100% free AI background remover. No signup, no watermarks. Full subject preserved, batch processing. Try now!",
   keywords: [
     "background remover",
     "remove background",
@@ -71,9 +71,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "ClearCut — Free AI Background Remover",
+    title: "Free Background Remover — Remove BG from Any Image Instantly",
     description:
-      "Remove image backgrounds instantly with AI. 100% free, no signup, privacy-first. Full subject preserved, batch processing available.",
+      "Remove background from any image instantly with AI. 100% free, no signup, no watermarks. Full subject preserved, batch processing available.",
     url: "https://clearcut.app",
     siteName: "ClearCut",
     type: "website",
@@ -83,15 +83,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "ClearCut — AI Background Remover: Remove any background in seconds",
+        alt: "Free AI Background Remover — Remove any background in seconds",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ClearCut — Free AI Background Remover",
+    title: "Free Background Remover — Remove BG Instantly with AI",
     description:
-      "Remove image backgrounds instantly with AI. 100% free, no signup, privacy-first. Full subject preserved, batch processing.",
+      "Remove background from any image instantly with AI. 100% free, no signup, no watermarks. Full subject preserved, batch processing.",
     images: ["/og-image.png"],
     creator: "@clearcutapp",
   },
