@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -13,25 +13,77 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#10b981",
+};
+
 export const metadata: Metadata = {
-  title: "Z.ai Code Scaffold - AI-Powered Development",
-  description: "Modern Next.js scaffold optimized for AI-powered development with Z.ai. Built with TypeScript, Tailwind CSS, and shadcn/ui.",
-  keywords: ["Z.ai", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "AI development", "React"],
-  authors: [{ name: "Z.ai Team" }],
+  metadataBase: new URL("https://bg-remover.app"),
+  title: "BG Remover — Free AI Background Removal Tool",
+  description:
+    "Remove image backgrounds instantly with AI. Free, no signup required. Upload any PNG, JPG, or WebP image and get a transparent background in seconds. Privacy-first — your images are never stored.",
+  keywords: [
+    "background remover",
+    "remove background",
+    "background removal",
+    "AI background remover",
+    "transparent background",
+    "free background remover",
+    "image background remover",
+    "photo background remover",
+    "PNG transparent",
+    "remove bg",
+    "bg remover",
+    "erase background",
+    "cutout image",
+    "image editing",
+  ],
+  authors: [{ name: "BG Remover" }],
+  creator: "BG Remover",
+  publisher: "BG Remover",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: "/logo.svg",
   },
   openGraph: {
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
-    url: "https://chat.z.ai",
-    siteName: "Z.ai",
+    title: "BG Remover — Free AI Background Removal Tool",
+    description:
+      "Remove image backgrounds instantly with AI. 100% free, no signup, privacy-first.",
+    url: "https://bg-remover.app",
+    siteName: "BG Remover",
     type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "BG Remover — AI Background Removal Tool",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
+    title: "BG Remover — Free AI Background Removal Tool",
+    description:
+      "Remove image backgrounds instantly with AI. 100% free, no signup, privacy-first.",
+    images: ["/og-image.png"],
+  },
+  alternates: {
+    canonical: "https://bg-remover.app",
   },
 };
 
@@ -42,6 +94,39 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Structured Data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              name: "BG Remover",
+              description:
+                "Free AI-powered background removal tool. Remove image backgrounds instantly with no signup required.",
+              url: "https://bg-remover.app",
+              applicationCategory: "MultimediaApplication",
+              operatingSystem: "All",
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "USD",
+              },
+              featureList: [
+                "AI background removal",
+                "Free to use",
+                "No signup required",
+                "Supports PNG, JPG, WebP",
+                "Privacy-first processing",
+                "Instant results",
+              ],
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
