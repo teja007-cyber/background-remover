@@ -1,0 +1,721 @@
+     1→     1→'use client'
+     2→     2→
+     3→     3→import { useState, useRef, useCallback, useEffect } from 'react'
+     4→     4→import { motion, AnimatePresence } from 'framer-motion'
+     5→     5→import {
+     6→     6→  Eraser,
+     7→     7→  Upload,
+     8→     8→  Download,
+     9→     9→  RefreshCw,
+    10→    10→  ImageIcon,
+    11→    11→  Loader2,
+    12→    12→  Sparkles,
+    13→    13→  CheckCircle2,
+    14→    14→  AlertTriangle,
+    15→    15→  ShieldCheck,
+    16→    16→  Zap,
+    17→    17→  Eye,
+    18→    18→  Scissors,
+    19→    19→} from 'lucide-react'
+    20→    20→import { toast, Toaster } from 'sonner'
+    21→    21→import {
+    22→    22→  Card,
+    23→    23→  CardContent,
+    24→    24→  CardDescription,
+    25→    25→  CardHeader,
+    26→    26→  CardTitle,
+    27→    27→} from '@/components/ui/card'
+    28→    28→import { Button } from '@/components/ui/button'
+    29→    29→import { Badge } from '@/components/ui/badge'
+    30→    30→import { Progress } from '@/components/ui/progress'
+    31→    31→import { Separator } from '@/components/ui/separator'
+    32→    32→
+    33→    33→type AppState = 'idle' | 'processing' | 'done' | 'error'
+    34→    34→
+    35→    35→const CHECKERBOARD_BG = {
+    36→    36→  backgroundImage: [
+    37→    37→    'linear-gradient(45deg, #e0e0e0 25%, transparent 25%)',
+    38→    38→    'linear-gradient(-45deg, #e0e0e0 25%, transparent 25%)',
+    39→    39→    'linear-gradient(45deg, transparent 75%, #e0e0e0 75%)',
+    40→    40→    'linear-gradient(-45deg, transparent 75%, #e0e0e0 75%)',
+    41→    41→  ].join(', '),
+    42→    42→  backgroundSize: '20px 20px',
+    43→    43→  backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+    44→    44→  backgroundColor: '#ffffff',
+    45→    45→}
+    46→    46→
+    47→    47→const VALID_TYPES = ['image/png', 'image/jpeg', 'image/webp']
+    48→    48→const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
+    49→    49→
+    50→    50→export default function Home() {
+    51→    51→  const [state, setState] = useState<AppState>('idle')
+    52→    52→  const [originalImage, setOriginalImage] = useState<string | null>(null)
+    53→    53→  const [processedImage, setProcessedImage] = useState<string | null>(null)
+    54→    54→  const [progress, setProgress] = useState(0)
+    55→    55→  const [fileName, setFileName] = useState('')
+    56→    56→  const [fileSize, setFileSize] = useState(0)
+    57→    57→  const [imageDimensions, setImageDimensions] = useState<{ w: number; h: number } | null>(null)
+    58→    58→  const [isDragging, setIsDragging] = useState(false)
+    59→    59→  const [errorMsg, setErrorMsg] = useState('')
+    60→    60→  const [processingTime, setProcessingTime] = useState(0)
+    61→    61→  const fileInputRef = useRef<HTMLInputElement>(null)
+    62→    62→  const abortControllerRef = useRef<AbortController | null>(null)
+    63→    63→
+    64→    64→  // Cleanup on unmount
+    65→    65→  useEffect(() => {
+    66→    66→    return () => {
+    67→    67→      if (abortControllerRef.current) {
+    68→    68→        abortControllerRef.current.abort()
+    69→    69→      }
+    70→    70→    }
+    71→    71→  }, [])
+    72→    72→
+    73→    73→  const handleFile = useCallback(async (file: File) => {
+    74→    74→    // Validate type
+    75→    75→    if (!VALID_TYPES.includes(file.type)) {
+    76→    76→      toast.error('Invalid file type', {
+    77→    77→        description: 'Please upload a PNG, JPG, JPEG, or WebP image.',
+    78→    78→      })
+    79→    79→      return
+    80→    80→    }
+    81→    81→
+    82→    82→    // Validate size
+    83→    83→    if (file.size > MAX_FILE_SIZE) {
+    84→    84→      toast.error('File too large', {
+    85→    85→        description: 'Please upload an image smaller than 10MB.',
+    86→    86→      })
+    87→    87→      return
+    88→    88→    }
+    89→    89→
+    90→    90→    // Preview original
+    91→    91→    const reader = new FileReader()
+    92→    92→    reader.onload = (e) => {
+    93→    93→      const dataUrl = e.target?.result as string
+    94→    94→      setOriginalImage(dataUrl)
+    95→    95→      // Get image dimensions
+    96→    96→      const img = new window.Image()
+    97→    97→      img.onload = () => {
+    98→    98→        setImageDimensions({ w: img.naturalWidth, h: img.naturalHeight })
+    99→    99→      }
+   100→   100→      img.src = dataUrl
+   101→   101→    }
+   102→   102→    reader.readAsDataURL(file)
+   103→   103→
+   104→   104→    setFileName(file.name)
+   105→   105→    setFileSize(file.size)
+   106→   106→    setState('processing')
+   107→   107→    setProgress(0)
+   108→   108→    setErrorMsg('')
+   109→   109→    setProcessingTime(0)
+   110→   110→
+   111→   111→    // Simulate progress while waiting for API
+   112→   112→    let currentProgress = 0
+   113→   113→    const startTime = Date.now()
+   114→   114→    const progressInterval = setInterval(() => {
+   115→   115→      currentProgress += Math.random() * 6
+   116→   116→      if (currentProgress >= 85) {
+   117→   117→        currentProgress = 85
+   118→   118→        clearInterval(progressInterval)
+   119→   119→      }
+   120→   120→      setProgress(Math.min(currentProgress, 85))
+   121→   121→    }, 500)
+   122→   122→
+   123→   123→    try {
+   124→   124→      const formData = new FormData()
+   125→   125→      formData.append('file', file)
+   126→   126→
+   127→   127→      abortControllerRef.current = new AbortController()
+   128→   128→
+   129→   129→      const response = await fetch('/api/remove-bg', {
+   130→   130→        method: 'POST',
+   131→   131→        body: formData,
+   132→   132→        signal: abortControllerRef.current.signal,
+   133→   133→      })
+   134→   134→
+   135→   135→      const data = await response.json()
+   136→   136→      clearInterval(progressInterval)
+   137→   137→
+   138→   138→      if (!response.ok) {
+   139→   139→        // Server returned an error
+   140→   140→        setState('error')
+   141→   141→        setErrorMsg(data.error || `Server error (${response.status})`)
+   142→   142→        toast.error('Processing failed', {
+   143→   143→          description: data.error || 'Something went wrong. Please try again.',
+   144→   144→        })
+   145→   145→        return
+   146→   146→      }
+   147→   147→
+   148→   148→      if (data.success && data.image) {
+   149→   149→        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1)
+   150→   150→        setProcessingTime(Number(elapsed))
+   151→   151→        setProgress(100)
+   152→   152→        setTimeout(() => {
+   153→   153→          setProcessedImage(data.image)
+   154→   154→          setState('done')
+   155→   155→        }, 300)
+   156→   156→        toast.success('Background removed successfully!', {
+   157→   157→          description: `Processed in ${elapsed}s`,
+   158→   158→        })
+   159→   159→      } else {
+   160→   160→        setState('error')
+   161→   161→        setErrorMsg(data.error || 'Unexpected response from server')
+   162→   162→        toast.error('Processing failed', {
+   163→   163→          description: data.error || 'Something went wrong. Please try again.',
+   164→   164→        })
+   165→   165→      }
+   166→   166→    } catch (err) {
+   167→   167→      clearInterval(progressInterval)
+   168→   168→      if (err instanceof DOMException && err.name === 'AbortError') return
+   169→   169→      setState('error')
+   170→   170→      setErrorMsg('Failed to connect to the server. Please check your connection and try again.')
+   171→   171→      toast.error('Network error', {
+   172→   172→        description: 'Failed to connect to the server.',
+   173→   173→      })
+   174→   174→    }
+   175→   175→  }, [])
+   176→   176→
+   177→   177→  const handleDrop = useCallback(
+   178→   178→    (e: React.DragEvent) => {
+   179→   179→      e.preventDefault()
+   180→   180→      e.stopPropagation()
+   181→   181→      setIsDragging(false)
+   182→   182→      const file = e.dataTransfer.files[0]
+   183→   183→      if (file) handleFile(file)
+   184→   184→    },
+   185→   185→    [handleFile]
+   186→   186→  )
+   187→   187→
+   188→   188→  const handleDragOver = useCallback((e: React.DragEvent) => {
+   189→   189→    e.preventDefault()
+   190→   190→    e.stopPropagation()
+   191→   191→    setIsDragging(true)
+   192→   192→  }, [])
+   193→   193→
+   194→   194→  const handleDragLeave = useCallback((e: React.DragEvent) => {
+   195→   195→    e.preventDefault()
+   196→   196→    e.stopPropagation()
+   197→   197→    setIsDragging(false)
+   198→   198→  }, [])
+   199→   199→
+   200→   200→  const handleClick = useCallback(() => {
+   201→   201→    fileInputRef.current?.click()
+   202→   202→  }, [])
+   203→   203→
+   204→   204→  const handleInputChange = useCallback(
+   205→   205→    (e: React.ChangeEvent<HTMLInputElement>) => {
+   206→   206→      const file = e.target.files?.[0]
+   207→   207→      if (file) handleFile(file)
+   208→   208→    },
+   209→   209→    [handleFile]
+   210→   210→  )
+   211→   211→
+   212→   212→  const handleDownload = useCallback(() => {
+   213→   213→    if (!processedImage) return
+   214→   214→    const link = document.createElement('a')
+   215→   215→    link.href = processedImage
+   216→   216→    link.download = fileName.replace(/\.[^.]+$/, '') + '-no-bg.png'
+   217→   217→    document.body.appendChild(link)
+   218→   218→    link.click()
+   219→   219→    document.body.removeChild(link)
+   220→   220→    toast.success('Download started!', {
+   221→   221→      description: 'Your image is being saved as PNG.',
+   222→   222→    })
+   223→   223→  }, [processedImage, fileName])
+   224→   224→
+   225→   225→  const handleReset = useCallback(() => {
+   226→   226→    if (abortControllerRef.current) {
+   227→   227→      abortControllerRef.current.abort()
+   228→   228→    }
+   229→   229→    setState('idle')
+   230→   230→    setOriginalImage(null)
+   231→   231→    setProcessedImage(null)
+   232→   232→    setProgress(0)
+   233→   233→    setFileName('')
+   234→   234→    setFileSize(0)
+   235→   235→    setImageDimensions(null)
+   236→   236→    setErrorMsg('')
+   237→   237→    setProcessingTime(0)
+   238→   238→    if (fileInputRef.current) fileInputRef.current.value = ''
+   239→   239→  }, [])
+   240→   240→
+   241→   241→  const formatFileSize = (bytes: number) => {
+   242→   242→    if (bytes < 1024) return `${bytes} B`
+   243→   243→    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+   244→   244→    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+   245→   245→  }
+   246→   246→
+   247→   247→  return (
+   248→   248→    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
+   249→   249→      <Toaster position="top-center" richColors closeButton />
+   250→   250→
+   251→   251→      {/* Skip link for accessibility */}
+   252→   252→      <a
+   253→   253→        href="#main-content"
+   254→   254→        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg"
+   255→   255→      >
+   256→   256→        Skip to main content
+   257→   257→      </a>
+   258→   258→
+   259→   259→      {/* Header */}
+   260→   260→      <header role="banner" className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md dark:bg-slate-950/80">
+   261→   261→        <nav className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+   262→   262→          <motion.div
+   263→   263→            className="flex items-center gap-3"
+   264→   264→            initial={{ opacity: 0, x: -20 }}
+   265→   265→            animate={{ opacity: 1, x: 0 }}
+   266→   266→            transition={{ duration: 0.4 }}
+   267→   267→          >
+   268→   268→            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md" aria-hidden="true">
+   269→   269→              <Eraser className="h-5 w-5" />
+   270→   270→            </div>
+   271→   271→            <div>
+   272→   272→              <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+   273→   273→                BG Remover
+   274→   274→              </h1>
+   275→   275→              <p className="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">
+   276→   276→                Remove image backgrounds instantly
+   277→   277→              </p>
+   278→   278→            </div>
+   279→   279→          </motion.div>
+   280→   280→          <Badge
+   281→   281→            variant="secondary"
+   282→   282→            className="hidden sm:flex gap-1.5 px-3 py-1 text-xs"
+   283→   283→          >
+   284→   284→            <Sparkles className="h-3 w-3 text-emerald-600" aria-hidden="true" />
+   285→   285→            AI Powered
+   286→   286→          </Badge>
+   287→   287→        </nav>
+   288→   288→      </header>
+   289→   289→
+   290→   290→      {/* Main Content */}
+   291→   291→      <main id="main-content" role="main" className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+   292→   292→        <AnimatePresence mode="wait">
+   293→   293→          {/* IDLE STATE - Upload Zone */}
+   294→   294→          {state === 'idle' && (
+   295→   295→            <motion.section
+   296→   296→              key="upload"
+   297→   297→              aria-label="Image upload"
+   298→   298→              initial={{ opacity: 0, y: 20 }}
+   299→   299→              animate={{ opacity: 1, y: 0 }}
+   300→   300→              exit={{ opacity: 0, y: -20 }}
+   301→   301→              transition={{ duration: 0.3 }}
+   302→   302→              className="mx-auto max-w-2xl"
+   303→   303→            >
+   304→   304→              <div className="text-center mb-8">
+   305→   305→                <motion.h2
+   306→   306→                  className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-3"
+   307→   307→                  initial={{ opacity: 0 }}
+   308→   308→                  animate={{ opacity: 1 }}
+   309→   309→                  transition={{ delay: 0.1 }}
+   310→   310→                >
+   311→   311→                  Remove Any Background
+   312→   312→                </motion.h2>
+   313→   313→                <motion.p
+   314→   314→                  className="text-slate-600 dark:text-slate-400 text-base sm:text-lg max-w-lg mx-auto"
+   315→   315→                  initial={{ opacity: 0 }}
+   316→   316→                  animate={{ opacity: 1 }}
+   317→   317→                  transition={{ delay: 0.2 }}
+   318→   318→                >
+   319→   319→                  Upload an image and let AI remove the background in seconds.
+   320→   320→                  Full subject preserved — nothing gets cut off.
+   321→   321→                </motion.p>
+   322→   322→              </div>
+   323→   323→
+   324→   324→              <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800">
+   325→   325→                <CardContent className="p-0">
+   326→   326→                  <div
+   327→   327→                    onClick={handleClick}
+   328→   328→                    onDrop={handleDrop}
+   329→   329→                    onDragOver={handleDragOver}
+   330→   330→                    onDragLeave={handleDragLeave}
+   331→   331→                    role="button"
+   332→   332→                    tabIndex={0}
+   333→   333→                    aria-label="Upload image: click or drag and drop"
+   334→   334→                    onKeyDown={(e) => {
+   335→   335→                      if (e.key === 'Enter' || e.key === ' ') {
+   336→   336→                        e.preventDefault()
+   337→   337→                        handleClick()
+   338→   338→                      }
+   339→   339→                    }}
+   340→   340→                    className={`
+   341→   341→                      relative cursor-pointer transition-all duration-300 ease-in-out
+   342→   342→                      border-2 border-dashed rounded-lg m-6 p-8 sm:p-12
+   343→   343→                      flex flex-col items-center justify-center gap-4
+   344→   344→                      min-h-[280px] sm:min-h-[320px]
+   345→   345→                      focus-visible:outline-2 focus-visible:outline-emerald-500 focus-visible:outline-offset-2
+   346→   346→                      ${
+   347→   347→                        isDragging
+   348→   348→                          ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 scale-[1.02]'
+   349→   349→                          : 'border-slate-300 dark:border-slate-700 hover:border-emerald-400 hover:bg-slate-50 dark:hover:bg-slate-900/50'
+   350→   350→                      }
+   351→   351→                    `}
+   352→   352→                  >
+   353→   353→                    <motion.div
+   354→   354→                      className={`
+   355→   355→                        flex h-16 w-16 items-center justify-center rounded-2xl transition-colors duration-300
+   356→   356→                        ${
+   357→   357→                          isDragging
+   358→   358→                            ? 'bg-emerald-600 text-white'
+   359→   359→                            : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
+   360→   360→                        }
+   361→   361→                      `}
+   362→   362→                      aria-hidden="true"
+   363→   363→                      animate={isDragging ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
+   364→   364→                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+   365→   365→                    >
+   366→   366→                      <Upload className="h-7 w-7" />
+   367→   367→                    </motion.div>
+   368→   368→
+   369→   369→                    <div className="text-center space-y-1.5">
+   370→   370→                      <p className="text-lg font-semibold text-slate-700 dark:text-slate-200">
+   371→   371→                        {isDragging ? 'Drop your image here' : 'Drop your image here or click to browse'}
+   372→   372→                      </p>
+   373→   373→                      <p className="text-sm text-slate-500 dark:text-slate-400">
+   374→   374→                        Select an image file from your device
+   375→   375→                      </p>
+   376→   376→                    </div>
+   377→   377→
+   378→   378→                    <div className="flex flex-wrap items-center justify-center gap-1.5 mt-2">
+   379→   379→                      {['PNG', 'JPG', 'JPEG', 'WebP'].map((fmt) => (
+   380→   380→                        <Badge
+   381→   381→                          key={fmt}
+   382→   382→                          variant="outline"
+   383→   383→                          className="text-xs font-mono text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
+   384→   384→                        >
+   385→   385→                          {fmt}
+   386→   386→                        </Badge>
+   387→   387→                      ))}
+   388→   388→                    </div>
+   389→   389→
+   390→   390→                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+   391→   391→                      Max file size: 10MB
+   392→   392→                    </p>
+   393→   393→
+   394→   394→                    <input
+   395→   395→                      ref={fileInputRef}
+   396→   396→                      type="file"
+   397→   397→                      accept=".png,.jpg,.jpeg,.webp"
+   398→   398→                      onChange={handleInputChange}
+   399→   399→                      className="hidden"
+   400→   400→                      aria-label="Upload image file"
+   401→   401→                    />
+   402→   402→                  </div>
+   403→   403→                </CardContent>
+   404→   404→              </Card>
+   405→   405→
+   406→   406→              {/* Feature badges */}
+   407→   407→              <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+   408→   408→                {[
+   409→   409→                  { icon: ShieldCheck, label: '100% Free' },
+   410→   410→                  { icon: Zap, label: 'No Signup' },
+   411→   411→                  { icon: Eye, label: 'Full Subject Preserved' },
+   412→   412→                  { icon: Scissors, label: 'Clean Edges' },
+   413→   413→                ].map(({ icon: Icon, label }) => (
+   414→   414→                  <div
+   415→   415→                    key={label}
+   416→   416→                    className="flex items-center justify-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 rounded-lg py-2 px-3 border border-slate-100 dark:border-slate-800"
+   417→   417→                  >
+   418→   418→                    <Icon className="h-3.5 w-3.5 text-emerald-500" aria-hidden="true" />
+   419→   419→                    <span>{label}</span>
+   420→   420→                  </div>
+   421→   421→                ))}
+   422→   422→              </div>
+   423→   423→
+   424→   424→              {/* How it works */}
+   425→   425→              <section aria-label="How it works" className="mt-10">
+   426→   426→                <h3 className="text-center text-sm font-semibold text-slate-900 dark:text-slate-50 mb-4">
+   427→   427→                  How It Works
+   428→   428→                </h3>
+   429→   429→                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+   430→   430→                  {[
+   431→   431→                    { step: '1', title: 'Upload', desc: 'Drag & drop or click to select any image' },
+   432→   432→                    { step: '2', title: 'Process', desc: 'AI removes the background while preserving your subject' },
+   433→   433→                    { step: '3', title: 'Download', desc: 'Get a transparent PNG ready for any use' },
+   434→   434→                  ].map(({ step, title, desc }) => (
+   435→   435→                    <div key={step} className="text-center p-4 rounded-lg bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
+   436→   436→                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-sm font-bold mx-auto mb-2">
+   437→   437→                        {step}
+   438→   438→                      </div>
+   439→   439→                      <p className="text-sm font-medium text-slate-900 dark:text-slate-50">{title}</p>
+   440→   440→                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{desc}</p>
+   441→   441→                    </div>
+   442→   442→                  ))}
+   443→   443→                </div>
+   444→   444→              </section>
+   445→   445→            </motion.section>
+   446→   446→          )}
+   447→   447→
+   448→   448→          {/* PROCESSING STATE */}
+   449→   449→          {state === 'processing' && (
+   450→   450→            <motion.section
+   451→   451→              key="processing"
+   452→   452→              aria-label="Processing image"
+   453→   453→              aria-live="polite"
+   454→   454→              initial={{ opacity: 0, y: 20 }}
+   455→   455→              animate={{ opacity: 1, y: 0 }}
+   456→   456→              exit={{ opacity: 0, y: -20 }}
+   457→   457→              transition={{ duration: 0.3 }}
+   458→   458→              className="mx-auto max-w-2xl"
+   459→   459→            >
+   460→   460→              <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800">
+   461→   461→                <CardHeader className="pb-2">
+   462→   462→                  <CardTitle className="text-lg text-slate-900 dark:text-slate-50 flex items-center gap-2">
+   463→   463→                    <Loader2 className="h-5 w-5 text-emerald-600 animate-spin" aria-hidden="true" />
+   464→   464→                    Processing Your Image
+   465→   465→                  </CardTitle>
+   466→   466→                  <CardDescription>
+   467→   467→                    AI is removing the background from &ldquo;{fileName}&rdquo; ({formatFileSize(fileSize)})
+   468→   468→                    {imageDimensions && ` — ${imageDimensions.w}×${imageDimensions.h}`}
+   469→   469→                  </CardDescription>
+   470→   470→                </CardHeader>
+   471→   471→                <CardContent className="space-y-6">
+   472→   472→                  {/* Original image preview */}
+   473→   473→                  {originalImage && (
+   474→   474→                    <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+   475→   475→                      <img
+   476→   476→                        src={originalImage}
+   477→   477→                        alt="Original image being processed"
+   478→   478→                        className="w-full h-auto max-h-[400px] object-contain mx-auto opacity-60"
+   479→   479→                        width={imageDimensions?.w}
+   480→   480→                        height={imageDimensions?.h}
+   481→   481→                      />
+   482→   482→                      {/* Overlay */}
+   483→   483→                      <div className="absolute inset-0 flex items-center justify-center bg-slate-900/20 dark:bg-slate-900/40">
+   484→   484→                        <div className="flex flex-col items-center gap-3 bg-white/90 dark:bg-slate-900/90 rounded-2xl px-6 py-5 shadow-xl backdrop-blur-sm">
+   485→   485→                          <Loader2 className="h-10 w-10 text-emerald-600 animate-spin" aria-hidden="true" />
+   486→   486→                          <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
+   487→   487→                            Removing background...
+   488→   488→                          </p>
+   489→   489→                          <p className="text-xs text-slate-500 dark:text-slate-400">
+   490→   490→                            Preserving full subject with clean edges
+   491→   491→                          </p>
+   492→   492→                        </div>
+   493→   493→                      </div>
+   494→   494→                    </div>
+   495→   495→                  )}
+   496→   496→
+   497→   497→                  {/* Progress bar */}
+   498→   498→                  <div className="space-y-2">
+   499→   499→                    <div className="flex items-center justify-between text-sm">
+   500→   500→                      <span className="text-slate-600 dark:text-slate-400">
+   501→   501→                        Progress
+   502→   502→                      </span>
+   503→   503→                      <span className="font-medium text-emerald-600 tabular-nums" aria-live="polite">
+   504→   504→                        {Math.round(progress)}%
+   505→   505→                      </span>
+   506→   506→                    </div>
+   507→   507→                    <Progress
+   508→   508→                      value={progress}
+   509→   509→                      className="h-2.5 bg-slate-100 dark:bg-slate-800 [&>[data-slot=progress-indicator]]:bg-emerald-600"
+   510→   510→                      aria-label={`Processing progress: ${Math.round(progress)}%`}
+   511→   511→                    />
+   512→   512→                  </div>
+   513→   513→
+   514→   514→                  <div className="flex justify-center">
+   515→   515→                    <Button
+   516→   516→                      variant="outline"
+   517→   517→                      onClick={handleReset}
+   518→   518→                      className="gap-2"
+   519→   519→                    >
+   520→   520→                      <RefreshCw className="h-4 w-4" aria-hidden="true" />
+   521→   521→                      Cancel
+   522→   522→                    </Button>
+   523→   523→                  </div>
+   524→   524→                </CardContent>
+   525→   525→              </Card>
+   526→   526→            </motion.section>
+   527→   527→          )}
+   528→   528→
+   529→   529→          {/* DONE STATE - Before/After */}
+   530→   530→          {state === 'done' && originalImage && processedImage && (
+   531→   531→            <motion.section
+   532→   532→              key="done"
+   533→   533→              aria-label="Background removal result"
+   534→   534→              initial={{ opacity: 0, y: 20 }}
+   535→   535→              animate={{ opacity: 1, y: 0 }}
+   536→   536→              exit={{ opacity: 0, y: -20 }}
+   537→   537→              transition={{ duration: 0.3 }}
+   538→   538→              className="mx-auto max-w-5xl"
+   539→   539→            >
+   540→   540→              {/* Success banner */}
+   541→   541→              <motion.div
+   542→   542→                initial={{ opacity: 0, scale: 0.95 }}
+   543→   543→                animate={{ opacity: 1, scale: 1 }}
+   544→   544→                transition={{ delay: 0.1 }}
+   545→   545→                className="mb-6 flex items-center gap-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 p-4"
+   546→   546→                role="alert"
+   547→   547→              >
+   548→   548→                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-white flex-shrink-0" aria-hidden="true">
+   549→   549→                  <CheckCircle2 className="h-4 w-4" />
+   550→   550→                </div>
+   551→   551→                <div className="flex-1 min-w-0">
+   552→   552→                  <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-200">
+   553→   553→                    Background removed successfully!
+   554→   554→                  </p>
+   555→   555→                  <p className="text-xs text-emerald-600 dark:text-emerald-400 truncate">
+   556→   556→                    {fileName} &middot; {formatFileSize(fileSize)}
+   557→   557→                    {imageDimensions && ` · ${imageDimensions.w}×${imageDimensions.h}`}
+   558→   558→                    {processingTime > 0 && ` · ${processingTime}s`}
+   559→   559→                  </p>
+   560→   560→                </div>
+   561→   561→              </motion.div>
+   562→   562→
+   563→   563→              {/* Before / After Comparison */}
+   564→   564→              <Card className="overflow-hidden shadow-lg border-slate-200 dark:border-slate-800">
+   565→   565→                <CardHeader className="pb-3">
+   566→   566→                  <div className="flex items-center justify-between">
+   567→   567→                    <CardTitle className="text-lg text-slate-900 dark:text-slate-50">
+   568→   568→                      Result
+   569→   569→                    </CardTitle>
+   570→   570→                    <Badge
+   571→   571→                      variant="secondary"
+   572→   572→                      className="gap-1.5 text-emerald-700 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-950/40"
+   573→   573→                    >
+   574→   574→                      <Sparkles className="h-3 w-3" aria-hidden="true" />
+   575→   575→                      Completed
+   576→   576→                    </Badge>
+   577→   577→                  </div>
+   578→   578→                </CardHeader>
+   579→   579→                <CardContent>
+   580→   580→                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+   581→   581→                    {/* Original */}
+   582→   582→                    <div className="space-y-2">
+   583→   583→                      <div className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+   584→   584→                        <ImageIcon className="h-4 w-4" aria-hidden="true" />
+   585→   585→                        Original
+   586→   586→                      </div>
+   587→   587→                      <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+   588→   588→                        <img
+   589→   589→                          src={originalImage}
+   590→   590→                          alt="Original image before background removal"
+   591→   591→                          className="w-full h-auto max-h-[450px] object-contain"
+   592→   592→                          width={imageDimensions?.w}
+   593→   593→                          height={imageDimensions?.h}
+   594→   594→                        />
+   595→   595→                      </div>
+   596→   596→                    </div>
+   597→   597→
+   598→   598→                    {/* Processed (with checkerboard) */}
+   599→   599→                    <div className="space-y-2">
+   600→   600→                      <div className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+   601→   601→                        <Eraser className="h-4 w-4 text-emerald-600" aria-hidden="true" />
+   602→   602→                        Background Removed
+   603→   603→                      </div>
+   604→   604→                      <div
+   605→   605→                        className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700"
+   606→   606→                        style={CHECKERBOARD_BG}
+   607→   607→                      >
+   608→   608→                        <img
+   609→   609→                          src={processedImage}
+   610→   610→                          alt="Image with background removed, showing on transparent checkerboard pattern"
+   611→   611→                          className="w-full h-auto max-h-[450px] object-contain"
+   612→   612→                          width={imageDimensions?.w}
+   613→   613→                          height={imageDimensions?.h}
+   614→   614→                        />
+   615→   615→                      </div>
+   616→   616→                    </div>
+   617→   617→                  </div>
+   618→   618→
+   619→   619→                  <Separator className="my-6" />
+   620→   620→
+   621→   621→                  {/* Action Buttons */}
+   622→   622→                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+   623→   623→                    <Button
+   624→   624→                      onClick={handleDownload}
+   625→   625→                      size="lg"
+   626→   626→                      className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-md min-w-[200px]"
+   627→   627→                    >
+   628→   628→                      <Download className="h-4 w-4" aria-hidden="true" />
+   629→   629→                      Download PNG
+   630→   630→                    </Button>
+   631→   631→                    <Button
+   632→   632→                      variant="outline"
+   633→   633→                      onClick={handleReset}
+   634→   634→                      size="lg"
+   635→   635→                      className="gap-2 min-w-[200px]"
+   636→   636→                    >
+   637→   637→                      <RefreshCw className="h-4 w-4" aria-hidden="true" />
+   638→   638→                      Upload New Image
+   639→   639→                    </Button>
+   640→   640→                  </div>
+   641→   641→                </CardContent>
+   642→   642→              </Card>
+   643→   643→            </motion.section>
+   644→   644→          )}
+   645→   645→
+   646→   646→          {/* ERROR STATE */}
+   647→   647→          {state === 'error' && (
+   648→   648→            <motion.section
+   649→   649→              key="error"
+   650→   650→              aria-label="Processing error"
+   651→   651→              role="alert"
+   652→   652→              initial={{ opacity: 0, y: 20 }}
+   653→   653→              animate={{ opacity: 1, y: 0 }}
+   654→   654→              exit={{ opacity: 0, y: -20 }}
+   655→   655→              transition={{ duration: 0.3 }}
+   656→   656→              className="mx-auto max-w-2xl"
+   657→   657→            >
+   658→   658→              <Card className="overflow-hidden shadow-lg border-red-200 dark:border-red-900">
+   659→   659→                <CardHeader className="pb-3">
+   660→   660→                  <CardTitle className="text-lg text-red-700 dark:text-red-400 flex items-center gap-2">
+   661→   661→                    <AlertTriangle className="h-5 w-5" aria-hidden="true" />
+   662→   662→                    Processing Failed
+   663→   663→                  </CardTitle>
+   664→   664→                  <CardDescription>
+   665→   665→                    {errorMsg || "We couldn't remove the background from your image. Please try again."}
+   666→   666→                  </CardDescription>
+   667→   667→                </CardHeader>
+   668→   668→                <CardContent className="space-y-4">
+   669→   669→                  {originalImage && (
+   670→   670→                    <div className="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+   671→   671→                      <img
+   672→   672→                        src={originalImage}
+   673→   673→                        alt="Failed image preview"
+   674→   674→                        className="w-full h-auto max-h-[300px] object-contain opacity-40 grayscale"
+   675→   675→                        width={imageDimensions?.w}
+   676→   676→                        height={imageDimensions?.h}
+   677→   677→                      />
+   678→   678→                    </div>
+   679→   679→                  )}
+   680→   680→                  <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+   681→   681→                    <p className="text-xs text-amber-800 dark:text-amber-200">
+   682→   682→                      <strong>Tips:</strong> Try a clearer image with a distinct subject. Images under 2MB work best.
+   683→   683→                      Very large images may take longer or fail due to memory constraints.
+   684→   684→                    </p>
+   685→   685→                  </div>
+   686→   686→                  <div className="flex justify-center">
+   687→   687→                    <Button
+   688→   688→                      onClick={handleReset}
+   689→   689→                      size="lg"
+   690→   690→                      className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-md min-w-[200px]"
+   691→   691→                    >
+   692→   692→                      <RefreshCw className="h-4 w-4" aria-hidden="true" />
+   693→   693→                      Try Again
+   694→   694→                    </Button>
+   695→   695→                  </div>
+   696→   696→                </CardContent>
+   697→   697→              </Card>
+   698→   698→            </motion.section>
+   699→   699→          )}
+   700→   700→        </AnimatePresence>
+   701→   701→      </main>
+   702→   702→
+   703→   703→      {/* Footer */}
+   704→   704→      <footer role="contentinfo" className="border-t bg-white/60 backdrop-blur-sm dark:bg-slate-950/60 mt-auto">
+   705→   705→        <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 px-4 sm:px-6 lg:px-8 py-4">
+   706→   706→          <p className="text-xs text-slate-500 dark:text-slate-400">
+   707→   707→            © {new Date().getFullYear()} BG Remover — AI-powered background removal tool
+   708→   708→          </p>
+   709→   709→          <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-slate-500">
+   710→   710→            <span className="flex items-center gap-1">
+   711→   711→              <ShieldCheck className="h-3 w-3" aria-hidden="true" />
+   712→   712→              Privacy First
+   713→   713→            </span>
+   714→   714→            <span>Images processed securely & never stored</span>
+   715→   715→          </div>
+   716→   716→        </div>
+   717→   717→      </footer>
+   718→   718→    </div>
+   719→   719→  )
+   720→   720→}
+   721→   721→
