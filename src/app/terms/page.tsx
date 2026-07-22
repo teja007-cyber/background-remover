@@ -833,6 +833,23 @@ export default function TermsOfServicePage() {
                     participate in a class action lawsuit or class-wide arbitration
                     against us.
                   </p>
+                  <p className="mt-3">
+                    <strong className="text-foreground">Opt-Out Right.</strong>{" "}
+                    You have the right to opt out of this class action waiver and arbitration
+                    provision within 30 days of first using the Service. To opt out, you must
+                    send a written notice to{" "}
+                    <a
+                      href="mailto:legal@backgroundremover.app"
+                      className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                    >
+                      legal@backgroundremover.app
+                    </a>{" "}
+                    stating your name, email address, and clear indication that you wish to opt
+                    out of the class action waiver and arbitration provisions of these Terms. If
+                    you opt out, disputes will be resolved in court rather than arbitration, and
+                    you will retain any right to participate in class actions. Opting out does
+                    not affect any other provision of these Terms.
+                  </p>
                 </div>
               </section>
 

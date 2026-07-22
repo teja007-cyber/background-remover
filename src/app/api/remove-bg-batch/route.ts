@@ -14,6 +14,10 @@ const RATE_WINDOW = 120_000; // 2 minutes
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
+  // Cleanup expired entries to prevent memory leak
+  for (const [key, entry] of rateLimiter) {
+    if (now > entry.resetTime) rateLimiter.delete(key);
+  }
   const entry = rateLimiter.get(ip);
   if (!entry || now > entry.resetTime) {
     rateLimiter.set(ip, { count: 1, resetTime: now + RATE_WINDOW });

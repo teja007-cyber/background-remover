@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useCallback, useEffect, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -171,11 +171,16 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
 
-  // Cookie consent state — lazy init to avoid calling setState in effect
-  const [showCookieBanner, setShowCookieBanner] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return !localStorage.getItem('bg-remover-cookie-consent')
-  })
+  // Cookie consent state — useSyncExternalStore avoids hydration mismatch
+  // Server snapshot returns null (no consent), client snapshot checks localStorage
+  // forceDismissed state handles the "Got it" click for immediate re-render
+  const cookieConsent = useSyncExternalStore(
+    () => () => {}, // no subscription needed; forceDismissed handles dismissal re-render
+    () => localStorage.getItem('bg-remover-cookie-consent'),
+    () => null // server always returns null
+  )
+  const [forceDismissed, setForceDismissed] = useState(false)
+  const showCookieBanner = !forceDismissed && cookieConsent === null
 
   // Tool section ref for smooth scroll
   const toolRef = useRef<HTMLDivElement>(null)
@@ -189,7 +194,7 @@ export default function Home() {
 
   const dismissCookieBanner = useCallback(() => {
     localStorage.setItem('bg-remover-cookie-consent', 'dismissed')
-    setShowCookieBanner(false)
+    setForceDismissed(true)
   }, [])
 
   // ─── Single: Handle File ─────────────────────────────────────

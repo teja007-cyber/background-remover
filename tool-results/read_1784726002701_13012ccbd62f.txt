@@ -1,0 +1,1604 @@
+     1→     1→import type { Metadata } from "next";
+     2→     2→import Link from "next/link";
+     3→     3→
+     4→     4→// ─── SEO Metadata ─────────────────────────────────────────────────
+     5→     5→
+     6→     6→const SITE_URL = "https://backgroundremover.app";
+     7→     7→const SITE_NAME = "Background Remover";
+     8→     8→
+     9→     9→export const metadata: Metadata = {
+    10→    10→  title: "Privacy Policy",
+    11→    11→  description:
+    12→    12→    "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant, privacy-first AI tool.",
+    13→    13→  keywords: [
+    14→    14→    "privacy policy",
+    15→    15→    "background remover privacy",
+    16→    16→    "GDPR compliance",
+    17→    17→    "CCPA compliance",
+    18→    18→    "image privacy",
+    19→    19→    "data protection",
+    20→    20→    "background removal privacy",
+    21→    21→    "AI tool privacy",
+    22→    22→    "no image storage",
+    23→    23→    "privacy-first",
+    24→    24→  ],
+    25→    25→  authors: [{ name: SITE_NAME, url: SITE_URL }],
+    26→    26→  creator: SITE_NAME,
+    27→    27→  publisher: SITE_NAME,
+    28→    28→  robots: {
+    29→    29→    index: true,
+    30→    30→    follow: true,
+    31→    31→    googleBot: {
+    32→    32→      index: true,
+    33→    33→      follow: true,
+    34→    34→      "max-video-preview": -1,
+    35→    35→      "max-image-preview": "large",
+    36→    36→      "max-snippet": -1,
+    37→    37→    },
+    38→    38→  },
+    39→    39→  openGraph: {
+    40→    40→    title: "Privacy Policy | Background Remover",
+    41→    41→    description:
+    42→    42→      "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant, privacy-first AI tool.",
+    43→    43→    url: `${SITE_URL}/privacy`,
+    44→    44→    siteName: SITE_NAME,
+    45→    45→    type: "website",
+    46→    46→    locale: "en_US",
+    47→    47→    images: [
+    48→    48→      {
+    49→    49→        url: "/og-image.png",
+    50→    50→        width: 1200,
+    51→    51→        height: 630,
+    52→    52→        alt: "Privacy Policy — Background Remover",
+    53→    53→      },
+    54→    54→    ],
+    55→    55→  },
+    56→    56→  twitter: {
+    57→    57→    card: "summary_large_image",
+    58→    58→    title: "Privacy Policy | Background Remover",
+    59→    59→    description:
+    60→    60→      "Privacy Policy for Background Remover — learn how we handle your images and data. No images stored, GDPR & CCPA compliant, privacy-first AI tool.",
+    61→    61→    images: ["/og-image.png"],
+    62→    62→  },
+    63→    63→};
+    64→    64→
+    65→    65→// ─── JSON-LD Structured Data ──────────────────────────────────────
+    66→    66→
+    67→    67→const breadcrumbJsonLd = {
+    68→    68→  "@context": "https://schema.org",
+    69→    69→  "@type": "BreadcrumbList",
+    70→    70→  itemListElement: [
+    71→    71→    {
+    72→    72→      "@type": "ListItem",
+    73→    73→      position: 1,
+    74→    74→      name: "Home",
+    75→    75→      item: SITE_URL,
+    76→    76→    },
+    77→    77→    {
+    78→    78→      "@type": "ListItem",
+    79→    79→      position: 2,
+    80→    80→      name: "Privacy Policy",
+    81→    81→      item: `${SITE_URL}/privacy`,
+    82→    82→    },
+    83→    83→  ],
+    84→    84→};
+    85→    85→
+    86→    86→const webPageJsonLd = {
+    87→    87→  "@context": "https://schema.org",
+    88→    88→  "@type": "WebPage",
+    89→    89→  name: "Privacy Policy — Background Remover",
+    90→    90→  description: "Privacy Policy for Background Remover AI tool",
+    91→    91→  url: `${SITE_URL}/privacy`,
+    92→    92→  dateModified: "2026-03-04",
+    93→    93→  isPartOf: {
+    94→    94→    "@type": "WebSite",
+    95→    95→    name: "Background Remover",
+    96→    96→    url: SITE_URL,
+    97→    97→  },
+    98→    98→};
+    99→    99→
+   100→   100→// ─── Page Component ───────────────────────────────────────────────
+   101→   101→
+   102→   102→export default function PrivacyPolicyPage() {
+   103→   103→  return (
+   104→   104→    <>
+   105→   105→      {/* JSON-LD Structured Data */}
+   106→   106→      <script
+   107→   107→        type="application/ld+json"
+   108→   108→        dangerouslySetInnerHTML={{
+   109→   109→          __html: JSON.stringify(breadcrumbJsonLd),
+   110→   110→        }}
+   111→   111→      />
+   112→   112→      <script
+   113→   113→        type="application/ld+json"
+   114→   114→        dangerouslySetInnerHTML={{
+   115→   115→          __html: JSON.stringify(webPageJsonLd),
+   116→   116→        }}
+   117→   117→      />
+   118→   118→
+   119→   119→      <div className="min-h-screen flex flex-col bg-background text-foreground">
+   120→   120→        {/* Skip to content */}
+   121→   121→        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-lg">
+   122→   122→          Skip to main content
+   123→   123→        </a>
+   124→   124→
+   125→   125→        {/* Header */}
+   126→   126→        <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+   127→   127→          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
+   128→   128→            <Link
+   129→   129→              href="/"
+   130→   130→              className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 transition-colors font-medium group"
+   131→   131→            >
+   132→   132→              <svg
+   133→   133→                xmlns="http://www.w3.org/2000/svg"
+   134→   134→                className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
+   135→   135→                fill="none"
+   136→   136→                viewBox="0 0 24 24"
+   137→   137→                stroke="currentColor"
+   138→   138→                strokeWidth={2}
+   139→   139→              >
+   140→   140→                <path
+   141→   141→                  strokeLinecap="round"
+   142→   142→                  strokeLinejoin="round"
+   143→   143→                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+   144→   144→                />
+   145→   145→              </svg>
+   146→   146→              Back to Home
+   147→   147→            </Link>
+   148→   148→          </div>
+   149→   149→        </header>
+   150→   150→
+   151→   151→        {/* Main Content */}
+   152→   152→        <main id="main-content" className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+   153→   153→          {/* Breadcrumb */}
+   154→   154→          <nav aria-label="Breadcrumb" className="mb-8">
+   155→   155→            <ol className="flex items-center gap-2 text-sm text-muted-foreground">
+   156→   156→              <li>
+   157→   157→                <Link
+   158→   158→                  href="/"
+   159→   159→                  className="hover:text-emerald-600 transition-colors"
+   160→   160→                >
+   161→   161→                  Home
+   162→   162→                </Link>
+   163→   163→              </li>
+   164→   164→              <li aria-hidden="true" className="text-muted-foreground/50">
+   165→   165→                /
+   166→   166→              </li>
+   167→   167→              <li className="text-foreground font-medium" aria-current="page">
+   168→   168→                Privacy Policy
+   169→   169→              </li>
+   170→   170→            </ol>
+   171→   171→          </nav>
+   172→   172→
+   173→   173→          {/* Title */}
+   174→   174→          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-foreground">
+   175→   175→            Privacy Policy
+   176→   176→          </h1>
+   177→   177→          <p className="text-muted-foreground text-sm mb-12">
+   178→   178→            Last updated: March 4, 2026
+   179→   179→          </p>
+   180→   180→
+   181→   181→          {/* Sections */}
+   182→   182→          <div className="space-y-12 text-[15px] leading-7 text-foreground/90">
+   183→   183→            {/* ─── 1. Introduction ─────────────────────────────── */}
+   184→   184→            <section>
+   185→   185→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   186→   186→                1. Introduction
+   187→   187→              </h2>
+   188→   188→              <p>
+   189→   189→                Welcome to <strong>Background Remover</strong>{" "}
+   190→   190→                (<Link
+   191→   191→                  href="https://backgroundremover.app"
+   192→   192→                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   193→   193→                >
+   194→   194→                  https://backgroundremover.app
+   195→   195→                </Link>
+   196→   196→                ). We are committed to protecting your privacy and ensuring that
+   197→   197→                your personal data — and especially your images — are handled
+   198→   198→                with the utmost care and respect. This Privacy Policy describes
+   199→   199→                how we collect, use, process, and safeguard information when you
+   200→   200→                use our free AI background removal tool and related services
+   201→   201→                (collectively, the &ldquo;Service&rdquo;).
+   202→   202→              </p>
+   203→   203→              <p className="mt-4">
+   204→   204→                By accessing or using our Service, you agree to the practices
+   205→   205→                described in this Privacy Policy. If you do not agree with the
+   206→   206→                terms of this policy, please do not use our Service. This policy
+   207→   207→                applies to all visitors, users, and others who access or use the
+   208→   208→                Service.
+   209→   209→              </p>
+   210→   210→              <p className="mt-4">
+   211→   211→                <strong>Key promise:</strong> We do not store, retain, cache, or
+   212→   212→                share your uploaded images. Your images are processed in
+   213→   213→                real-time, and all temporary data is immediately deleted after
+   214→   214→                processing is complete. This is the cornerstone of our
+   215→   215→                privacy-first approach.
+   216→   216→              </p>
+   217→   217→            </section>
+   218→   218→
+   219→   219→            {/* ─── 1b. Data Controller ──────────────────────────── */}
+   220→   220→            <section>
+   221→   221→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   222→   222→                Data Controller
+   223→   223→              </h2>
+   224→   224→              <p>
+   225→   225→                For the purposes of the General Data Protection Regulation (GDPR),
+   226→   226→                the data controller responsible for your personal data is
+   227→   227→                Background Remover, contactable at{" "}
+   228→   228→                <a
+   229→   229→                  href="mailto:privacy@backgroundremover.app"
+   230→   230→                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   231→   231→                >
+   232→   232→                  privacy@backgroundremover.app
+   233→   233→                </a>
+   234→   234→                . We act as both the data controller and data processor for the
+   235→   235→                limited data described in this policy.
+   236→   236→              </p>
+   237→   237→            </section>
+   238→   238→
+   239→   239→            {/* ─── 2. Information We Collect ───────────────────── */}
+   240→   240→            <section>
+   241→   241→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   242→   242→                2. Information We Collect
+   243→   243→              </h2>
+   244→   244→              <p>
+   245→   245→                We collect only the minimum information necessary to provide our
+   246→   246→                Service and maintain its security and reliability. Below is a
+   247→   247→                detailed breakdown of the types of information we may collect:
+   248→   248→              </p>
+   249→   249→
+   250→   250→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   251→   251→                2.1 Images You Upload
+   252→   252→              </h3>
+   253→   253→              <p>
+   254→   254→                When you use our Service to remove an image background, you
+   255→   255→                upload an image file (PNG, JPG, or WebP). These images are
+   256→   256→                transmitted to our servers for the sole purpose of background
+   257→   257→                removal processing. Images are held in temporary server memory
+   258→   258→                during processing and are <strong>never</strong> written to
+   259→   259→                persistent storage, cached, or retained on any server in any
+   260→   260→                form. Once processing is complete and the result has been
+   261→   261→                delivered to your browser, all temporary data associated with
+   262→   262→                your image is immediately and permanently deleted. For more
+   263→   263→                details, see Section 4 (Image Processing &amp; Data Handling).
+   264→   264→              </p>
+   265→   265→
+   266→   266→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   267→   267→                2.2 Technical Data (Automatically Collected)
+   268→   268→              </h3>
+   269→   269→              <p>
+   270→   270→                When you access our Service, our servers may automatically
+   271→   271→                collect certain technical information, including:
+   272→   272→              </p>
+   273→   273→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   274→   274→                <li>
+   275→   275→                  <strong>IP address</strong> — used for server security, rate
+   276→   276→                  limiting, and abuse prevention
+   277→   277→                </li>
+   278→   278→                <li>
+   279→   279→                  <strong>Browser type and version</strong> — e.g., Chrome 120,
+   280→   280→                  Safari 17, Firefox 121
+   281→   281→                </li>
+   282→   282→                <li>
+   283→   283→                  <strong>Operating system</strong> — e.g., Windows 11, macOS
+   284→   284→                  14, iOS 17
+   285→   285→                </li>
+   286→   286→                <li>
+   287→   287→                  <strong>Device type</strong> — e.g., desktop, mobile, tablet
+   288→   288→                </li>
+   289→   289→                <li>
+   290→   290→                  <strong>Screen resolution</strong> — to optimize layout
+   291→   291→                  rendering
+   292→   292→                </li>
+   293→   293→                <li>
+   294→   294→                  <strong>Referring URL</strong> — the website that linked you
+   295→   295→                  to our Service
+   296→   296→                </li>
+   297→   297→                <li>
+   298→   298→                  <strong>Request headers</strong> — standard HTTP headers sent
+   299→   299→                  by your browser
+   300→   300→                </li>
+   301→   301→              </ul>
+   302→   302→              <p className="mt-3">
+   303→   303→                This technical data is collected automatically as a necessary
+   304→   304→                part of serving web pages and is used solely to maintain the
+   305→   305→                security, stability, and performance of our Service. It is not
+   306→   306→                used to identify or profile individual users.
+   307→   307→              </p>
+   308→   308→
+   309→   309→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   310→   310→                2.3 Usage Data
+   311→   311→              </h3>
+   312→   312→              <p>
+   313→   313→                We may collect aggregate, non-personally-identifiable usage data
+   314→   314→                to improve our Service, including:
+   315→   315→              </p>
+   316→   316→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   317→   317→                <li>
+   318→   318→                  Pages and features visited or used on our Service
+   319→   319→                </li>
+   320→   320→                <li>
+   321→   321→                  The number of images processed (aggregate counts only)
+   322→   322→                </li>
+   323→   323→                <li>
+   324→   324→                  Timestamps of visits and processing requests
+   325→   325→                </li>
+   326→   326→                <li>
+   327→   327→                  Error reports and processing failure rates (for debugging)
+   328→   328→                </li>
+   329→   329→                <li>
+   330→   330→                  General geographic region (country-level, derived from IP)
+   331→   331→                </li>
+   332→   332→              </ul>
+   333→   333→              <p className="mt-3">
+   334→   334→                Usage data is collected at an aggregate level and cannot be used
+   335→   335→                to identify any individual user. We do not track individual user
+   336→   336→                behavior across sessions or build user profiles.
+   337→   337→              </p>
+   338→   338→
+   339→   339→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   340→   340→                2.4 Cookie Data
+   341→   341→              </h3>
+   342→   342→              <p>
+   343→   343→                We use a minimal number of cookies. Specifically, we use a
+   344→   344→                single essential cookie to store your cookie consent preference
+   345→   345→                (i.e., whether you have acknowledged our cookie notice). No
+   346→   346→                other cookies are set by our Service. For full details, see
+   347→   347→                Section 6 (Cookies and Tracking Technologies).
+   348→   348→              </p>
+   349→   349→            </section>
+   350→   350→
+   351→   351→            {/* ─── 3. How We Use Your Information ──────────────── */}
+   352→   352→            <section>
+   353→   353→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   354→   354→                3. How We Use Your Information
+   355→   355→              </h2>
+   356→   356→              <p>We use the information we collect for the following purposes:</p>
+   357→   357→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   358→   358→                <li>
+   359→   359→                  <strong>To provide the Service:</strong> Processing your
+   360→   360→                  uploaded images to remove their backgrounds and delivering the
+   361→   361→                  results to you. This is the primary and sole purpose for which
+   362→   362→                  your images are processed.
+   363→   363→                </li>
+   364→   364→                <li>
+   365→   365→                  <strong>To maintain and operate the Service:</strong> Ensuring
+   366→   366→                  the Service functions correctly, including load balancing,
+   367→   367→                  rate limiting to prevent abuse, and maintaining server
+   368→   368→                  stability.
+   369→   369→                </li>
+   370→   370→                <li>
+   371→   371→                  <strong>To protect the Service:</strong> Detecting and
+   372→   372→                  preventing security threats, abuse, spam, or malicious
+   373→   373→                  activity. IP addresses are used for rate limiting and abuse
+   374→   374→                  prevention.
+   375→   375→                </li>
+   376→   376→                <li>
+   377→   377→                  <strong>To improve the Service:</strong> Analyzing aggregate
+   378→   378→                  usage patterns and error rates to enhance performance,
+   379→   379→                  reliability, and user experience. No individual-level analysis
+   380→   380→                  is performed.
+   381→   381→                </li>
+   382→   382→                <li>
+   383→   383→                  <strong>To comply with legal obligations:</strong> Responding
+   384→   384→                  to lawful requests from public authorities, court orders, or
+   385→   385→                  as required by applicable law.
+   386→   386→                </li>
+   387→   387→                <li>
+   388→   388→                  <strong>To remember your preferences:</strong> Storing your
+   389→   389→                  cookie consent preference so we do not repeatedly prompt you
+   390→   390→                  with cookie notices.
+   391→   391→                </li>
+   392→   392→              </ul>
+   393→   393→              <p className="mt-4">
+   394→   394→                We do <strong>not</strong> use your information for:
+   395→   395→              </p>
+   396→   396→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   397→   397→                <li>Marketing, advertising, or promotional purposes</li>
+   398→   398→                <li>Building user profiles or behavioral tracking</li>
+   399→   399→                <li>Training, improving, or developing AI models</li>
+   400→   400→                <li>Selling, renting, or trading personal data</li>
+   401→   401→                <li>Any purpose beyond those explicitly stated above</li>
+   402→   402→              </ul>
+   403→   403→            </section>
+   404→   404→
+   405→   405→            {/* ─── 4. Image Processing & Data Handling ─────────── */}
+   406→   406→            <section>
+   407→   407→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   408→   408→                4. Image Processing &amp; Data Handling
+   409→   409→              </h2>
+   410→   410→              <p>
+   411→   411→                We understand that the images you upload may be personal,
+   412→   412→                sensitive, or commercially valuable. We have designed our
+   413→   413→                Service with a privacy-first architecture that ensures your
+   414→   414→                images are handled with the highest level of care. Here is
+   415→   415→                exactly what happens when you upload an image:
+   416→   416→              </p>
+   417→   417→
+   418→   418→              <div className="mt-6 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-lg p-5 sm:p-6">
+   419→   419→                <h3 className="text-lg font-semibold text-emerald-800 dark:text-emerald-300 mb-3">
+   420→   420→                  How Image Processing Works
+   421→   421→                </h3>
+   422→   422→                <ol className="list-decimal list-inside space-y-3 text-sm leading-6">
+   423→   423→                  <li>
+   424→   424→                    <strong>Upload:</strong> Your image is transmitted from your
+   425→   425→                    browser to our server over an encrypted HTTPS connection.
+   426→   426→                  </li>
+   427→   427→                  <li>
+   428→   428→                    <strong>Temporary Processing:</strong> The image is loaded
+   429→   429→                    into temporary server memory (RAM) for AI background removal
+   430→   430→                    processing. A temporary file may be created on the server&apos;s
+   431→   431→                    ephemeral storage during processing.
+   432→   432→                  </li>
+   433→   433→                  <li>
+   434→   434→                    <strong>Immediate Deletion:</strong> As soon as the
+   435→   435→                    background removal is complete and the result has been
+   436→   436→                    encoded and sent to your browser, the temporary file is{" "}
+   437→   437→                    <strong>immediately and permanently deleted</strong> from the
+   438→   438→                    server. This deletion occurs within the same request cycle —
+   439→   439→                    typically within seconds.
+   440→   440→                  </li>
+   441→   441→                  <li>
+   442→   442→                    <strong>Delivery:</strong> The processed image (with
+   443→   443→                    background removed) is sent directly to your browser via
+   444→   444→                    base64 encoding. The result exists only in your browser&apos;s
+   445→   445→                    memory and is never stored on our servers.
+   446→   446→                  </li>
+   447→   447→                </ol>
+   448→   448→              </div>
+   449→   449→
+   450→   450→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   451→   451→                Our Binding Commitments Regarding Your Images
+   452→   452→              </h3>
+   453→   453→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   454→   454→                <li>
+   455→   455→                  <strong>No images are stored, cached, or retained</strong> on
+   456→   456→                  any server, database, CDN, or backup system. Once processing
+   457→   457→                  is complete and the result delivered, all image data is
+   458→   458→                  permanently deleted.
+   459→   459→                </li>
+   460→   460→                <li>
+   461→   461→                  <strong>No images are used for training AI models.</strong>{" "}
+   462→   462→                  Our background removal AI model is pre-trained and
+   463→   463→                  production-ready. Your images are never used as training data,
+   464→   464→                  fine-tuning data, or evaluation data for any AI system.
+   465→   465→                </li>
+   466→   466→                <li>
+   467→   467→                  <strong>No images are shared with any third party.</strong>{" "}
+   468→   468→                  Your images are processed entirely within our infrastructure
+   469→   469→                  and are never transmitted to, shared with, or made accessible
+   470→   470→                  to any third party for any purpose.
+   471→   471→                </li>
+   472→   472→                <li>
+   473→   473→                  <strong>No human ever views your images.</strong> Image
+   474→   474→                  processing is fully automated. No employee, contractor, or
+   475→   475→                  agent of Background Remover ever views, accesses, or inspects
+   476→   476→                  your uploaded images.
+   477→   477→                </li>
+   478→   478→                <li>
+   479→   479→                  <strong>No logging of image content.</strong> Server logs may
+   480→   480→                  record that a processing request occurred (timestamp, IP
+   481→   481→                  address, file size), but the content of the image itself is
+   482→   482→                  never logged, recorded, or stored in any form.
+   483→   483→                </li>
+   484→   484→              </ul>
+   485→   485→
+   486→   486→              <div className="mt-6 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+   487→   487→                <p className="text-sm text-amber-800 dark:text-amber-200">
+   488→   488→                  <strong>Important:</strong> Because we do not store your
+   489→   489→                  images, we cannot recover or retrieve them after processing.
+   490→   490→                  If you close your browser before downloading the result, the
+   491→   491→                  processed image cannot be recovered. We recommend downloading
+   492→   492→                  your results immediately after processing.
+   493→   493→                </p>
+   494→   494→              </div>
+   495→   495→            </section>
+   496→   496→
+   497→   497→            {/* ─── 5. Data Retention ───────────────────────────── */}
+   498→   498→            <section>
+   499→   499→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   500→   500→                5. Data Retention
+   501→   501→              </h2>
+   502→   502→              <p>
+   503→   503→                Our data retention practices reflect our commitment to data
+   504→   504→                minimization and privacy:
+   505→   505→              </p>
+   506→   506→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   507→   507→                <li>
+   508→   508→                  <strong>Uploaded images:</strong> Deleted immediately after
+   509→   509→                  processing (0 seconds retention). Images are held only in
+   510→   510→                  temporary memory during processing and are immediately deleted
+   511→   511→                  after the processed result is delivered to your browser. No
+   512→   512→                  images are stored on any persistent storage medium.
+   513→   513→                </li>
+   514→   514→                <li>
+   515→   515→                  <strong>Server access logs:</strong> Retained for 30 days, then
+   516→   516→                  automatically purged. Standard server access logs (containing IP
+   517→   517→                  addresses, request timestamps, browser user agents, and HTTP
+   518→   518→                  status codes) are retained for security monitoring and abuse
+   519→   519→                  prevention, after which they are automatically deleted.
+   520→   520→                </li>
+   521→   521→                <li>
+   522→   522→                  <strong>Cookie consent preference:</strong> Retained for 1 year
+   523→   523→                  from the date of consent. The cookie storing your consent
+   524→   524→                  preference is retained on your browser for up to 1 year, after
+   525→   525→                  which it expires and you will be asked to re-consent.
+   526→   526→                </li>
+   527→   527→                <li>
+   528→   528→                  <strong>No other data is retained.</strong> We do not retain any
+   529→   529→                  other personal data beyond what is described above. Temporary
+   530→   530→                  files created during image processing are deleted immediately
+   531→   531→                  upon completion of the processing request, within the same
+   532→   532→                  server response cycle.
+   533→   533→                </li>
+   534→   534→              </ul>
+   535→   535→            </section>
+   536→   536→
+   537→   537→            {/* ─── 6. Cookies and Tracking Technologies ────────── */}
+   538→   538→            <section>
+   539→   539→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   540→   540→                6. Cookies and Tracking Technologies
+   541→   541→              </h2>
+   542→   542→              <p>
+   543→   543→                A cookie is a small text file stored on your device by your web
+   544→   544→                browser. We use cookies only to the extent necessary for the
+   545→   545→                basic functioning of our Service. We are committed to minimal
+   546→   546→                cookie usage and full transparency about what cookies we set and
+   547→   547→                why.
+   548→   548→              </p>
+   549→   549→
+   550→   550→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   551→   551→                Cookies We Use
+   552→   552→              </h3>
+   553→   553→              <div className="overflow-x-auto mt-3">
+   554→   554→                <table className="w-full text-sm border-collapse">
+   555→   555→                  <thead>
+   556→   556→                    <tr className="border-b border-border">
+   557→   557→                      <th className="text-left py-3 pr-4 font-semibold">
+   558→   558→                        Cookie Name
+   559→   559→                      </th>
+   560→   560→                      <th className="text-left py-3 pr-4 font-semibold">
+   561→   561→                        Purpose
+   562→   562→                      </th>
+   563→   563→                      <th className="text-left py-3 pr-4 font-semibold">
+   564→   564→                        Duration
+   565→   565→                      </th>
+   566→   566→                      <th className="text-left py-3 font-semibold">Type</th>
+   567→   567→                    </tr>
+   568→   568→                  </thead>
+   569→   569→                  <tbody>
+   570→   570→                    <tr className="border-b border-border/50">
+   571→   571→                      <td className="py-3 pr-4 font-mono text-xs">
+   572→   572→                        cookie_consent
+   573→   573→                      </td>
+   574→   574→                      <td className="py-3 pr-4">
+   575→   575→                        Stores your cookie consent preference (whether you have
+   576→   576→                        acknowledged our cookie notice)
+   577→   577→                      </td>
+   578→   578→                      <td className="py-3 pr-4">1 year</td>
+   579→   579→                      <td className="py-3">
+   580→   580→                        <span className="inline-flex items-center rounded-full bg-emerald-100 dark:bg-emerald-900/40 px-2.5 py-0.5 text-xs font-medium text-emerald-800 dark:text-emerald-200">
+   581→   581→                          Essential
+   582→   582→                        </span>
+   583→   583→                      </td>
+   584→   584→                    </tr>
+   585→   585→                  </tbody>
+   586→   586→                </table>
+   587→   587→              </div>
+   588→   588→
+   589→   589→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   590→   590→                What We Do NOT Use
+   591→   591→              </h3>
+   592→   592→              <p>
+   593→   593→                We want to be explicit about the tracking technologies we do{" "}
+   594→   594→                <strong>not</strong> use, as we believe this is just as
+   595→   595→                important as disclosing what we do use:
+   596→   596→              </p>
+   597→   597→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   598→   598→                <li>
+   599→   599→                  <strong>No analytics cookies</strong> — We do not use Google
+   600→   600→                  Analytics, Matomo, or any other web analytics platform that
+   601→   601→                  sets tracking cookies.
+   602→   602→                </li>
+   603→   603→                <li>
+   604→   604→                  <strong>No advertising cookies</strong> — We do not display
+   605→   605→                  advertisements and do not set any advertising-related cookies
+   606→   606→                  or tracking identifiers.
+   607→   607→                </li>
+   608→   608→                <li>
+   609→   609→                  <strong>No tracking pixels or beacons</strong> — We do not
+   610→   610→                  embed tracking pixels, web beacons, clear GIFs, or any
+   611→   611→                  similar technology in our emails or web pages.
+   612→   612→                </li>
+   613→   613→                <li>
+   614→   614→                  <strong>No third-party cookies</strong> — No cookies are set
+   615→   615→                  on our website by any third-party service.
+   616→   616→                </li>
+   617→   617→                <li>
+   618→   618→                  <strong>No browser fingerprinting</strong> — We do not
+   619→   619→                  collect or analyze device fingerprints or browser
+   620→   620→                  characteristics for tracking purposes.
+   621→   621→                </li>
+   622→   622→                <li>
+   623→   623→                  <strong>No local storage tracking</strong> — We do not use
+   624→   624→                  HTML5 local storage, session storage, or IndexedDB for
+   625→   625→                  tracking or identification purposes.
+   626→   626→                </li>
+   627→   627→              </ul>
+   628→   628→
+   629→   629→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   630→   630→                Managing Cookies
+   631→   631→              </h3>
+   632→   632→              <p>
+   633→   633→                You can control and manage cookies through your browser settings.
+   634→   634→                Most browsers allow you to refuse or delete cookies. However,
+   635→   635→                please note that refusing the essential cookie_consent cookie may
+   636→   636→                result in repeated cookie consent prompts. For information on how
+   637→   637→                to manage cookies in your specific browser, please consult your
+   638→   638→                browser&apos;s help documentation.
+   639→   639→              </p>
+   640→   640→            </section>
+   641→   641→
+   642→   642→            {/* ─── 7. Third-Party Services ─────────────────────── */}
+   643→   643→            <section>
+   644→   644→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   645→   645→                7. Third-Party Services
+   646→   646→              </h2>
+   647→   647→              <p>
+   648→   648→                While we process your images entirely within our own
+   649→   649→                infrastructure, we do rely on certain third-party services to
+   650→   650→                deliver and maintain our Service. These services have access to
+   651→   651→                only the technical data necessary to perform their functions and
+   652→   652→                are contractually obligated to handle such data in compliance
+   653→   653→                with applicable privacy laws:
+   654→   654→              </p>
+   655→   655→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   656→   656→                <li>
+   657→   657→                  <strong>AI Processing Library:</strong> We use rembg, an
+   658→   658→                  open-source AI library based on the U2-Net deep learning model,
+   659→   659→                  to perform background removal. This model runs entirely on our
+   660→   660→                  own servers and does not transmit your images to any external AI
+   661→   661→                  service or API. The AI model is pre-trained and your images are
+   662→   662→                  never used for training, fine-tuning, or evaluation.
+   663→   663→                </li>
+   664→   664→                <li>
+   665→   665→                  <strong>Cloud Hosting Provider:</strong> Our Service is hosted
+   666→   666→                  on a cloud infrastructure provider that processes requests on
+   667→   667→                  our behalf. The hosting provider may have access to server
+   668→   668→                  logs containing IP addresses and request metadata for security
+   669→   669→                  and operational purposes. They do not have access to the
+   670→   670→                  content of your uploaded images.
+   671→   671→                </li>
+   672→   672→                <li>
+   673→   673→                  <strong>Content Delivery Network (CDN):</strong> We use a CDN
+   674→   674→                  to deliver static assets (HTML, CSS, JavaScript, images)
+   675→   675→                  efficiently to users worldwide. The CDN may collect technical
+   676→   676→                  data (IP addresses, request data) for performance optimization
+   677→   677→                  and security. The CDN does not process, store, or have access
+   678→   678→                  to your uploaded images.
+   679→   679→                </li>
+   680→   680→              </ul>
+   681→   681→              <p className="mt-4">
+   682→   682→                We do not use any third-party analytics services, advertising
+   683→   683→                networks, social media plugins, chat widgets, or other third-party
+   684→   684→                tracking tools that would collect data from our visitors.
+   685→   685→              </p>
+   686→   686→            </section>
+   687→   687→
+   688→   688→            {/* ─── 8. Data Sharing ─────────────────────────────── */}
+   689→   689→            <section>
+   690→   690→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   691→   691→                8. Data Sharing
+   692→   692→              </h2>
+   693→   693→              <p>
+   694→   694→                We do <strong>not</strong> share your personal data or uploaded
+   695→   695→                images with any third parties, except in the following limited
+   696→   696→                circumstances:
+   697→   697→              </p>
+   698→   698→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   699→   699→                <li>
+   700→   700→                  <strong>Service Providers:</strong> As described in Section 7,
+   701→   701→                  we share certain technical data with our hosting provider and
+   702→   702→                  CDN solely for the purpose of delivering the Service. These
+   703→   703→                  providers are contractually bound to protect your data and may
+   704→   704→                  only use it as instructed by us.
+   705→   705→                </li>
+   706→   706→                <li>
+   707→   707→                  <strong>Legal Requirements:</strong> We may disclose
+   708→   708→                  information if required to do so by law, in response to a
+   709→   709→                  valid legal process (such as a court order, subpoena, or
+   710→   710→                  government request), or to establish, exercise, or defend
+   711→   711→                  legal claims. However, because we do not store your images or
+   712→   712→                  collect personally identifiable information beyond technical
+   713→   713→                  data, our ability to disclose such data is inherently limited.
+   714→   714→                </li>
+   715→   715→                <li>
+   716→   716→                  <strong>Protection of Rights:</strong> We may disclose
+   717→   717→                  information to protect the rights, property, or safety of
+   718→   718→                  Background Remover, our users, or the public, including
+   719→   719→                  investigating fraud, security threats, or violations of our
+   720→   720→                  terms of service.
+   721→   721→                </li>
+   722→   722→              </ul>
+   723→   723→
+   724→   724→              <div className="mt-6 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
+   725→   725→                <p className="text-sm text-emerald-800 dark:text-emerald-200">
+   726→   726→                  <strong>We do not sell your data.</strong> We have never sold,
+   727→   727→                  and will never sell, personal data, image data, or any other
+   728→   728→                  information to any third party for any purpose, including
+   729→   729→                  advertising or marketing. This is an absolute commitment.
+   730→   730→                </p>
+   731→   731→              </div>
+   732→   732→            </section>
+   733→   733→
+   734→   734→            {/* ─── 9. Data Security ────────────────────────────── */}
+   735→   735→            <section>
+   736→   736→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   737→   737→                9. Data Security
+   738→   738→              </h2>
+   739→   739→              <p>
+   740→   740→                We implement robust technical and organizational measures to
+   741→   741→                protect your data and ensure the security of our Service:
+   742→   742→              </p>
+   743→   743→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   744→   744→                <li>
+   745→   745→                  <strong>HTTPS/TLS Encryption:</strong> All communication
+   746→   746→                  between your browser and our servers is encrypted using
+   747→   747→                  industry-standard TLS (Transport Layer Security). This ensures
+   748→   748→                  that your uploaded images and all data in transit are
+   749→   749→                  protected from interception or tampering.
+   750→   750→                </li>
+   751→   751→                <li>
+   752→   752→                  <strong>Secure Processing:</strong> Image processing occurs on
+   753→   753→                  isolated, ephemeral server instances that are automatically
+   754→   754→                  provisioned and terminated for each processing session. This
+   755→   755→                  ensures that no data persists between requests.
+   756→   756→                </li>
+   757→   757→                <li>
+   758→   758→                  <strong>Rate Limiting:</strong> We implement rate limiting to
+   759→   759→                  prevent abuse, protect against denial-of-service attacks, and
+   760→   760→                  ensure fair access for all users.
+   761→   761→                </li>
+   762→   762→                <li>
+   763→   763→                  <strong>Access Controls:</strong> Access to our infrastructure
+   764→   764→                  is restricted to authorized personnel using multi-factor
+   765→   765→                  authentication and the principle of least privilege. No
+   766→   766→                  personnel have access to user image data.
+   767→   767→                </li>
+   768→   768→                <li>
+   769→   769→                  <strong>Automatic Data Purging:</strong> As described in
+   770→   770→                  Section 4, all temporary image data is automatically deleted
+   771→   771→                  after processing. Server logs are automatically purged after
+   772→   772→                  30 days.
+   773→   773→                </li>
+   774→   774→                <li>
+   775→   775→                  <strong>Regular Security Reviews:</strong> We periodically
+   776→   776→                  review our security practices and infrastructure to identify
+   777→   777→                  and address potential vulnerabilities.
+   778→   778→                </li>
+   779→   779→              </ul>
+   780→   780→              <p className="mt-4">
+   781→   781→                While we strive to use commercially acceptable means to protect
+   782→   782→                your data, no method of transmission over the Internet or
+   783→   783→                electronic storage is 100% secure. Therefore, we cannot
+   784→   784→                guarantee absolute security. However, our zero-retention policy
+   785→   785→                for images significantly minimizes the potential impact of any
+   786→   786→                security incident, as there is simply no image data to
+   787→   787→                compromise.
+   788→   788→              </p>
+   789→   789→            </section>
+   790→   790→
+   791→   791→            {/* ─── 9b. Data Breach Notification ──────────────────── */}
+   792→   792→            <section>
+   793→   793→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   794→   794→                Data Breach Notification
+   795→   795→              </h2>
+   796→   796→              <p>
+   797→   797→                In the event of a personal data breach that is likely to result
+   798→   798→                in a risk to your rights and freedoms, we will comply with our
+   799→   799→                obligations under GDPR Articles 33 and 34:
+   800→   800→              </p>
+   801→   801→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   802→   802→                <li>
+   803→   803→                  <strong>Supervisory Authority Notification (Article 33):</strong>{" "}
+   804→   804→                  We will notify the relevant supervisory authority within 72
+   805→   805→                  hours of becoming aware of a breach that is likely to result
+   806→   806→                  in a risk to the rights and freedoms of individuals, unless
+   807→   807→                  the breach is unlikely to result in such a risk.
+   808→   808→                </li>
+   809→   809→                <li>
+   810→   810→                  <strong>Individual Notification (Article 34):</strong>{" "}
+   811→   811→                  If a breach is likely to result in a <em>high risk</em> to
+   812→   812→                  your rights and freedoms, we will also communicate the breach
+   813→   813→                  to you directly without undue delay, along with clear
+   814→   814→                  information about what happened, what data was affected, and
+   815→   815→                  what steps you can take to protect yourself.
+   816→   816→                </li>
+   817→   817→                <li>
+   818→   818→                  <strong>Our Mitigating Factor:</strong> Because we do not
+   819→   819→                  store your images and collect only minimal technical data (IP
+   820→   820→                  addresses, browser type) that is automatically purged after 30
+   821→   821→                  days, the potential impact of any data breach is significantly
+   822→   822→                  limited. No image data can be compromised in a breach because
+   823→   823→                  no image data is retained.
+   824→   824→                </li>
+   825→   825→              </ul>
+   826→   826→              <p className="mt-4">
+   827→   827→                If you believe a data breach has occurred that affects you,
+   828→   828→                please contact us immediately at{" "}
+   829→   829→                <a
+   830→   830→                  href="mailto:privacy@backgroundremover.app"
+   831→   831→                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   832→   832→                >
+   833→   833→                  privacy@backgroundremover.app
+   834→   834→                </a>
+   835→   835→                .
+   836→   836→              </p>
+   837→   837→            </section>
+   838→   838→
+   839→   839→            {/* ─── 10. Your Rights Under GDPR ──────────────────── */}
+   840→   840→            <section>
+   841→   841→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+   842→   842→                10. Your Rights Under GDPR (EU/EEA Residents)
+   843→   843→              </h2>
+   844→   844→              <p>
+   845→   845→                If you are a resident of the European Union or the European
+   846→   846→                Economic Area (EU/EEA), you have certain data protection rights
+   847→   847→                under the General Data Protection Regulation (GDPR). We are
+   848→   848→                committed to facilitating these rights:
+   849→   849→              </p>
+   850→   850→
+   851→   851→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   852→   852→                Right of Access (Article 15)
+   853→   853→              </h3>
+   854→   854→              <p>
+   855→   855→                You have the right to obtain confirmation as to whether or not
+   856→   856→                personal data concerning you is being processed, and if so,
+   857→   857→                access to that personal data along with information about the
+   858→   858→                purposes of processing, the categories of data concerned, and
+   859→   859→                the recipients to whom the data has been disclosed.
+   860→   860→              </p>
+   861→   861→
+   862→   862→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   863→   863→                Right to Rectification (Article 16)
+   864→   864→              </h3>
+   865→   865→              <p>
+   866→   866→                You have the right to request the correction of inaccurate
+   867→   867→                personal data concerning you. Taking into account the purposes
+   868→   868→                of processing, you also have the right to have incomplete
+   869→   869→                personal data completed.
+   870→   870→              </p>
+   871→   871→
+   872→   872→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   873→   873→                Right to Erasure (Article 17)
+   874→   874→              </h3>
+   875→   875→              <p>
+   876→   876→                You have the right to request the deletion of personal data
+   877→   877→                concerning you. We will comply with such requests subject to
+   878→   878→                certain exceptions, such as where we are required to retain data
+   879→   879→                for legal compliance or for the establishment, exercise, or
+   880→   880→                defense of legal claims. Note: Because we do not store your
+   881→   881→                images, there is no image data to erase upon request. Technical
+   882→   882→                data in server logs is automatically purged after 30 days.
+   883→   883→              </p>
+   884→   884→
+   885→   885→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   886→   886→                Right to Restriction of Processing (Article 18)
+   887→   887→              </h3>
+   888→   888→              <p>
+   889→   889→                You have the right to request the restriction of processing of
+   890→   890→                your personal data in certain circumstances, such as when you
+   891→   891→                contest the accuracy of the data, when processing is unlawful
+   892→   892→                but you prefer restriction over erasure, or when we no longer
+   893→   893→                need the data but you require it for legal claims.
+   894→   894→              </p>
+   895→   895→
+   896→   896→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   897→   897→                Right to Data Portability (Article 20)
+   898→   898→              </h3>
+   899→   899→              <p>
+   900→   900→                You have the right to receive your personal data in a
+   901→   901→                structured, commonly used, and machine-readable format, and the
+   902→   902→                right to transmit that data to another controller without
+   903→   903→                hindrance. Given the minimal personal data we collect, this
+   904→   904→                right primarily applies to any technical data we may hold about
+   905→   905→                you.
+   906→   906→              </p>
+   907→   907→
+   908→   908→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   909→   909→                Right to Object (Article 21)
+   910→   910→              </h3>
+   911→   911→              <p>
+   912→   912→                You have the right to object to the processing of your personal
+   913→   913→                data based on legitimate interests. We will cease processing
+   914→   914→                unless we have compelling legitimate grounds for processing that
+   915→   915→                override your interests, rights, and freedoms, or for the
+   916→   916→                establishment, exercise, or defense of legal claims.
+   917→   917→              </p>
+   918→   918→
+   919→   919→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   920→   920→                Right Not to Be Subject to Automated Decision-Making (Article 22)
+   921→   921→              </h3>
+   922→   922→              <p>
+   923→   923→                You have the right not to be subject to a decision based solely
+   924→   924→                on automated processing, including profiling, which produces
+   925→   925→                legal effects concerning you or similarly significantly affects
+   926→   926→                you. Our background removal processing does not produce legal
+   927→   927→                or similarly significant effects concerning you.
+   928→   928→              </p>
+   929→   929→
+   930→   930→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   931→   931→                Right to Notification (Article 19)
+   932→   932→              </h3>
+   933→   933→              <p>
+   934→   934→                When we rectify, erase, or restrict the processing of your
+   935→   935→                personal data, we are obligated to notify each recipient of that
+   936→   936→                data of the change. Given that we do not share your data with any
+   937→   937→                third parties, this obligation is automatically fulfilled as there
+   938→   938→                are no recipients to notify.
+   939→   939→              </p>
+   940→   940→
+   941→   941→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   942→   942→                Right to Lodge a Complaint
+   943→   943→              </h3>
+   944→   944→              <p>
+   945→   945→                You have the right to lodge a complaint with a supervisory
+   946→   946→                authority in the EU/EEA member state of your habitual residence,
+   947→   947→                place of work, or place of the alleged infringement if you
+   948→   948→                consider that the processing of your personal data infringes the
+   949→   949→                GDPR. A list of EU/EEA data protection authorities is available
+   950→   950→                at{" "}
+   951→   951→                <a
+   952→   952→                  href="https://www.edpb.europa.eu/about-edpb/about-edpb/members_en"
+   953→   953→                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+   954→   954→                  target="_blank"
+   955→   955→                  rel="noopener noreferrer"
+   956→   956→                >
+   957→   957→                  the European Data Protection Board website
+   958→   958→                </a>
+   959→   959→                .
+   960→   960→              </p>
+   961→   961→
+   962→   962→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   963→   963→                Lawful Basis for Processing (Article 6)
+   964→   964→              </h3>
+   965→   965→              <p>
+   966→   966→                Our processing of your personal data is lawful under the
+   967→   967→                following GDPR legal bases:
+   968→   968→              </p>
+   969→   969→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+   970→   970→                <li>
+   971→   971→                  <strong>Performance of a Contract (Article 6(1)(b)):</strong>{" "}
+   972→   972→                  Processing your uploaded images is necessary to perform the
+   973→   973→                  background removal service you have requested.
+   974→   974→                </li>
+   975→   975→                <li>
+   976→   976→                  <strong>Legitimate Interests (Article 6(1)(f)):</strong>{" "}
+   977→   977→                  Collecting technical data (IP address, browser type) for
+   978→   978→                  security, abuse prevention, and service maintenance represents
+   979→   979→                  a legitimate interest that does not override your rights and
+   980→   980→                  freedoms.
+   981→   981→                </li>
+   982→   982→                <li>
+   983→   983→                  <strong>Consent (Article 6(1)(a)):</strong> Setting the cookie
+   984→   984→                  consent preference cookie is based on your consent, which you
+   985→   985→                  may withdraw at any time.
+   986→   986→                </li>
+   987→   987→              </ul>
+   988→   988→
+   989→   989→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+   990→   990→                Lawful Basis Mapping
+   991→   991→              </h3>
+   992→   992→              <p>
+   993→   993→                Below is an explicit mapping of each processing activity to its
+   994→   994→                lawful basis under GDPR Article 6(1):
+   995→   995→              </p>
+   996→   996→              <div className="overflow-x-auto mt-3">
+   997→   997→                <table className="w-full text-sm border-collapse">
+   998→   998→                  <thead>
+   999→   999→                    <tr className="border-b border-border">
+  1000→  1000→                      <th className="text-left py-3 pr-4 font-semibold">
+  1001→  1001→                        Processing Activity
+  1002→  1002→                      </th>
+  1003→  1003→                      <th className="text-left py-3 pr-4 font-semibold">
+  1004→  1004→                        Lawful Basis
+  1005→  1005→                      </th>
+  1006→  1006→                      <th className="text-left py-3 font-semibold">
+  1007→  1007→                        Justification
+  1008→  1008→                      </th>
+  1009→  1009→                    </tr>
+  1010→  1010→                  </thead>
+  1011→  1011→                  <tbody>
+  1012→  1012→                    <tr className="border-b border-border/50">
+  1013→  1013→                      <td className="py-3 pr-4">
+  1014→  1014→                        Image processing (background removal)
+  1015→  1015→                      </td>
+  1016→  1016→                      <td className="py-3 pr-4">
+  1017→  1017→                        Performance of a contract (Article 6(1)(b))
+  1018→  1018→                      </td>
+  1019→  1019→                      <td className="py-3">
+  1020→  1020→                        Processing is necessary to perform the background
+  1021→  1021→                        removal service you have requested
+  1022→  1022→                      </td>
+  1023→  1023→                    </tr>
+  1024→  1024→                    <tr className="border-b border-border/50">
+  1025→  1025→                      <td className="py-3 pr-4">
+  1026→  1026→                        Technical data (IP, browser)
+  1027→  1027→                      </td>
+  1028→  1028→                      <td className="py-3 pr-4">
+  1029→  1029→                        Legitimate interest (Article 6(1)(f))
+  1030→  1030→                      </td>
+  1031→  1031→                      <td className="py-3">
+  1032→  1032→                        Necessary for security and service stability
+  1033→  1033→                      </td>
+  1034→  1034→                    </tr>
+  1035→  1035→                    <tr>
+  1036→  1036→                      <td className="py-3 pr-4">
+  1037→  1037→                        Cookie consent
+  1038→  1038→                      </td>
+  1039→  1039→                      <td className="py-3 pr-4">
+  1040→  1040→                        Consent (Article 6(1)(a))
+  1041→  1041→                      </td>
+  1042→  1042→                      <td className="py-3">
+  1043→  1043→                        Stored only after you provide consent
+  1044→  1044→                      </td>
+  1045→  1045→                    </tr>
+  1046→  1046→                  </tbody>
+  1047→  1047→                </table>
+  1048→  1048→              </div>
+  1049→  1049→
+  1050→  1050→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+  1051→  1051→                Data Protection Officer
+  1052→  1052→              </h3>
+  1053→  1053→              <p>
+  1054→  1054→                We have not appointed a Data Protection Officer (DPO) as we are
+  1055→  1055→                not required to do so under GDPR Article 37, given the nature and
+  1056→  1056→                scale of our data processing. If you have any data protection
+  1057→  1057→                concerns, please contact us at{" "}
+  1058→  1058→                <a
+  1059→  1059→                  href="mailto:privacy@backgroundremover.app"
+  1060→  1060→                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+  1061→  1061→                >
+  1062→  1062→                  privacy@backgroundremover.app
+  1063→  1063→                </a>
+  1064→  1064→                .
+  1065→  1065→              </p>
+  1066→  1066→            </section>
+  1067→  1067→
+  1068→  1068→            {/* ─── 11. Your Rights Under CCPA ──────────────────── */}
+  1069→  1069→            <section>
+  1070→  1070→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+  1071→  1071→                11. Your Rights Under CCPA (California Residents)
+  1072→  1072→              </h2>
+  1073→  1073→              <p>
+  1074→  1074→                The California Consumer Privacy Act (CCPA) grants California
+  1075→  1075→                residents specific rights regarding their personal information.
+  1076→  1076→                This section applies to all individuals who are California
+  1077→  1077→                residents as defined under the CCPA.
+  1078→  1078→              </p>
+  1079→  1079→
+  1080→  1080→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+  1081→  1081→                Right to Know
+  1082→  1082→              </h3>
+  1083→  1083→              <p>
+  1084→  1084→                You have the right to request, up to twice per year, that we
+  1085→  1085→                disclose to you the following information about the personal
+  1086→  1086→                information we have collected about you in the preceding 12
+  1087→  1087→                months:
+  1088→  1088→              </p>
+  1089→  1089→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+  1090→  1090→                <li>The categories of personal information collected</li>
+  1091→  1091→                <li>
+  1092→  1092→                  The categories of sources from which the personal information
+  1093→  1093→                  was collected
+  1094→  1094→                </li>
+  1095→  1095→                <li>
+  1096→  1096→                  The business or commercial purpose for collecting the personal
+  1097→  1097→                  information
+  1098→  1098→                </li>
+  1099→  1099→                <li>
+  1100→  1100→                  The categories of third parties with whom we share personal
+  1101→  1101→                  information
+  1102→  1102→                </li>
+  1103→  1103→                <li>
+  1104→  1104→                  The specific pieces of personal information we have collected
+  1105→  1105→                  about you
+  1106→  1106→                </li>
+  1107→  1107→              </ul>
+  1108→  1108→
+  1109→  1109→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+  1110→  1110→                Right to Delete
+  1111→  1111→              </h3>
+  1112→  1112→              <p>
+  1113→  1113→                You have the right to request that we delete any personal
+  1114→  1114→                information about you that we have collected. We will comply with
+  1115→  1115→                your request, subject to certain exceptions under the CCPA, such
+  1116→  1116→                as when the data is necessary to complete a transaction, detect
+  1117→  1117→                security incidents, or comply with legal obligations. As noted
+  1118→  1118→                throughout this policy, we do not retain your uploaded images,
+  1119→  1119→                and technical data in server logs is automatically purged after
+  1120→  1120→                30 days.
+  1121→  1121→              </p>
+  1122→  1122→
+  1123→  1123→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+  1124→  1124→                Right to Opt-Out of Sale
+  1125→  1125→              </h3>
+  1126→  1126→              <p>
+  1127→  1127→                You have the right to opt-out of the sale of your personal
+  1128→  1128→                information. We do <strong>not</strong> sell personal information
+  1129→  1129→                and have never sold personal information. Because we do not sell
+  1130→  1130→                personal information, there is no opt-out to exercise. We do not
+  1131→  1131→                include a &ldquo;Do Not Sell My Personal Information&rdquo; link
+  1132→  1132→                on our website because this right is inapplicable to our
+  1133→  1133→                practices.
+  1134→  1134→              </p>
+  1135→  1135→
+  1136→  1136→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+  1137→  1137→                Right to Non-Discrimination
+  1138→  1138→              </h3>
+  1139→  1139→              <p>
+  1140→  1140→                You have the right not to receive discriminatory treatment for
+  1141→  1141→                exercising any of your CCPA rights. We will not discriminate
+  1142→  1142→                against you for exercising your rights, including by denying or
+  1143→  1143→                providing a different level or quality of service, charging
+  1144→  1144→                different prices, or suggesting that you will receive
+  1145→  1145→                discriminatory treatment.
+  1146→  1146→              </p>
+  1147→  1147→
+  1148→  1148→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+  1149→  1149→                CCPA Information Categories
+  1150→  1150→              </h3>
+  1151→  1151→              <p>
+  1152→  1152→                For the purposes of the CCPA, the categories of personal
+  1153→  1153→                information we have collected in the preceding 12 months are:
+  1154→  1154→              </p>
+  1155→  1155→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+  1156→  1156→                <li>
+  1157→  1157→                  <strong>Category A: Identifiers</strong> — IP address (collected
+  1158→  1158→                  automatically)
+  1159→  1159→                </li>
+  1160→  1160→                <li>
+  1161→  1161→                  <strong>Category B: Customer Records Information</strong> —
+  1162→  1162→                  None collected
+  1163→  1163→                </li>
+  1164→  1164→                <li>
+  1165→  1165→                  <strong>Category C: Protected Classification Information</strong>{" "}
+  1166→  1166→                  — None collected
+  1167→  1167→                </li>
+  1168→  1168→                <li>
+  1169→  1169→                  <strong>Category D: Commercial Information</strong> — None
+  1170→  1170→                  collected
+  1171→  1171→                </li>
+  1172→  1172→                <li>
+  1173→  1173→                  <strong>Category E: Biometric Information</strong> — None
+  1174→  1174→                  collected (images are processed temporarily and immediately
+  1175→  1175→                  deleted; they are not analyzed for biometric data)
+  1176→  1176→                </li>
+  1177→  1177→                <li>
+  1178→  1178→                  <strong>Category F: Internet or Other Electronic Network
+  1179→  1179→                  Activity Information</strong> — Browser type, pages visited,
+  1180→  1180→                  timestamps (collected automatically)
+  1181→  1181→                </li>
+  1182→  1182→                <li>
+  1183→  1183→                  <strong>Category G: Geolocation Data</strong> — Country-level
+  1184→  1184→                  location inferred from IP address (not precise geolocation)
+  1185→  1185→                </li>
+  1186→  1186→                <li>
+  1187→  1187→                  <strong>Category H: Sensory Data</strong> — Uploaded images
+  1188→  1188→                  (processed temporarily and immediately deleted; not retained)
+  1189→  1189→                </li>
+  1190→  1190→                <li>
+  1191→  1191→                  <strong>Category I: Professional or Employment Information</strong>{" "}
+  1192→  1192→                  — None collected
+  1193→  1193→                </li>
+  1194→  1194→                <li>
+  1195→  1195→                  <strong>Category J: Inferences</strong> — None drawn
+  1196→  1196→                </li>
+  1197→  1197→              </ul>
+  1198→  1198→
+  1199→  1199→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+  1200→  1200→                Exercising Your CCPA Rights
+  1201→  1201→              </h3>
+  1202→  1202→              <p>
+  1203→  1203→                To exercise any of your CCPA rights, please contact us at{" "}
+  1204→  1204→                <a
+  1205→  1205→                  href="mailto:privacy@backgroundremover.app"
+  1206→  1206→                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+  1207→  1207→                >
+  1208→  1208→                  privacy@backgroundremover.app
+  1209→  1209→                </a>
+  1210→  1210→                . We will respond to your request within 45 days, as required by
+  1211→  1211→                the CCPA. We may extend this period by an additional 45 days
+  1212→  1212→                when necessary, with notice to you. We will verify your identity
+  1213→  1213→                before processing your request.
+  1214→  1214→              </p>
+  1215→  1215→            </section>
+  1216→  1216→
+  1217→  1217→            {/* ─── 12. Your Rights Under CalOPPA ────────────────── */}
+  1218→  1218→            <section>
+  1219→  1219→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+  1220→  1220→                12. Your Rights Under CalOPPA (California Online Privacy
+  1221→  1221→                Protection Act)
+  1222→  1222→              </h2>
+  1223→  1223→              <p>
+  1224→  1224→                Under the California Online Privacy Protection Act (CalOPPA), we
+  1225→  1225→                are required to provide the following information:
+  1226→  1226→              </p>
+  1227→  1227→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+  1228→  1228→                <li>
+  1229→  1229→                  <strong>Privacy Policy:</strong> This Privacy Policy
+  1230→  1230→                  constitutes our &ldquo;online privacy policy&rdquo; as
+  1231→  1231→                  required by CalOPPA.
+  1232→  1232→                </li>
+  1233→  1233→                <li>
+  1234→  1234→                  <strong>Personally Identifiable Information Collected:</strong>{" "}
+  1235→  1235→                  As described in Section 2, we collect IP addresses,
+  1236→  1236→                  browser/device technical data, and temporarily process uploaded
+  1237→  1237→                  images.
+  1238→  1238→                </li>
+  1239→  1239→                <li>
+  1240→  1240→                  <strong>Third Parties:</strong> As described in Section 7, we
+  1241→  1241→                  share certain technical data with our hosting provider and
+  1242→  1242→                  CDN.
+  1243→  1243→                </li>
+  1244→  1244→                <li>
+  1245→  1245→                  <strong>Response to Do Not Track Signals:</strong> See Section
+  1246→  1246→                  16 for our response to Do Not Track signals.
+  1247→  1247→                </li>
+  1248→  1248→                <li>
+  1249→  1249→                  <strong>Policy Changes:</strong> See Section 17 for how we
+  1250→  1250→                  notify users of changes to this policy.
+  1251→  1251→                </li>
+  1252→  1252→              </ul>
+  1253→  1253→              <p className="mt-4">
+  1254→  1254→                CalOPPA further grants you the right to request that we remove
+  1255→  1255→                your personally identifiable information from our systems. You
+  1256→  1256→                may exercise this right by contacting us at{" "}
+  1257→  1257→                <a
+  1258→  1258→                  href="mailto:privacy@backgroundremover.app"
+  1259→  1259→                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+  1260→  1260→                >
+  1261→  1261→                  privacy@backgroundremover.app
+  1262→  1262→                </a>
+  1263→  1263→                .
+  1264→  1264→              </p>
+  1265→  1265→            </section>
+  1266→  1266→
+  1267→  1267→            {/* ─── 13. Your Rights Under PIPEDA ─────────────────── */}
+  1268→  1268→            <section>
+  1269→  1269→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+  1270→  1270→                13. Your Rights Under PIPEDA (Canadian Residents)
+  1271→  1271→              </h2>
+  1272→  1272→              <p>
+  1273→  1273→                If you are a resident of Canada, the Personal Information
+  1274→  1274→                Protection and Electronic Documents Act (PIPEDA) grants you
+  1275→  1275→                certain rights regarding the collection, use, and disclosure of
+  1276→  1276→                your personal information. Under PIPEDA, you have the right to:
+  1277→  1277→              </p>
+  1278→  1278→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+  1279→  1279→                <li>
+  1280→  1280→                  <strong>Right of Access:</strong> You have the right to
+  1281→  1281→                  request access to your personal information held by us, and to
+  1282→  1282→                  obtain information about how it has been used and disclosed.
+  1283→  1283→                </li>
+  1284→  1284→                <li>
+  1285→  1285→                  <strong>Right to Correction:</strong> You have the right to
+  1286→  1286→                  request the correction of inaccurate or incomplete personal
+  1287→  1287→                  information.
+  1288→  1288→                </li>
+  1289→  1289→                <li>
+  1290→  1290→                  <strong>Right to Withdraw Consent:</strong> You may withdraw
+  1291→  1291→                  your consent for the collection, use, or disclosure of your
+  1292→  1292→                  personal information, subject to legal and contractual
+  1293→  1293→                  restrictions. Withdrawing consent may affect your ability to
+  1294→  1294→                  use the Service.
+  1295→  1295→                </li>
+  1296→  1296→                <li>
+  1297→  1297→                  <strong>Right to Complain:</strong> You have the right to file
+  1298→  1298→                  a complaint with the Office of the Privacy Commissioner of
+  1299→  1299→                  Canada if you believe your personal information has been
+  1300→  1300→                  mishandled. For more information, visit{" "}
+  1301→  1301→                  <a
+  1302→  1302→                    href="https://www.priv.gc.ca"
+  1303→  1303→                    className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+  1304→  1304→                    target="_blank"
+  1305→  1305→                    rel="noopener noreferrer"
+  1306→  1306→                  >
+  1307→  1307→                    priv.gc.ca
+  1308→  1308→                  </a>
+  1309→  1309→                  .
+  1310→  1310→                </li>
+  1311→  1311→              </ul>
+  1312→  1312→              <p className="mt-4">
+  1313→  1313→                Under PIPEDA, we are required to identify the purposes for which
+  1314→  1314→                personal information is collected at or before the time of
+  1315→  1315→                collection. This Privacy Policy fulfills that requirement. Our
+  1316→  1316→                purposes are described in Section 3. We collect only the
+  1317→  1317→                information that is necessary for the identified purposes and
+  1318→  1318→                do not collect information beyond what is needed.
+  1319→  1319→              </p>
+  1320→  1320→            </section>
+  1321→  1321→
+  1322→  1322→            {/* ─── 14. Children's Privacy ──────────────────────── */}
+  1323→  1323→            <section>
+  1324→  1324→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+  1325→  1325→                14. Children&apos;s Privacy
+  1326→  1326→              </h2>
+  1327→  1327→              <p>
+  1328→  1328→                Our Service is not directed at children under the age of 13, and
+  1329→  1329→                we do not knowingly collect personal information from children
+  1330→  1330→                under 13. In compliance with the Children&apos;s Online Privacy
+  1331→  1331→                Protection Act (COPPA), we do not:
+  1332→  1332→              </p>
+  1333→  1333→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+  1334→  1334→                <li>
+  1335→  1335→                  Collect personal information from children under 13
+  1336→  1336→                </li>
+  1337→  1337→                <li>
+  1338→  1338→                  Allow children under 13 to create accounts or profiles
+  1339→  1339→                </li>
+  1340→  1340→                <li>
+  1341→  1341→                  Use tracking technologies specifically targeted at children
+  1342→  1342→                </li>
+  1343→  1343→                <li>
+  1344→  1344→                  Display content or advertising specifically targeted at
+  1345→  1345→                  children
+  1346→  1346→                </li>
+  1347→  1347→              </ul>
+  1348→  1348→              <p className="mt-4">
+  1349→  1349→                If you are a parent or guardian and become aware that your child
+  1350→  1350→                under 13 has used our Service and provided personal information,
+  1351→  1351→                please contact us immediately at{" "}
+  1352→  1352→                <a
+  1353→  1353→                  href="mailto:privacy@backgroundremover.app"
+  1354→  1354→                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+  1355→  1355→                >
+  1356→  1356→                  privacy@backgroundremover.app
+  1357→  1357→                </a>
+  1358→  1358→                . We will take prompt steps to delete any such information from
+  1359→  1359→                our systems.
+  1360→  1360→              </p>
+  1361→  1361→              <p className="mt-4">
+  1362→  1362→                For children aged 13-16, parental consent may be required under
+  1363→  1363→                certain state laws (such as the California Age-Appropriate Design
+  1364→  1364→                Code Act). We encourage parents and guardians to monitor their
+  1365→  1365→                children&apos;s online activities and to contact us with any
+  1366→  1366→                concerns.
+  1367→  1367→              </p>
+  1368→  1368→            </section>
+  1369→  1369→
+  1370→  1370→            {/* ─── 15. International Data Transfers ─────────────── */}
+  1371→  1371→            <section>
+  1372→  1372→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+  1373→  1373→                15. International Data Transfers
+  1374→  1374→              </h2>
+  1375→  1375→              <p>
+  1376→  1376→                Our Service is operated from servers that may be located outside
+  1377→  1377→                of your country of residence. When you use our Service, your
+  1378→  1378→                data (including uploaded images and technical data) may be
+  1379→  1379→                transferred to and processed on servers in a different
+  1380→  1380→                jurisdiction.
+  1381→  1381→              </p>
+  1382→  1382→              <p className="mt-4">
+  1383→  1383→                For EU/EEA residents: Our hosting provider and CDN may process
+  1384→  1384→                data in the United States or other countries. We ensure
+  1385→  1385→                appropriate safeguards are in place for such transfers,
+  1386→  1386→                including:
+  1387→  1387→              </p>
+  1388→  1388→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+  1389→  1389→                <li>
+  1390→  1390→                  Standard Contractual Clauses (SCCs) as approved by the
+  1391→  1391→                  European Commission, where applicable
+  1392→  1392→                </li>
+  1393→  1393→                <li>
+  1394→  1394→                  Data Processing Agreements (DPAs) with all third-party
+  1395→  1395→                  service providers that process data on our behalf
+  1396→  1396→                </li>
+  1397→  1397→                <li>
+  1398→  1398→                  The zero-retention policy for images, which means no image
+  1399→  1399→                  data is stored on any server for any period beyond immediate
+  1400→  1400→                  processing
+  1401→  1401→                </li>
+  1402→  1402→              </ul>
+  1403→  1403→              <p className="mt-4">
+  1404→  1404→                Because we do not store your images or collect significant
+  1405→  1405→                personally identifiable information, the risk associated with
+  1406→  1406→                international data transfers is inherently minimized. Technical
+  1407→  1407→                data in server logs (IP addresses, timestamps) may be subject
+  1408→  1408→                to transfer but is automatically purged within 30 days.
+  1409→  1409→              </p>
+  1410→  1410→
+  1411→  1411→              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+  1412→  1412→                EU Adequacy Decisions
+  1413→  1413→              </h3>
+  1414→  1414→              <p>
+  1415→  1415→                The European Commission has granted adequacy decisions to certain
+  1416→  1416→                countries and territories, meaning data transfers to these
+  1417→  1417→                jurisdictions are considered to provide an adequate level of data
+  1418→  1418→                protection. Where your data may be processed in a country without
+  1419→  1419→                an adequacy decision, we rely on Standard Contractual Clauses
+  1420→  1420→                (SCCs) approved by the European Commission to ensure adequate
+  1421→  1421→                protection. Given our zero-retention policy for images, the risk
+  1422→  1422→                of cross-border data transfers is minimal, as no personal data in
+  1423→  1423→                the form of images is retained beyond the processing period.
+  1424→  1424→              </p>
+  1425→  1425→            </section>
+  1426→  1426→
+  1427→  1427→            {/* ─── 16. Do Not Track Signals ─────────────────────── */}
+  1428→  1428→            <section>
+  1429→  1429→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+  1430→  1430→                16. Do Not Track Signals
+  1431→  1431→              </h2>
+  1432→  1432→              <p>
+  1433→  1433→                Some web browsers incorporate a &ldquo;Do Not Track&rdquo; (DNT)
+  1434→  1434→                feature that signals to websites that you do not wish to be
+  1435→  1435→                tracked. Because there is currently no industry standard for how
+  1436→  1436→                websites should respond to DNT signals, and because the
+  1437→  1437→                definition of &ldquo;tracking&rdquo; under DNT remains
+  1438→  1438→                ambiguous, our response to DNT signals is as follows:
+  1439→  1439→              </p>
+  1440→  1440→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+  1441→  1441→                <li>
+  1442→  1442→                  We do <strong>not track users</strong> regardless of whether
+  1443→  1443→                  DNT is enabled. Our privacy practices are consistent across
+  1444→  1444→                  all users — we do not engage in behavioral tracking, user
+  1445→  1445→                  profiling, or targeted advertising.
+  1446→  1446→                </li>
+  1447→  1447→                <li>
+  1448→  1448→                  Our processing of technical data (IP addresses, browser
+  1449→  1449→                  information) is limited to what is necessary for security,
+  1450→  1450→                  abuse prevention, and service delivery, which falls outside
+  1451→  1451→                  the scope of &ldquo;tracking&rdquo; as commonly understood.
+  1452→  1452→                </li>
+  1453→  1453→                <li>
+  1454→  1454→                  Because we do not use analytics cookies, advertising cookies,
+  1455→  1455→                  tracking pixels, or any other tracking technologies, enabling
+  1456→  1456→                  DNT in your browser will not change your experience on our
+  1457→  1457→                  Service — your privacy is already protected to the maximum
+  1458→  1458→                  extent.
+  1459→  1459→                </li>
+  1460→  1460→              </ul>
+  1461→  1461→            </section>
+  1462→  1462→
+  1463→  1463→            {/* ─── 17. Changes to This Policy ──────────────────── */}
+  1464→  1464→            <section>
+  1465→  1465→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+  1466→  1466→                17. Changes to This Policy
+  1467→  1467→              </h2>
+  1468→  1468→              <p>
+  1469→  1469→                We may update this Privacy Policy from time to time to reflect
+  1470→  1470→                changes in our practices, technologies, legal requirements, or
+  1471→  1471→                other factors. When we make changes, we will:
+  1472→  1472→              </p>
+  1473→  1473→              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+  1474→  1474→                <li>
+  1475→  1475→                  Update the &ldquo;Last updated&rdquo; date at the top of this
+  1476→  1476→                  page to reflect the date of the most recent revision
+  1477→  1477→                </li>
+  1478→  1478→                <li>
+  1479→  1479→                  Post the updated Privacy Policy on this page with a clear
+  1480→  1480→                  indication of what has changed
+  1481→  1481→                </li>
+  1482→  1482→                <li>
+  1483→  1483→                  For material changes that affect how we handle your data, we
+  1484→  1484→                  will provide additional notice through a prominent notice on
+  1485→  1485→                  our website homepage for a reasonable period before the
+  1486→  1486→                  changes take effect
+  1487→  1487→                </li>
+  1488→  1488→              </ul>
+  1489→  1489→              <p className="mt-4">
+  1490→  1490→                We encourage you to review this Privacy Policy periodically to
+  1491→  1491→                stay informed about how we protect your information. Your
+  1492→  1492→                continued use of the Service after any changes to this policy
+  1493→  1493→                constitutes your acceptance of the updated policy.
+  1494→  1494→              </p>
+  1495→  1495→              <p className="mt-4">
+  1496→  1496→                In the event of a material change that significantly reduces
+  1497→  1497→                your privacy protections, we will make reasonable efforts to
+  1498→  1498→                obtain your affirmative consent before implementing the change.
+  1499→  1499→              </p>
+  1500→  1500→            </section>
+  1501→  1501→
+  1502→  1502→            {/* ─── 18. Contact Information ─────────────────────── */}
+  1503→  1503→            <section>
+  1504→  1504→              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+  1505→  1505→                18. Contact Information
+  1506→  1506→              </h2>
+  1507→  1507→              <p>
+  1508→  1508→                If you have any questions, concerns, or requests regarding this
+  1509→  1509→                Privacy Policy or our data practices, please contact us:
+  1510→  1510→              </p>
+  1511→  1511→              <div className="mt-4 bg-muted/50 border border-border rounded-lg p-5 sm:p-6">
+  1512→  1512→                <div className="space-y-3">
+  1513→  1513→                  <div>
+  1514→  1514→                    <span className="font-semibold text-foreground">
+  1515→  1515→                      Service:
+  1516→  1516→                    </span>{" "}
+  1517→  1517→                    Background Remover
+  1518→  1518→                  </div>
+  1519→  1519→                  <div>
+  1520→  1520→                    <span className="font-semibold text-foreground">
+  1521→  1521→                      Website:
+  1522→  1522→                    </span>{" "}
+  1523→  1523→                    <Link
+  1524→  1524→                      href="https://backgroundremover.app"
+  1525→  1525→                      className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+  1526→  1526→                    >
+  1527→  1527→                      https://backgroundremover.app
+  1528→  1528→                    </Link>
+  1529→  1529→                  </div>
+  1530→  1530→                  <div>
+  1531→  1531→                    <span className="font-semibold text-foreground">
+  1532→  1532→                      Privacy Email:
+  1533→  1533→                    </span>{" "}
+  1534→  1534→                    <a
+  1535→  1535→                      href="mailto:privacy@backgroundremover.app"
+  1536→  1536→                      className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+  1537→  1537→                    >
+  1538→  1538→                      privacy@backgroundremover.app
+  1539→  1539→                    </a>
+  1540→  1540→                  </div>
+  1541→  1541→                </div>
+  1542→  1542→              </div>
+  1543→  1543→              <p className="mt-4">
+  1544→  1544→                We will acknowledge receipt of your privacy-related inquiry
+  1545→  1545→                within 5 business days and provide a substantive response within
+  1546→  1546→                30 days, or within the timeframe required by applicable law
+  1547→  1547→                (45 days under CCPA, as described in Section 11). If we require
+  1548→  1548→                additional time to respond, we will inform you of the reason for
+  1549→  1549→                the delay and the expected response date.
+  1550→  1550→              </p>
+  1551→  1551→              <p className="mt-4">
+  1552→  1552→                When submitting a request, please include sufficient information
+  1553→  1553→                to verify your identity (such as the IP address used at the time
+  1554→  1554→                of your visit and the approximate date of access) so that we can
+  1555→  1555→                locate the relevant data in our systems.
+  1556→  1556→              </p>
+  1557→  1557→            </section>
+  1558→  1558→          </div>
+  1559→  1559→
+  1560→  1560→          {/* Bottom Navigation */}
+  1561→  1561→          <div className="mt-16 pt-8 border-t border-border">
+  1562→  1562→            <Link
+  1563→  1563→              href="/"
+  1564→  1564→              className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 transition-colors font-medium group"
+  1565→  1565→            >
+  1566→  1566→              <svg
+  1567→  1567→                xmlns="http://www.w3.org/2000/svg"
+  1568→  1568→                className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
+  1569→  1569→                fill="none"
+  1570→  1570→                viewBox="0 0 24 24"
+  1571→  1571→                stroke="currentColor"
+  1572→  1572→                strokeWidth={2}
+  1573→  1573→              >
+  1574→  1574→                <path
+  1575→  1575→                  strokeLinecap="round"
+  1576→  1576→                  strokeLinejoin="round"
+  1577→  1577→                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+  1578→  1578→                />
+  1579→  1579→              </svg>
+  1580→  1580→              Back to Background Remover
+  1581→  1581→            </Link>
+  1582→  1582→          </div>
+  1583→  1583→        </main>
+  1584→  1584→
+  1585→  1585→        {/* Footer */}
+  1586→  1586→        <footer className="border-t border-border bg-muted/30 mt-auto">
+  1587→  1587→          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  1588→  1588→            <nav aria-label="Footer navigation" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+  1589→  1589→              <Link href="/terms" className="hover:text-emerald-600 transition-colors">Terms of Service</Link>
+  1590→  1590→              <span aria-hidden="true">·</span>
+  1591→  1591→              <Link href="/cookies" className="hover:text-emerald-600 transition-colors">Cookie Policy</Link>
+  1592→  1592→              <span aria-hidden="true">·</span>
+  1593→  1593→              <Link href="/dmca" className="hover:text-emerald-600 transition-colors">DMCA</Link>
+  1594→  1594→            </nav>
+  1595→  1595→            <p className="mt-3 text-center text-sm text-muted-foreground">
+  1596→  1596→              &copy; {new Date().getFullYear()} Background Remover. All rights reserved.
+  1597→  1597→            </p>
+  1598→  1598→          </div>
+  1599→  1599→        </footer>
+  1600→  1600→      </div>
+  1601→  1601→    </>
+  1602→  1602→  );
+  1603→  1603→}
+  1604→  1604→

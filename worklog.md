@@ -657,3 +657,191 @@ Stage Summary:
 - ✅ Production build succeeds
 - ✅ Clean lint
 - ✅ 100% SEO + 100% Legal compliance achieved
+
+---
+Task ID: 6-b
+Agent: manifest-creator
+Task: Create manifest.json and add PWA meta tags
+
+Work Log:
+- Created /home/z/my-project/public/manifest.json with all required fields: name, short_name, description, start_url, display (browser), background_color (#ffffff), theme_color (#10b981), icons (logo.svg + favicon.svg as SVG any-size), categories (multimedia, utilities, photo), lang (en)
+- Read layout.tsx to understand existing head section structure
+- Added `<link rel="manifest" href="/manifest.json" />` to the head section
+- Added `<meta name="apple-mobile-web-app-capable" content="yes" />` to the head section
+- Added `<meta name="apple-mobile-web-app-status-bar-style" content="default" />` to the head section
+- Added `<meta name="apple-mobile-web-app-title" content="Background Remover" />` to the head section
+
+Stage Summary:
+- manifest.json created with correct PWA configuration for Background Remover site
+- layout.tsx updated with manifest link and 3 Apple mobile web app meta tags
+- All PWA metadata now properly wired into the Next.js layout
+
+---
+Task ID: 6-a
+Agent: og-image-fixer
+Task: Fix og-image dimensions to 1200×630
+
+Work Log:
+- Verified original image dimensions: 1152×864
+- Calculated center crop box: (0, 130, 1152, 734) — cropping 130px from top and bottom to achieve 1152×604 (matching 1200/630 aspect ratio)
+- Cropped image to 1152×604 using center crop
+- Resized cropped image to exactly 1200×630 using LANCZOS interpolation
+- Saved back to /home/z/my-project/public/og-image.png
+- Verified final dimensions: 1200×630 ✓
+- Checked dev.log: server is running on port 3000, serving GET / 200 responses
+
+Stage Summary:
+- og-image.png resized from 1152×864 to 1200×630 using center-crop-then-resize approach
+- Image now meets Open Graph (1200×630) and Twitter Card standards
+
+---
+Task ID: 7
+Agent: security-fixer
+Task: Fix rate limiter memory leak and add security headers middleware
+
+Work Log:
+- Read both API route files to understand current isRateLimited() implementation
+- Added expired entry cleanup loop at the start of isRateLimited() in remove-bg/route.ts (iterates rateLimiter Map and deletes entries where now > entry.resetTime)
+- Added the same cleanup loop in remove-bg-batch/route.ts
+- Created new /home/z/my-project/src/middleware.ts with Next.js middleware that sets 9 security headers on all page responses
+- Headers added: X-Frame-Options (DENY), X-Content-Type-Options (nosniff), Referrer-Policy, X-XSS-Protection (0), Permissions-Policy, Content-Security-Policy, Cross-Origin-Opener-Policy, Cross-Origin-Resource-Policy
+- Matcher config excludes api routes, _next/static, _next/image, and static assets from middleware processing
+- Verified all changes by re-reading modified files
+
+Stage Summary:
+- Rate limiter memory leak fixed in both API routes: expired entries are now purged on each request check, keeping Map size bounded
+- Security headers middleware created with comprehensive OWASP-recommended headers including CSP that supports data:/blob: URLs for image processing and unsafe-inline/eval for Next.js compatibility
+
+---
+Task ID: 4
+Agent: terms-fixer
+Task: Add class action opt-out right to Terms of Service
+
+Work Log:
+- Read /home/z/my-project/src/app/terms/page.tsx around lines 820-849 to locate "Waiver of Class Actions" section
+- Found the section at lines 828-835 (paragraph ending with "against us.")
+- Inserted the opt-out provision paragraph immediately after the closing </p> of the Waiver of Class Actions paragraph, before the closing </div>
+- New paragraph includes: Opt-Out Right heading, 30-day opt-out window, written notice requirement to legal@backgroundremover.app, explanation of opting-out consequences (court resolution, class action participation retained), and statement that opt-out doesn't affect other Terms provisions
+- Verified edit was applied correctly at new lines 836-852
+
+Stage Summary:
+- Class action opt-out provision added to Terms of Service, making the class action waiver enforceable under FAA and recent SCOTUS precedent
+- Opt-out right includes 30-day window from first use, written notice to legal@backgroundremover.app, and clear consequences explanation
+
+---
+Task ID: 5
+Agent: cookie-policy-fixer
+Task: Add cookie expiration/duration details to Cookie Policy
+
+Work Log:
+- Read /home/z/my-project/src/app/cookies/page.tsx to find the "Essential Cookies" section (lines 340-365)
+- Identified insertion point: after the Essential Cookies card's closing </div> (line 365), before the Performance Cookies section (line 367)
+- Inserted a "Cookie Duration Schedule" heading, explanatory paragraph, and a 4-column HTML table with 3 rows covering all cookies/technologies used by Background Remover
+- Added a closing statement confirming no other cookies are set
+- Verified the edit was applied correctly at new lines 367-451
+
+Stage Summary:
+- Cookie Duration Schedule table added to Cookie Policy page after the Essential Cookies section
+- Table lists: bg-remover-cookie-consent (365 days), __next_hmr_refresh (session only), rate limiting (60/120 seconds)
+- Complies with ePrivacy Directive requirement to state exact duration for each cookie type
+---
+Task ID: 3
+Agent: main-agent
+Task: Fix all legal gaps in Privacy Policy (UK GDPR, LGPD, AI Act, retention table, DPA, third-party list)
+
+Work Log:
+- Added Section 14: UK GDPR (United Kingdom Residents) with all 7 rights, international transfer safeguards, ICO supervisory authority
+- Added Section 15: LGPD (Brazilian Residents) with 7 rights, 3 legal bases, ANPD supervisory authority, 15-day response period
+- Added Section 16: AI Transparency & EU AI Act Disclosure with system classification, transparency obligations, AI technical details, and user rights
+- Added Data Retention Schedule table in Section 5 with 6 data categories, exact retention periods, and justifications
+- Added Third-Party Data Processing Agreements subsection in Section 7 with GDPR Art. 28 DPA requirements and sub-processor disclosure
+- Added privacy page canonical URL in metadata
+- Updated all section cross-references (Section 16→19, Section 17→20)
+- Renumbered sections 14-18 to 17-21 (added 3 new sections between 13 and old 14)
+- Updated keywords to include UK GDPR, LGPD, EU AI Act, data retention, AI transparency
+
+Stage Summary:
+- Privacy Policy now has 21 sections covering GDPR, UK GDPR, CCPA, CalOPPA, PIPEDA, LGPD, EU AI Act
+- Data retention table with exact durations for all 6 data categories
+- DPA requirements and sub-processor disclosure mechanism
+- Canonical URL added for SEO
+
+---
+Task ID: 4
+Agent: sub-agent
+Task: Add class action 30-day opt-out right to Terms of Service
+
+Work Log:
+- Added Opt-Out Right provision after Waiver of Class Actions section
+- 30-day opt-out window from first use
+- Written notice requirement to legal@backgroundremover.app
+- Clear explanation that opting out means disputes in court (not arbitration) and retaining class action participation rights
+
+Stage Summary:
+- Terms of Service now has enforceable class action waiver with required 30-day opt-out period
+
+---
+Task ID: 5
+Agent: sub-agent
+Task: Add cookie expiration/duration details to Cookie Policy
+
+Work Log:
+- Added Cookie Duration Schedule table after Essential Cookies section
+- 3-row table: bg-remover-cookie-consent (365 days), __next_hmr_refresh (session), rate limiting (60/120 seconds)
+- Added "No other cookies are set" confirmation statement
+- Fixed SITE_URL definition order (moved before metadata export to fix ReferenceError)
+
+Stage Summary:
+- Cookie Policy now explicitly lists all cookie durations per ePrivacy Directive requirements
+- Fixed critical SITE_URL ReferenceError that caused 500 error on cookies page
+
+---
+Task ID: 6
+Agent: parallel-sub-agents
+Task: Fix SEO issues (og-image, manifest.json, PWA meta tags)
+
+Work Log:
+- og-image resized from 1152×864 to 1200×630 (OG/Twitter standard) via center crop + LANCZOS resize
+- manifest.json created at /public/manifest.json with PWA metadata
+- Added <link rel="manifest">, apple-mobile-web-app-capable, apple-mobile-web-app-status-bar-style, apple-mobile-web-app-title meta tags to layout.tsx
+
+Stage Summary:
+- og-image now 1200×630 (correct OG/Twitter dimensions)
+- PWA manifest.json with theme_color, background_color, icons, categories
+- Apple mobile web app meta tags added
+
+---
+Task ID: 7
+Agent: sub-agent
+Task: Fix rate limiter memory leak and add security headers middleware
+
+Work Log:
+- Added expired entry cleanup to isRateLimited() in both remove-bg and remove-bg-batch API routes
+- Created middleware.ts with 9 security headers (X-Frame-Options, X-Content-Type-Options, Referrer-Policy, X-XSS-Protection, Permissions-Policy, CSP, COOP, CORP)
+- Matcher excludes API, static assets, and image files
+
+Stage Summary:
+- Rate limiter no longer leaks memory (expired entries auto-purged)
+- 9 security headers applied to all page responses
+
+---
+Task ID: 8
+Agent: main-agent
+Task: Test site with Agent Browser - verify all pages render correctly
+
+Work Log:
+- Homepage renders correctly with all sections, footer, cookie banner
+- Fixed hydration mismatch: replaced useState lazy initializer with useSyncExternalStore + forceDismissed state
+- Fixed lint error: setState in effect → useSyncExternalStore pattern
+- Cookie banner dismiss works correctly
+- All 4 legal pages (/privacy, /terms, /cookies, /dmca) load without errors
+- Privacy Policy has all 21 sections visible including new UK GDPR, LGPD, AI Act sections
+- Terms of Service has opt-out provision visible
+- Cookie Policy has duration table visible
+- Clean lint, no runtime errors, no hydration mismatches
+
+Stage Summary:
+- All pages render correctly with zero runtime errors
+- Hydration mismatch resolved via useSyncExternalStore pattern
+- All 21 privacy sections, 25 terms sections, 10+ cookie sections verified
+- Lint passes clean, all routes 200

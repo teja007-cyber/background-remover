@@ -17,6 +17,10 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
+// ─── Constants ─────────────────────────────────────────────────────────
+
+const SITE_URL = "https://backgroundremover.app";
+
 // ─── SEO Metadata ─────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
@@ -77,7 +81,7 @@ export const metadata: Metadata = {
 
 // ─── Constants ────────────────────────────────────────────────────────────
 
-const SITE_URL = "https://backgroundremover.app";
+// SITE_URL is defined above, before the metadata export
 const LAST_UPDATED = "March 4, 2026";
 const CONTACT_EMAIL = "privacy@backgroundremover.app";
 
@@ -363,6 +367,92 @@ export default function CookiePolicyPage() {
                       have requested.
                     </p>
                   </div>
+
+                  {/* Cookie Duration Schedule */}
+                  <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                    Cookie Duration Schedule
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm">
+                    Below is a detailed table of every cookie and similar
+                    technology we use, its purpose, and its exact expiration or
+                    retention period:
+                  </p>
+                  <div className="overflow-x-auto mt-3">
+                    <table className="w-full text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="text-left py-3 pr-4 font-semibold">
+                            Cookie / Technology
+                          </th>
+                          <th className="text-left py-3 pr-4 font-semibold">
+                            Category
+                          </th>
+                          <th className="text-left py-3 pr-4 font-semibold">
+                            Purpose
+                          </th>
+                          <th className="text-left py-3 font-semibold">
+                            Duration
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-border/50">
+                          <td className="py-3 pr-4">
+                            bg-remover-cookie-consent
+                          </td>
+                          <td className="py-3 pr-4">
+                            Essential (Consent)
+                          </td>
+                          <td className="py-3 pr-4">
+                            Stores your cookie consent preference so we
+                            don&apos;t ask again
+                          </td>
+                          <td className="py-3">
+                            365 days (1 year) from date of consent;
+                            auto-deletes after expiry
+                          </td>
+                        </tr>
+                        <tr className="border-b border-border/50">
+                          <td className="py-3 pr-4">
+                            __next_hmr_refresh (dev only)
+                          </td>
+                          <td className="py-3 pr-4">
+                            Essential (Development)
+                          </td>
+                          <td className="py-3 pr-4">
+                            Hot Module Replacement for development; not present
+                            in production
+                          </td>
+                          <td className="py-3">
+                            Session only (expires when browser closes)
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="py-3 pr-4">
+                            Rate limiting (server-side memory)
+                          </td>
+                          <td className="py-3 pr-4">
+                            Essential (Security)
+                          </td>
+                          <td className="py-3 pr-4">
+                            Temporary server-side counter to prevent abuse; not
+                            a browser cookie
+                          </td>
+                          <td className="py-3">
+                            60 seconds (single endpoint) / 120 seconds (batch
+                            endpoint); auto-purged
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p className="mt-4 text-muted-foreground leading-relaxed text-sm">
+                    <strong>No other cookies are set.</strong> We do not use
+                    analytics cookies, advertising cookies, tracking cookies,
+                    social media cookies, or any third-party cookies. The only
+                    cookie stored on your browser is the consent preference
+                    cookie listed above.
+                  </p>
 
                   {/* Performance Cookies */}
                   <div className="rounded-xl border border-border p-5 sm:p-6">

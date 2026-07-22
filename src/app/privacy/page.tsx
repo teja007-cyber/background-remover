@@ -15,12 +15,17 @@ export const metadata: Metadata = {
     "background remover privacy",
     "GDPR compliance",
     "CCPA compliance",
+    "UK GDPR",
+    "LGPD compliance",
+    "EU AI Act",
     "image privacy",
     "data protection",
     "background removal privacy",
     "AI tool privacy",
     "no image storage",
     "privacy-first",
+    "data retention",
+    "AI transparency",
   ],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
@@ -35,6 +40,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  alternates: {
+    canonical: `${SITE_URL}/privacy`,
   },
   openGraph: {
     title: "Privacy Policy | Background Remover",
@@ -532,6 +540,99 @@ export default function PrivacyPolicyPage() {
                   server response cycle.
                 </li>
               </ul>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                Data Retention Schedule
+              </h3>
+              <p>
+                Below is a detailed table of our data retention practices for each
+                category of data we process:
+              </p>
+              <div className="overflow-x-auto mt-3">
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-3 pr-4 font-semibold">
+                        Data Category
+                      </th>
+                      <th className="text-left py-3 pr-4 font-semibold">
+                        Retention Period
+                      </th>
+                      <th className="text-left py-3 font-semibold">
+                        Justification
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-border/50">
+                      <td className="py-3 pr-4">
+                        Uploaded images (input)
+                      </td>
+                      <td className="py-3 pr-4">
+                        0 seconds (ephemeral)
+                      </td>
+                      <td className="py-3">
+                        Deleted immediately after processing; never stored on persistent storage
+                      </td>
+                    </tr>
+                    <tr className="border-b border-border/50">
+                      <td className="py-3 pr-4">
+                        Processed images (output)
+                      </td>
+                      <td className="py-3 pr-4">
+                        0 seconds (delivered to browser only)
+                      </td>
+                      <td className="py-3">
+                        Result is sent directly to your browser; not stored on any server
+                      </td>
+                    </tr>
+                    <tr className="border-b border-border/50">
+                      <td className="py-3 pr-4">
+                        Server access logs (IP, timestamps, browser)
+                      </td>
+                      <td className="py-3 pr-4">
+                        30 days
+                      </td>
+                      <td className="py-3">
+                        Required for security monitoring, abuse prevention, and service reliability
+                      </td>
+                    </tr>
+                    <tr className="border-b border-border/50">
+                      <td className="py-3 pr-4">
+                        Temporary processing files
+                      </td>
+                      <td className="py-3 pr-4">
+                        0 seconds (deleted within request cycle)
+                      </td>
+                      <td className="py-3">
+                        Created during processing and deleted before response is sent
+                      </td>
+                    </tr>
+                    <tr className="border-b border-border/50">
+                      <td className="py-3 pr-4">
+                        Cookie consent preference
+                      </td>
+                      <td className="py-3 pr-4">
+                        365 days (1 year)
+                      </td>
+                      <td className="py-3">
+                        Stored on your browser to remember your consent; auto-expires after 1 year
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 pr-4">
+                        Rate limiting data (IP, request count)
+                      </td>
+                      <td className="py-3 pr-4">
+                        60 seconds (single) / 120 seconds (batch)
+                      </td>
+                      <td className="py-3">
+                        Held only during active rate-limit window; automatically purged after expiry
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </section>
 
             {/* ─── 6. Cookies and Tracking Technologies ────────── */}
@@ -682,6 +783,48 @@ export default function PrivacyPolicyPage() {
                 We do not use any third-party analytics services, advertising
                 networks, social media plugins, chat widgets, or other third-party
                 tracking tools that would collect data from our visitors.
+              </p>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                Third-Party Data Processing Agreements
+              </h3>
+              <p>
+                In compliance with GDPR Article 28, UK GDPR Article 28, and
+                LGPD requirements, we maintain Data Processing Agreements (DPAs)
+                with all third-party service providers that process personal data
+                on our behalf. These agreements ensure that:
+              </p>
+              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+                <li>
+                  Processors only process data on our documented instructions
+                </li>
+                <li>
+                  Processors implement appropriate technical and organizational
+                  security measures
+                </li>
+                <li>
+                  Processors do not engage sub-processors without our prior
+                  authorization
+                </li>
+                <li>
+                  Processors assist us in fulfilling our data protection
+                  obligations (breach notification, impact assessments, etc.)
+                </li>
+                <li>
+                  Processors delete all personal data upon termination of the
+                  agreement
+                </li>
+              </ul>
+              <p className="mt-4">
+                For a list of our current sub-processors, please contact us at{" "}
+                <a
+                  href="mailto:privacy@backgroundremover.app"
+                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                >
+                  privacy@backgroundremover.app
+                </a>
+                . We will provide this information within 30 days of your request,
+                as required by GDPR Article 28(3).
               </p>
             </section>
 
@@ -1243,10 +1386,10 @@ export default function PrivacyPolicyPage() {
                 </li>
                 <li>
                   <strong>Response to Do Not Track Signals:</strong> See Section
-                  16 for our response to Do Not Track signals.
+                  19 for our response to Do Not Track signals.
                 </li>
                 <li>
-                  <strong>Policy Changes:</strong> See Section 17 for how we
+                  <strong>Policy Changes:</strong> See Section 20 for how we
                   notify users of changes to this policy.
                 </li>
               </ul>
@@ -1319,10 +1462,311 @@ export default function PrivacyPolicyPage() {
               </p>
             </section>
 
-            {/* ─── 14. Children's Privacy ──────────────────────── */}
+            {/* ─── 14. Your Rights Under UK GDPR ──────────────────── */}
             <section>
               <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
-                14. Children&apos;s Privacy
+                14. Your Rights Under UK GDPR (United Kingdom Residents)
+              </h2>
+              <p>
+                Following Brexit, the United Kingdom enacted the Data Protection
+                Act 2018, which incorporates the UK General Data Protection
+                Regulation (UK GDPR). If you are a resident of the United
+                Kingdom, you have data protection rights under the UK GDPR that
+                are substantially equivalent to those described in Section 10
+                (EU GDPR), including:
+              </p>
+              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+                <li>
+                  <strong>Right of Access (UK GDPR Article 15):</strong> You have
+                  the right to obtain confirmation and access to personal data we
+                  process about you, along with information about processing
+                  purposes, categories, and recipients.
+                </li>
+                <li>
+                  <strong>Right to Rectification (UK GDPR Article 16):</strong>{" "}
+                  You have the right to request correction of inaccurate personal
+                  data.
+                </li>
+                <li>
+                  <strong>Right to Erasure (UK GDPR Article 17):</strong> You
+                  have the right to request deletion of your personal data. Given
+                  our zero-retention policy, image data is already deleted
+                  immediately. Server log data is purged within 30 days.
+                </li>
+                <li>
+                  <strong>Right to Restriction of Processing (UK GDPR Article
+                  18):</strong> You may request restriction of processing in
+                  certain circumstances.
+                </li>
+                <li>
+                  <strong>Right to Data Portability (UK GDPR Article 20):</strong>{" "}
+                  You have the right to receive your personal data in a
+                  structured, machine-readable format.
+                </li>
+                <li>
+                  <strong>Right to Object (UK GDPR Article 21):</strong> You may
+                  object to processing based on legitimate interests.
+                </li>
+                <li>
+                  <strong>Right Not to Be Subject to Automated Decision-Making
+                  (UK GDPR Article 22):</strong> Our AI background removal does
+                  not produce legal or similarly significant effects concerning
+                  you.
+                </li>
+              </ul>
+              <p className="mt-4">
+                <strong>International Data Transfers (UK GDPR):</strong> For UK
+                residents, data transfers to countries outside the UK are governed
+                by the UK GDPR. We ensure appropriate safeguards for such
+                transfers, including Standard Contractual Clauses (UK International
+                Data Transfer Addendum) as approved by the UK Secretary of State,
+                and Data Processing Agreements with all third-party service
+                providers. Our zero-retention policy for images significantly
+                minimizes any transfer risk.
+              </p>
+              <p className="mt-4">
+                <strong>UK Supervisory Authority:</strong> You have the right to
+                lodge a complaint with the Information Commissioner&apos;s Office
+                (ICO) if you believe your personal data has been mishandled. Visit{" "}
+                <a
+                  href="https://ico.org.uk"
+                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ico.org.uk
+                </a>{" "}
+                for more information.
+              </p>
+              <p className="mt-4">
+                To exercise any of your UK GDPR rights, contact us at{" "}
+                <a
+                  href="mailto:privacy@backgroundremover.app"
+                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                >
+                  privacy@backgroundremover.app
+                </a>
+                . We will respond within 30 days, as required by the UK GDPR.
+              </p>
+            </section>
+
+            {/* ─── 15. Your Rights Under LGPD ───────────────────── */}
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+                15. Your Rights Under LGPD (Brazilian Residents)
+              </h2>
+              <p>
+                If you are a resident of Brazil, the Lei Geral de Proteção de
+                Dados (LGPD — General Data Protection Law, Law No. 13,709/2018)
+                grants you specific rights regarding the processing of your
+                personal data. Under the LGPD, you have the right to:
+              </p>
+              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+                <li>
+                  <strong>Right of Access:</strong> You have the right to obtain
+                  confirmation of the existence of processing and access to your
+                  personal data, including information about the purposes,
+                  categories, and recipients of the data.
+                </li>
+                <li>
+                  <strong>Right to Correction:</strong> You may request the
+                  correction of inaccurate, incomplete, or outdated personal
+                  data.
+                </li>
+                <li>
+                  <strong>Right to Anonymization, Blocking, or Erasure:</strong>{" "}
+                  You may request the anonymization, blocking, or deletion of
+                  unnecessary or excessive personal data, or data processed in
+                  violation of the LGPD. Given our zero-retention policy, your
+                  uploaded images are already deleted immediately after processing.
+                </li>
+                <li>
+                  <strong>Right to Data Portability:</strong> You may request the
+                  transfer of your personal data to another service or product
+                  provider, in a structured, commonly used, and machine-readable
+                  format.
+                </li>
+                <li>
+                  <strong>Right to Delete Data Processed with Consent:</strong>{" "}
+                  You may request the deletion of personal data processed based
+                  on your consent.
+                </li>
+                <li>
+                  <strong>Right to Information About Sharing:</strong> You have
+                  the right to be informed about the public and private entities
+                  with which your data is shared. As described in Section 7, we
+                  share only minimal technical data with our hosting provider and
+                  CDN.
+                </li>
+                <li>
+                  <strong>Right to Revocation of Consent:</strong> You may revoke
+                  your consent at any time, without affecting the legality of
+                  processing carried out prior to revocation.
+                </li>
+              </ul>
+              <p className="mt-4">
+                <strong>LGPD Legal Basis for Processing:</strong> Under the LGPD,
+                we process your data based on the following legal bases:
+              </p>
+              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+                <li>
+                  <strong>Performance of a Contract or Legal Procedure (Article
+                  7(V)):</strong> Processing uploaded images is necessary to
+                  perform the background removal service you requested.
+                </li>
+                <li>
+                  <strong>Legitimate Interest (Article 7(IX)):</strong> Collecting
+                  technical data (IP addresses, browser type) for security, abuse
+                  prevention, and service maintenance, after balancing our
+                  interests against your rights.
+                </li>
+                <li>
+                  <strong>Consent (Article 7(I)):</strong> Cookie consent
+                  preferences are stored based on your consent.
+                </li>
+              </ul>
+              <p className="mt-4">
+                <strong>Brazilian Supervisory Authority:</strong> You may lodge a
+                complaint with the Autoridade Nacional de Proteção de Dados (ANPD)
+                if you believe your personal data has been processed in violation
+                of the LGPD. Visit{" "}
+                <a
+                  href="https://www.gov.br/anpd"
+                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  gov.br/anpd
+                </a>{" "}
+                for more information.
+              </p>
+              <p className="mt-4">
+                To exercise any of your LGPD rights, contact us at{" "}
+                <a
+                  href="mailto:privacy@backgroundremover.app"
+                  className="text-emerald-600 hover:text-emerald-700 underline underline-offset-2 transition-colors"
+                >
+                  privacy@backgroundremover.app
+                </a>
+                . We will respond within 15 days, as required by the LGPD.
+              </p>
+            </section>
+
+            {/* ─── 16. AI Transparency & EU AI Act ───────────────── */}
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+                16. AI Transparency & EU AI Act Disclosure
+              </h2>
+              <p>
+                Background Remover uses artificial intelligence (AI) to perform
+                background removal on images. In compliance with the EU Artificial
+                Intelligence Act (Regulation (EU) 2024/1689) and general AI
+                transparency principles, we provide the following disclosures:
+              </p>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                AI System Classification
+              </h3>
+              <p>
+                Our background removal AI is classified as a <strong>limited-risk
+                AI system</strong> under the EU AI Act. It does not fall into
+                high-risk, unacceptable-risk, or banned categories. The AI
+                performs image processing (background removal) that does not
+                produce legal effects, significantly affect life choices, or
+                pose risks to health, safety, or fundamental rights.
+              </p>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                Transparency Obligations (EU AI Act Article 52)
+              </h3>
+              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+                <li>
+                  <strong>You are interacting with an AI system:</strong> We
+                  clearly disclose that our Service uses AI technology for
+                  background removal. This disclosure is present on our homepage,
+                  in the tool interface, and in this Privacy Policy.
+                </li>
+                <li>
+                  <strong>No deep fakes or emotion recognition:</strong> Our AI
+                  does not generate synthetic images that resemble real persons
+                  (deep fakes), perform emotion recognition, or biometric
+                  categorization. It solely removes backgrounds from images you
+                  provide.
+                </li>
+                <li>
+                  <strong>No automated decision-making with significant
+                  effects:</strong> As stated in GDPR Article 22 / UK GDPR
+                  Article 22, our AI processing does not produce decisions with
+                  legal or similarly significant effects concerning you.
+                </li>
+              </ul>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                How Our AI Works
+              </h3>
+              <p>
+                We use the U2-Net deep learning model (an open-source model
+                published in academic research) to perform background removal.
+                Key technical details:
+              </p>
+              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+                <li>
+                  The AI model runs entirely on our own servers — your images are
+                  never transmitted to external AI services or APIs.
+                </li>
+                <li>
+                  The model is pre-trained on publicly available academic datasets
+                  and your images are <strong>never used for training,
+                  fine-tuning, or model evaluation.</strong>
+                </li>
+                <li>
+                  Processing is <strong>ephemeral</strong> — your image is held
+                  only in temporary memory during processing and immediately
+                  deleted afterward. No images are stored on persistent storage.
+                </li>
+                <li>
+                  We apply 30-pixel edge padding technology to prevent subject
+                  cutoff at image borders, combined with alpha matting and edge
+                  dilation for foreground preservation.
+                </li>
+                <li>
+                  The AI produces a transparency mask (alpha channel) that
+                  separates foreground from background. You receive a transparent
+                  PNG output.
+                </li>
+              </ul>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                Your Rights Regarding AI Processing
+              </h3>
+              <p>
+                Under GDPR Article 22, UK GDPR Article 22, and the EU AI Act,
+                you have the right:
+              </p>
+              <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
+                <li>
+                  To be informed when you are interacting with an AI system
+                </li>
+                <li>
+                  Not to be subject to decisions based solely on automated
+                  processing that produce legal or similarly significant effects
+                </li>
+                <li>
+                  To request human oversight of AI processing that produces
+                  significant effects (not applicable to our Service, as our AI
+                  processing does not produce such effects)
+                </li>
+                <li>
+                  To request explanation of AI decisions that significantly affect
+                  you (not applicable to our Service)
+                </li>
+              </ul>
+            </section>
+
+            {/* ─── 17. Children's Privacy ──────────────────────── */}
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
+                17. Children&apos;s Privacy
               </h2>
               <p>
                 Our Service is not directed at children under the age of 13, and
@@ -1361,16 +1805,17 @@ export default function PrivacyPolicyPage() {
               <p className="mt-4">
                 For children aged 13-16, parental consent may be required under
                 certain state laws (such as the California Age-Appropriate Design
-                Code Act). We encourage parents and guardians to monitor their
+                Code Act) and under the UK GDPR and LGPD for data processing.
+                We encourage parents and guardians to monitor their
                 children&apos;s online activities and to contact us with any
                 concerns.
               </p>
             </section>
 
-            {/* ─── 15. International Data Transfers ─────────────── */}
+            {/* ─── 18. International Data Transfers ─────────────── */}
             <section>
               <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
-                15. International Data Transfers
+                18. International Data Transfers
               </h2>
               <p>
                 Our Service is operated from servers that may be located outside
@@ -1380,7 +1825,7 @@ export default function PrivacyPolicyPage() {
                 jurisdiction.
               </p>
               <p className="mt-4">
-                For EU/EEA residents: Our hosting provider and CDN may process
+                For EU/EEA and UK residents: Our hosting provider and CDN may process
                 data in the United States or other countries. We ensure
                 appropriate safeguards are in place for such transfers,
                 including:
@@ -1388,7 +1833,8 @@ export default function PrivacyPolicyPage() {
               <ul className="list-disc list-inside space-y-2 mt-3 ml-2">
                 <li>
                   Standard Contractual Clauses (SCCs) as approved by the
-                  European Commission, where applicable
+                  European Commission, where applicable, and the UK International
+                  Data Transfer Addendum for UK residents
                 </li>
                 <li>
                   Data Processing Agreements (DPAs) with all third-party
@@ -1409,25 +1855,38 @@ export default function PrivacyPolicyPage() {
               </p>
 
               <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
-                EU Adequacy Decisions
+                EU & UK Adequacy Decisions
               </h3>
               <p>
-                The European Commission has granted adequacy decisions to certain
-                countries and territories, meaning data transfers to these
-                jurisdictions are considered to provide an adequate level of data
-                protection. Where your data may be processed in a country without
-                an adequacy decision, we rely on Standard Contractual Clauses
-                (SCCs) approved by the European Commission to ensure adequate
+                The European Commission and the UK Secretary of State have granted
+                adequacy decisions to certain countries and territories, meaning
+                data transfers to these jurisdictions are considered to provide an
+                adequate level of data protection. Where your data may be processed
+                in a country without an adequacy decision, we rely on Standard
+                Contractual Clauses (SCCs) approved by the European Commission and
+                the UK International Data Transfer Addendum to ensure adequate
                 protection. Given our zero-retention policy for images, the risk
                 of cross-border data transfers is minimal, as no personal data in
                 the form of images is retained beyond the processing period.
               </p>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+                LGPD International Transfer Requirements
+              </h3>
+              <p>
+                For Brazilian residents, international data transfers are permitted
+                under the LGPD (Article 33) when appropriate safeguards are in
+                place. We ensure compliance through contractual clauses, compliance
+                with international standards, and our zero-retention policy that
+                minimizes the volume and sensitivity of any data subject to
+                cross-border transfer.
+              </p>
             </section>
 
-            {/* ─── 16. Do Not Track Signals ─────────────────────── */}
+            {/* ─── 19. Do Not Track Signals ─────────────────────── */}
             <section>
               <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
-                16. Do Not Track Signals
+                19. Do Not Track Signals
               </h2>
               <p>
                 Some web browsers incorporate a &ldquo;Do Not Track&rdquo; (DNT)
@@ -1460,10 +1919,10 @@ export default function PrivacyPolicyPage() {
               </ul>
             </section>
 
-            {/* ─── 17. Changes to This Policy ──────────────────── */}
+            {/* ─── 20. Changes to This Policy ──────────────────── */}
             <section>
               <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
-                17. Changes to This Policy
+                20. Changes to This Policy
               </h2>
               <p>
                 We may update this Privacy Policy from time to time to reflect
@@ -1499,10 +1958,10 @@ export default function PrivacyPolicyPage() {
               </p>
             </section>
 
-            {/* ─── 18. Contact Information ─────────────────────── */}
+            {/* ─── 21. Contact Information ─────────────────────── */}
             <section>
               <h2 className="text-xl sm:text-2xl font-semibold text-emerald-700 mb-4 scroll-mt-20">
-                18. Contact Information
+                21. Contact Information
               </h2>
               <p>
                 If you have any questions, concerns, or requests regarding this
@@ -1544,7 +2003,8 @@ export default function PrivacyPolicyPage() {
                 We will acknowledge receipt of your privacy-related inquiry
                 within 5 business days and provide a substantive response within
                 30 days, or within the timeframe required by applicable law
-                (45 days under CCPA, as described in Section 11). If we require
+                (45 days under CCPA, as described in Section 11; 15 days under
+                LGPD, as described in Section 15). If we require
                 additional time to respond, we will inform you of the reason for
                 the delay and the expected response date.
               </p>

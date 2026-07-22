@@ -1,0 +1,23 @@
+{
+  "name": "Background Remover — Free AI Background Removal Tool",
+  "short_name": "Background Remover",
+  "description": "Remove image backgrounds instantly with AI. Free, no signup, no watermarks, full subject preservation.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["multimedia", "utilities", "photo"],
+  "lang": "en"
+}
