@@ -1,0 +1,1 @@
+# Claude Project - New Folder
