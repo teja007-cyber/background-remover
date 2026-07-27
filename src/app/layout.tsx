@@ -119,6 +119,14 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Background Remover" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* ── Google Search Console Verification ────────────────── */}
+        {/* Replace YOUR_VERIFICATION_CODE with the code from Search Console */}
+        {/* <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> */}
+
+        {/* ── Google AdSense ─────────────────────────────────────── */}
+        {/* Replace ca-pub-XXXXXXXXXX with your AdSense publisher ID */}
+        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossOrigin="anonymous"></script> */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
