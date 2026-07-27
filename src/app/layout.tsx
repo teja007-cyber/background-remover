@@ -124,8 +124,7 @@ export default function RootLayout({
         <meta name="google-site-verification" content="Dw2lQ4kXOBNUXtcfz4iKyxICHawpN4ieR1PWUi3jH5I" />
 
         {/* ── Google AdSense ─────────────────────────────────────── */}
-        {/* Replace ca-pub-XXXXXXXXXX with your AdSense publisher ID */}
-        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossOrigin="anonymous"></script> */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8907823495775296" crossOrigin="anonymous"></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
