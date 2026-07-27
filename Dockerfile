@@ -62,9 +62,8 @@ COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 # Set environment
 ENV NODE_ENV=production
-ENV PORT=3000
 
-EXPOSE 3000
+EXPOSE 10000
 
 # Start the Next.js server
 CMD ["node", ".next/standalone/server.js"]
