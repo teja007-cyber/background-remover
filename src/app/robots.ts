@@ -6,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/'],
+        disallow: ['/api/', '/_next/'],
       },
     ],
-    sitemap: 'https://backgroundremover.app/sitemap.xml',
+    sitemap: 'https://background-remover-ucpa.onrender.com/sitemap.xml',
   }
 }

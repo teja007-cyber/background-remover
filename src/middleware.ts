@@ -21,9 +21,10 @@ export function middleware(request: NextRequest) {
 
   // Content Security Policy - allows data: URLs for base64 images,
   // blob: for file uploads, unsafe-inline/eval for Next.js scripts
+  // Google AdSense allowed for ad-serving scripts and images
   response.headers.set(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none';"
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://pagead2.googlesyndication.com; img-src 'self' data: blob: https: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; frame-src 'self' https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com; frame-ancestors 'none';"
   );
 
   // Prevent cross-origin attacks

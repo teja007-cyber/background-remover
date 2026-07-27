@@ -1,13 +1,13 @@
 import { MetadataRoute } from 'next'
 
-const SITE_URL = 'https://backgroundremover.app'
+const SITE_URL = 'https://background-remover-ucpa.onrender.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: SITE_URL,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'daily',
       priority: 1.0,
     },
     {

@@ -20,7 +20,7 @@ export const viewport: Viewport = {
   themeColor: "#10b981",
 };
 
-const SITE_URL = "https://backgroundremover.app";
+const SITE_URL = "https://background-remover-ucpa.onrender.com";
 const SITE_NAME = "Background Remover";
 
 export const metadata: Metadata = {
@@ -53,6 +53,9 @@ export const metadata: Metadata = {
     "remove background from image",
     "background remover online",
     "background remover free",
+    "free image editor",
+    "remove white background",
+    "product photography",
   ],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
@@ -125,6 +128,17 @@ export default function RootLayout({
 
         {/* ── Google AdSense ─────────────────────────────────────── */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8907823495775296" crossOrigin="anonymous"></script>
+        {/* Google AdSense Auto Ads */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-8907823495775296",
+                enable_page_level_ads: true
+              });
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
