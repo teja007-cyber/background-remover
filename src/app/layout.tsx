@@ -121,8 +121,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
         {/* ── Google Search Console Verification ────────────────── */}
-        {/* Replace YOUR_VERIFICATION_CODE with the code from Search Console */}
-        {/* <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> */}
+        <meta name="google-site-verification" content="Dw2lQ4kXOBNUXtcfz4iKyxICHawpN4ieR1PWUi3jH5I" />
 
         {/* ── Google AdSense ─────────────────────────────────────── */}
         {/* Replace ca-pub-XXXXXXXXXX with your AdSense publisher ID */}
