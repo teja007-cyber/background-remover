@@ -23,8 +23,11 @@ COPY . .
 RUN npx prisma generate
 RUN npm run build
 
-# Create db directory for SQLite (if used)
-RUN mkdir -p db
+# Create necessary directories
+RUN mkdir -p db public
+
+# Ensure robots.txt exists with correct content (allows Google indexing)
+RUN printf 'User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /_next/\n\nSitemap: https://background-remover-ucpa.onrender.com/sitemap.xml\n' > public/robots.txt
 
 ENV NODE_ENV=production
 
