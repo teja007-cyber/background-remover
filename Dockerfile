@@ -20,14 +20,19 @@ RUN npm install
 
 # Copy source and build
 COPY . .
+
+# Ensure robots.txt exists with correct content (allows Google indexing) BEFORE build
+# so the standalone output includes it
+RUN printf 'User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /_next/\n\nSitemap: https://background-remover-ucpa.onrender.com/sitemap.xml\n' > public/robots.txt
+
 RUN npx prisma generate
 RUN npm run build
 
 # Create necessary directories
-RUN mkdir -p db public
+RUN mkdir -p db
 
-# Ensure robots.txt exists with correct content (allows Google indexing)
-RUN printf 'User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /_next/\n\nSitemap: https://background-remover-ucpa.onrender.com/sitemap.xml\n' > public/robots.txt
+# Also create robots.txt in the standalone output to ensure it's included
+RUN mkdir -p .next/standalone/public && cp public/robots.txt .next/standalone/public/robots.txt 2>/dev/null || true
 
 ENV NODE_ENV=production
 
