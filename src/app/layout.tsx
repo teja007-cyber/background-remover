@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -146,19 +147,25 @@ export default function RootLayout({
           }}
         />
 
-        {/* ── Google AdSense ─────────────────────────────────────── */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8907823495775296" crossOrigin="anonymous"></script>
-        {/* Google AdSense Auto Ads */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-8907823495775296",
-                enable_page_level_ads: true
-              });
-            `,
-          }}
+        {/* ── Google AdSense (loads after page is interactive) ────── */}
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8907823495775296"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
         />
+        {/* Google AdSense Auto Ads */}
+        <Script id="adsense-auto" strategy="afterInteractive">
+          {`
+            (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8907823495775296",
+              enable_page_level_ads: true
+            });
+          `}
+        </Script>
+        {/* Preconnect to AdSense domains */}
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}

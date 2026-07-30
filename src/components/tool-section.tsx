@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useRef, useCallback, useSyncExternalStore } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useRef, useCallback } from 'react'
 import {
   Upload,
   Download,
@@ -12,13 +11,8 @@ import {
   CheckCircle2,
   AlertTriangle,
   X,
-  FileImage,
   Archive,
   Layers,
-  ChevronDown,
-  ArrowRight,
-  Eye,
-  Scissors,
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -81,10 +75,6 @@ function readFileAsDataUrl(file: File): Promise<string> {
     reader.readAsDataURL(file)
   })
 }
-
-const cookieConsent = typeof window !== 'undefined'
-  ? window.localStorage.getItem('cookie-consent') === 'true'
-  : false
 
 export default function ToolSection() {
   const [mode, setMode] = useState<AppMode>('single')
@@ -165,7 +155,6 @@ export default function ToolSection() {
         img.onload = () => setImageDimensions({ w: img.naturalWidth, h: img.naturalHeight })
         img.src = dataUrl
 
-        // Simulate progress
         const progressInterval = setInterval(() => {
           setProgress((prev) => Math.min(prev + Math.random() * 20 + 5, 90))
         }, 300)
@@ -249,7 +238,6 @@ export default function ToolSection() {
       processedDataUrl: null,
       status: 'pending',
     }))
-    // Read data URLs
     Promise.all(
       newItems.map(async (item) => {
         const dataUrl = await readFileAsDataUrl(item.file)
@@ -383,400 +371,356 @@ export default function ToolSection() {
           </Tabs>
         </div>
 
-        <AnimatePresence mode="wait">
-          {/* ═══════════════════ SINGLE MODE ═══════════════════ */}
-          {mode === 'single' && (
-            <motion.div
-              key="single-mode"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {/* IDLE STATE */}
-              {singleState === 'idle' && (
-                <motion.div
-                  key="upload"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="max-w-lg mx-auto"
+        {/* ═══════════════════ SINGLE MODE ═══════════════════ */}
+        {mode === 'single' && (
+          <>
+            {/* IDLE STATE */}
+            {singleState === 'idle' && (
+              <div className="animate-fadeIn max-w-lg mx-auto">
+                <div
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Upload an image to remove its background. Click or drag and drop."
+                  className={`relative rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-all duration-200 ${
+                    isDragging
+                      ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 scale-[1.02]'
+                      : 'border-slate-300 dark:border-slate-600 hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-slate-50 dark:hover:bg-slate-800/30'
+                  }`}
+                  onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
+                  onDragLeave={() => setIsDragging(false)}
+                  onDrop={handleSingleDrop}
+                  onClick={() => fileInputRef.current?.click()}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') fileInputRef.current?.click() }}
                 >
-                  <div
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Upload area for background removal. Click or drag an image."
-                    className={`relative rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-all duration-200 ${
-                      isDragging
-                        ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 scale-[1.02]'
-                        : 'border-slate-300 dark:border-slate-600 hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-slate-50 dark:hover:bg-slate-800/30'
-                    }`}
-                    onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
-                    onDragLeave={() => setIsDragging(false)}
-                    onDrop={handleSingleDrop}
-                    onClick={() => fileInputRef.current?.click()}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') fileInputRef.current?.click() }}
-                  >
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept="image/png,image/jpeg,image/webp"
-                      className="hidden"
-                      onChange={handleFileSelect}
-                      aria-hidden="true"
-                    />
-                    <div className="flex flex-col items-center gap-4">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
-                        <Upload className="h-7 w-7" />
-                      </div>
-                      <div>
-                        <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">
-                          Drop your image here
-                        </p>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                          or click to browse · PNG, JPG, WebP · up to 10MB
-                        </p>
-                      </div>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    className="hidden"
+                    onChange={handleFileSelect}
+                    aria-hidden="true"
+                  />
+                  <div className="flex flex-col items-center gap-4">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
+                      <Upload className="h-7 w-7" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                        Drop your image here
+                      </p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                        or click to browse · PNG, JPG, WebP · up to 10MB
+                      </p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-center gap-2 mt-4">
-                    <Badge variant="secondary" className="gap-1 px-2.5 py-0.5 text-xs">
-                      <Sparkles className="h-3 w-3 text-emerald-600" aria-hidden="true" />
-                      Free &amp; Private
-                    </Badge>
-                    <Badge variant="secondary" className="gap-1 px-2.5 py-0.5 text-xs">
-                      <CheckCircle2 className="h-3 w-3 text-emerald-600" aria-hidden="true" />
-                      No Watermark
-                    </Badge>
-                  </div>
-                </motion.div>
-              )}
+                </div>
+                <div className="flex items-center justify-center gap-2 mt-4" role="list" aria-label="Feature badges">
+                  <Badge variant="secondary" className="gap-1 px-2.5 py-0.5 text-xs" role="listitem">
+                    <Sparkles className="h-3 w-3 text-emerald-600" aria-hidden="true" />
+                    Free &amp; Private
+                  </Badge>
+                  <Badge variant="secondary" className="gap-1 px-2.5 py-0.5 text-xs" role="listitem">
+                    <CheckCircle2 className="h-3 w-3 text-emerald-600" aria-hidden="true" />
+                    No Watermark
+                  </Badge>
+                </div>
+              </div>
+            )}
 
-              {/* PROCESSING STATE */}
-              {singleState === 'processing' && (
-                <motion.div
-                  key="processing"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="max-w-md mx-auto text-center"
+            {/* PROCESSING STATE */}
+            {singleState === 'processing' && (
+              <div className="animate-fadeIn max-w-md mx-auto text-center">
+                <div className="relative mb-6">
+                  <div className="relative mx-auto w-32 h-32 bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                    {originalImage && (
+                      <img
+                        src={originalImage}
+                        alt="Original image being processed by AI background removal"
+                        className="w-full h-full object-contain"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-white/50 dark:bg-slate-900/50 flex items-center justify-center">
+                      <Loader2 className="h-8 w-8 text-emerald-600 animate-spin" aria-hidden="true" />
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <p className="text-lg font-semibold text-slate-900 dark:text-slate-100 animate-pulse">
+                    Removing background...
+                  </p>
+                  <div className="max-w-xs mx-auto">
+                    <Progress value={progress} className="h-2" aria-label={`${Math.round(progress)} percent complete`} />
+                  </div>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    AI analyzing image · detecting edges · preserving subject
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="mt-4 text-slate-400"
+                  onClick={resetSingle}
+                  aria-label="Cancel background removal"
                 >
-                  <div className="relative mb-6">
-                    <div className="relative mx-auto w-32 h-32 bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                  Cancel
+                </Button>
+              </div>
+            )}
+
+            {/* DONE STATE */}
+            {singleState === 'done' && processedImage && (
+              <div className="animate-fadeIn max-w-2xl mx-auto">
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {/* Before */}
+                  <div className="text-center">
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Original</p>
+                    <div
+                      className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white"
+                      style={{ minHeight: 200 }}
+                    >
                       {originalImage && (
                         <img
                           src={originalImage}
-                          alt="Original image being processed"
-                          className="w-full h-full object-contain"
-                        />
-                      )}
-                      <div className="absolute inset-0 bg-white/50 dark:bg-slate-900/50 flex items-center justify-center">
-                        <Loader2 className="h-8 w-8 text-emerald-600 animate-spin" aria-hidden="true" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <p className="text-lg font-semibold text-slate-900 dark:text-slate-100 animate-pulse">
-                      Removing background...
-                    </p>
-                    <div className="max-w-xs mx-auto">
-                      <Progress value={progress} className="h-2" aria-label={`${Math.round(progress)}% complete`} />
-                    </div>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">
-                      AI analyzing image &middot; detecting edges &middot; preserving subject
-                    </p>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="mt-4 text-slate-400"
-                    onClick={resetSingle}
-                    aria-label="Cancel processing"
-                  >
-                    Cancel
-                  </Button>
-                </motion.div>
-              )}
-
-              {/* DONE STATE */}
-              {singleState === 'done' && processedImage && (
-                <motion.div
-                  key="result"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="max-w-2xl mx-auto"
-                >
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    {/* Before */}
-                    <div className="text-center">
-                      <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Original</p>
-                      <div
-                        className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white"
-                        style={{ minHeight: 200 }}
-                      >
-                        {originalImage && (
-                          <img
-                            src={originalImage}
-                            alt={`Original image: ${fileName}`}
-                            className="w-full h-full object-contain"
-                            style={{ maxHeight: 300, margin: '0 auto' }}
-                          />
-                        )}
-                      </div>
-                      {imageDimensions && (
-                        <p className="text-xs text-slate-400 mt-1">
-                          {imageDimensions.w} &times; {imageDimensions.h} &middot; {formatFileSize(fileSize)}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* After */}
-                    <div className="text-center">
-                      <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400 mb-2">
-                        Result <span className="text-slate-400 font-normal">({processingTime}s)</span>
-                      </p>
-                      <div
-                        className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700"
-                        style={{ ...CHECKERBOARD_BG, minHeight: 200 }}
-                      >
-                        <img
-                          src={processedImage}
-                          alt="Image with background removed, preview on transparent checkerboard"
+                          alt={`Original image before background removal: ${fileName}`}
                           className="w-full h-full object-contain"
                           style={{ maxHeight: 300, margin: '0 auto' }}
                         />
-                      </div>
+                      )}
+                    </div>
+                    {imageDimensions && (
+                      <p className="text-xs text-slate-400 mt-1">
+                        {imageDimensions.w} &times; {imageDimensions.h} &middot; {formatFileSize(fileSize)}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* After */}
+                  <div className="text-center">
+                    <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400 mb-2">
+                      Result <span className="text-slate-400 font-normal">({processingTime}s)</span>
+                    </p>
+                    <div
+                      className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700"
+                      style={{ ...CHECKERBOARD_BG, minHeight: 200 }}
+                    >
+                      <img
+                        src={processedImage}
+                        alt="Image after background removal on transparent checkerboard"
+                        className="w-full h-full object-contain"
+                        style={{ maxHeight: 300, margin: '0 auto' }}
+                      />
                     </div>
                   </div>
+                </div>
 
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
-                    <Button
-                      onClick={downloadResult}
-                      className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white min-w-[200px]"
-                      size="lg"
-                    >
-                      <Download className="h-5 w-5" aria-hidden="true" />
-                      Download PNG
-                    </Button>
-                    <Button variant="outline" onClick={resetSingle} className="gap-2 min-w-[160px]" size="lg">
-                      <RefreshCw className="h-4 w-4" aria-hidden="true" />
-                      Remove Another
-                    </Button>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
+                  <Button
+                    onClick={downloadResult}
+                    className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white min-w-[200px]"
+                    size="lg"
+                  >
+                    <Download className="h-5 w-5" aria-hidden="true" />
+                    Download Transparent PNG
+                  </Button>
+                  <Button variant="outline" onClick={resetSingle} className="gap-2 min-w-[160px]" size="lg">
+                    <RefreshCw className="h-4 w-4" aria-hidden="true" />
+                    Remove Another
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* ERROR STATE */}
+            {singleState === 'error' && (
+              <div className="animate-fadeIn max-w-sm mx-auto text-center">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400">
+                    <AlertTriangle className="h-7 w-7" aria-hidden="true" />
                   </div>
-                </motion.div>
-              )}
+                  <div>
+                    <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">Processing Failed</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{errorMsg}</p>
+                  </div>
+                  <Button variant="outline" onClick={resetSingle} className="gap-2">
+                    <RefreshCw className="h-4 w-4" aria-hidden="true" />
+                    Try Again
+                  </Button>
+                </div>
+              </div>
+            )}
+          </>
+        )}
 
-              {/* ERROR STATE */}
-              {singleState === 'error' && (
-                <motion.div
-                  key="error"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="max-w-sm mx-auto text-center"
+        {/* ═══════════════════ BATCH MODE ═══════════════════ */}
+        {mode === 'batch' && (
+          <>
+            {batchItems.length === 0 && !batchProcessing && (
+              <div className="animate-fadeIn max-w-lg mx-auto">
+                <div
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Batch upload area. Drop up to 10 images or click to select multiple files."
+                  className={`relative rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-all duration-200 ${
+                    isBatchDragging
+                      ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 scale-[1.02]'
+                      : 'border-slate-300 dark:border-slate-600 hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-slate-50 dark:hover:bg-slate-800/30'
+                  }`}
+                  onDragOver={(e) => { e.preventDefault(); setIsBatchDragging(true) }}
+                  onDragLeave={() => setIsBatchDragging(false)}
+                  onDrop={handleBatchDrop}
+                  onClick={() => batchFileInputRef.current?.click()}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') batchFileInputRef.current?.click() }}
                 >
+                  <input
+                    ref={batchFileInputRef}
+                    type="file"
+                    multiple
+                    accept="image/png,image/jpeg,image/webp"
+                    className="hidden"
+                    onChange={handleBatchSelect}
+                    aria-hidden="true"
+                  />
                   <div className="flex flex-col items-center gap-4">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400">
-                      <AlertTriangle className="h-7 w-7" aria-hidden="true" />
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
+                      <Archive className="h-7 w-7" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">Processing Failed</p>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{errorMsg}</p>
+                      <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                        Drop up to {MAX_BATCH_FILES} images
+                      </p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                        or click to browse · PNG, JPG, WebP · 10MB each
+                      </p>
                     </div>
-                    <Button variant="outline" onClick={resetSingle} className="gap-2">
-                      <RefreshCw className="h-4 w-4" aria-hidden="true" />
-                      Try Again
+                  </div>
+                </div>
+                <div className="flex items-center justify-center gap-2 mt-4">
+                  <Badge variant="secondary" className="gap-1 px-2.5 py-0.5 text-xs">
+                    <Archive className="h-3 w-3 text-emerald-600" aria-hidden="true" />
+                    Batch up to {MAX_BATCH_FILES}
+                  </Badge>
+                </div>
+              </div>
+            )}
+
+            {/* BATCH ITEMS LIST */}
+            {batchItems.length > 0 && (
+              <div className="animate-fadeIn max-w-2xl mx-auto">
+                {/* Batch header */}
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                    {batchItems.length} file{batchItems.length !== 1 ? 's' : ''}
+                    {doneCount > 0 && ` · ${doneCount} done`}
+                    {pendingCount > 0 && ` · ${pendingCount} pending`}
+                  </p>
+                  <div className="flex gap-2">
+                    {doneCount > 0 && (
+                      <Button variant="outline" size="sm" onClick={downloadAllBatch} className="gap-1.5 text-xs" aria-label="Download all processed images">
+                        <Download className="h-3.5 w-3.5" aria-hidden="true" />
+                        Download All
+                      </Button>
+                    )}
+                    {!batchProcessing && pendingCount > 0 && (
+                      <Button size="sm" onClick={processBatch} className="gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs">
+                        <Layers className="h-3.5 w-3.5" aria-hidden="true" />
+                        Process {pendingCount} file{pendingCount !== 1 ? 's' : ''}
+                      </Button>
+                    )}
+                    {!batchProcessing && (
+                      <Button variant="ghost" size="sm" onClick={resetBatch} className="text-xs" aria-label="Clear all batch files">
+                        <X className="h-3.5 w-3.5" aria-hidden="true" />
+                        Clear
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Batch items */}
+                <div className="space-y-2 max-h-96 overflow-y-auto" role="list" aria-label="Batch processing queue">
+                  {batchItems.map((item, idx) => (
+                    <div
+                      key={item.id}
+                      style={{ animationDelay: `${idx * 30}ms` }}
+                      className={`animate-fadeIn flex items-center gap-3 p-3 rounded-xl border transition-all ${
+                        item.status === 'done'
+                          ? 'bg-emerald-50 dark:bg-emerald-900/10 border-emerald-200 dark:border-emerald-800'
+                          : item.status === 'error'
+                          ? 'bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-800'
+                          : item.status === 'processing'
+                          ? 'bg-sky-50 dark:bg-sky-900/10 border-sky-200 dark:border-sky-800'
+                          : 'bg-white dark:bg-slate-800/50 border-slate-200 dark:border-slate-700'
+                      }`}
+                      role="listitem"
+                    >
+                      {/* Thumbnail */}
+                      <div className="flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-700">
+                        {item.originalDataUrl && (
+                          <img
+                            src={item.originalDataUrl}
+                            alt={`Preview of ${item.name} for background removal`}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
+                      </div>
+
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
+                          {item.name}
+                        </p>
+                        <p className="text-xs text-slate-400">
+                          {item.status === 'pending' && formatFileSize(item.size)}
+                          {item.status === 'processing' && 'Processing...'}
+                          {item.status === 'done' && `Done${item.processingTime ? ` (${item.processingTime}s)` : ''}`}
+                          {item.status === 'error' && (item.error || 'Failed')}
+                        </p>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex-shrink-0 flex items-center gap-1">
+                        {item.status === 'done' && (
+                          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => downloadBatchItem(item)} aria-label={`Download ${item.name}`}>
+                            <Download className="h-4 w-4 text-emerald-600" aria-hidden="true" />
+                          </Button>
+                        )}
+                        {item.status === 'done' && (
+                          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => removeBatchItem(item.id)} aria-label={`Remove ${item.name} from list`}>
+                            <X className="h-4 w-4 text-slate-400" aria-hidden="true" />
+                          </Button>
+                        )}
+                        {item.status === 'processing' && (
+                          <Loader2 className="h-4 w-4 text-sky-500 animate-spin" aria-hidden="true" />
+                        )}
+                        {item.status === 'pending' && (
+                          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => removeBatchItem(item.id)} aria-label={`Remove ${item.name} from processing queue`}>
+                            <X className="h-4 w-4 text-slate-400" aria-hidden="true" />
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Add more button */}
+                {!batchProcessing && (
+                  <div className="mt-3 text-center">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => batchFileInputRef.current?.click()}
+                      className="gap-1.5 text-xs"
+                      disabled={batchItems.length >= MAX_BATCH_FILES}
+                      aria-label="Add more files to batch"
+                    >
+                      <Upload className="h-3.5 w-3.5" aria-hidden="true" />
+                      Add More Files
                     </Button>
                   </div>
-                </motion.div>
-              )}
-            </motion.div>
-          )}
-
-          {/* ═══════════════════ BATCH MODE ═══════════════════ */}
-          {mode === 'batch' && (
-            <motion.div
-              key="batch-mode"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {batchItems.length === 0 && !batchProcessing && (
-                <motion.div
-                  key="batch-upload"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="max-w-lg mx-auto"
-                >
-                  <div
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Batch upload area. Drop multiple images or click to select."
-                    className={`relative rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-all duration-200 ${
-                      isBatchDragging
-                        ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 scale-[1.02]'
-                        : 'border-slate-300 dark:border-slate-600 hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-slate-50 dark:hover:bg-slate-800/30'
-                    }`}
-                    onDragOver={(e) => { e.preventDefault(); setIsBatchDragging(true) }}
-                    onDragLeave={() => setIsBatchDragging(false)}
-                    onDrop={handleBatchDrop}
-                    onClick={() => batchFileInputRef.current?.click()}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') batchFileInputRef.current?.click() }}
-                  >
-                    <input
-                      ref={batchFileInputRef}
-                      type="file"
-                      multiple
-                      accept="image/png,image/jpeg,image/webp"
-                      className="hidden"
-                      onChange={handleBatchSelect}
-                      aria-hidden="true"
-                    />
-                    <div className="flex flex-col items-center gap-4">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
-                        <Archive className="h-7 w-7" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">
-                          Drop up to {MAX_BATCH_FILES} images
-                        </p>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                          or click to browse · PNG, JPG, WebP · 10MB each
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 mt-4">
-                    <Badge variant="secondary" className="gap-1 px-2.5 py-0.5 text-xs">
-                      <Archive className="h-3 w-3 text-emerald-600" aria-hidden="true" />
-                      Batch up to {MAX_BATCH_FILES}
-                    </Badge>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* BATCH ITEMS LIST */}
-              {batchItems.length > 0 && (
-                <motion.div
-                  key="batch-list"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="max-w-2xl mx-auto"
-                >
-                  {/* Batch header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
-                      {batchItems.length} file{batchItems.length !== 1 ? 's' : ''}
-                      {doneCount > 0 && ` · ${doneCount} done`}
-                      {pendingCount > 0 && ` · ${pendingCount} pending`}
-                    </p>
-                    <div className="flex gap-2">
-                      {doneCount > 0 && (
-                        <Button variant="outline" size="sm" onClick={downloadAllBatch} className="gap-1.5 text-xs">
-                          <Download className="h-3.5 w-3.5" aria-hidden="true" />
-                          Download All
-                        </Button>
-                      )}
-                      {!batchProcessing && pendingCount > 0 && (
-                        <Button size="sm" onClick={processBatch} className="gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs">
-                          <Scissors className="h-3.5 w-3.5" aria-hidden="true" />
-                          Process {pendingCount} file{pendingCount !== 1 ? 's' : ''}
-                        </Button>
-                      )}
-                      {!batchProcessing && (
-                        <Button variant="ghost" size="sm" onClick={resetBatch} className="text-xs">
-                          <X className="h-3.5 w-3.5" aria-hidden="true" />
-                          Clear
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Batch items */}
-                  <div className="space-y-2 max-h-96 overflow-y-auto">
-                    {batchItems.map((item, idx) => (
-                      <motion.div
-                        key={item.id}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.03 }}
-                        className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${
-                          item.status === 'done'
-                            ? 'bg-emerald-50 dark:bg-emerald-900/10 border-emerald-200 dark:border-emerald-800'
-                            : item.status === 'error'
-                            ? 'bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-800'
-                            : item.status === 'processing'
-                            ? 'bg-sky-50 dark:bg-sky-900/10 border-sky-200 dark:border-sky-800'
-                            : 'bg-white dark:bg-slate-800/50 border-slate-200 dark:border-slate-700'
-                        }`}
-                      >
-                        {/* Thumbnail */}
-                        <div className="flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-700">
-                          {item.originalDataUrl && (
-                            <img
-                              src={item.originalDataUrl}
-                              alt={`Preview for ${item.name}`}
-                              className="w-full h-full object-cover"
-                            />
-                          )}
-                        </div>
-
-                        {/* Info */}
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
-                            {item.name}
-                          </p>
-                          <p className="text-xs text-slate-400">
-                            {item.status === 'pending' && formatFileSize(item.size)}
-                            {item.status === 'processing' && 'Processing...'}
-                            {item.status === 'done' && `Done${item.processingTime ? ` (${item.processingTime}s)` : ''}`}
-                            {item.status === 'error' && (item.error || 'Failed')}
-                          </p>
-                        </div>
-
-                        {/* Actions */}
-                        <div className="flex-shrink-0 flex items-center gap-1">
-                          {item.status === 'done' && (
-                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => downloadBatchItem(item)} aria-label={`Download ${item.name}`}>
-                              <Download className="h-4 w-4 text-emerald-600" aria-hidden="true" />
-                            </Button>
-                          )}
-                          {item.status === 'done' && (
-                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => removeBatchItem(item.id)} aria-label={`Remove ${item.name} from list`}>
-                              <X className="h-4 w-4 text-slate-400" aria-hidden="true" />
-                            </Button>
-                          )}
-                          {item.status === 'processing' && (
-                            <Loader2 className="h-4 w-4 text-sky-500 animate-spin" aria-hidden="true" />
-                          )}
-                          {item.status === 'pending' && (
-                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => removeBatchItem(item.id)} aria-label={`Remove ${item.name} from list`}>
-                              <X className="h-4 w-4 text-slate-400" aria-hidden="true" />
-                            </Button>
-                          )}
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Add more button */}
-                  {!batchProcessing && (
-                    <div className="mt-3 text-center">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => batchFileInputRef.current?.click()}
-                        className="gap-1.5 text-xs"
-                        disabled={batchItems.length >= MAX_BATCH_FILES}
-                      >
-                        <Upload className="h-3.5 w-3.5" aria-hidden="true" />
-                        Add More Files
-                      </Button>
-                    </div>
-                  )}
-                </motion.div>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
+                )}
+              </div>
+            )}
+          </>
+        )}
       </div>
     </section>
   )

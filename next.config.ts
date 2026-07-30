@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   ],
   // Optimize bundle by deep-importing only used icons
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion", "@radix-ui/react-dialog", "@radix-ui/react-tabs"],
+    optimizePackageImports: ["lucide-react", "@radix-ui/react-dialog", "@radix-ui/react-tabs"],
   },
   // Enable SWC minification and other optimizations
   swcMinify: true,
