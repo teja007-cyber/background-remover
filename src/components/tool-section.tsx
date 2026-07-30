@@ -350,7 +350,7 @@ export default function ToolSection() {
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-50 mb-2">
             Free AI Background Remover — Upload and Remove Instantly
           </h2>
-          <p className="text-slate-500 dark:text-slate-400">
+          <p className="text-slate-600 dark:text-slate-400">
             Single image or batch — your choice.
           </p>
         </div>
@@ -414,16 +414,16 @@ export default function ToolSection() {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center justify-center gap-2 mt-4" role="list" aria-label="Feature badges">
-                  <Badge variant="secondary" className="gap-1 px-2.5 py-0.5 text-xs" role="listitem">
+                <ul className="flex items-center justify-center gap-2 mt-4">
+                  <li><Badge variant="secondary" className="gap-1 px-2.5 py-0.5 text-xs">
                     <Sparkles className="h-3 w-3 text-emerald-600" aria-hidden="true" />
                     Free &amp; Private
-                  </Badge>
-                  <Badge variant="secondary" className="gap-1 px-2.5 py-0.5 text-xs" role="listitem">
+                  </Badge></li>
+                  <li><Badge variant="secondary" className="gap-1 px-2.5 py-0.5 text-xs">
                     <CheckCircle2 className="h-3 w-3 text-emerald-600" aria-hidden="true" />
                     No Watermark
-                  </Badge>
-                </div>
+                  </Badge></li>
+                </ul>
               </div>
             )}
 
@@ -636,9 +636,9 @@ export default function ToolSection() {
                 </div>
 
                 {/* Batch items */}
-                <div className="space-y-2 max-h-96 overflow-y-auto" role="list" aria-label="Batch processing queue">
+                <ul className="space-y-2 max-h-96 overflow-y-auto">
                   {batchItems.map((item, idx) => (
-                    <div
+                    <li
                       key={item.id}
                       style={{ animationDelay: `${idx * 30}ms` }}
                       className={`animate-fadeIn flex items-center gap-3 p-3 rounded-xl border transition-all ${
@@ -650,7 +650,6 @@ export default function ToolSection() {
                           ? 'bg-sky-50 dark:bg-sky-900/10 border-sky-200 dark:border-sky-800'
                           : 'bg-white dark:bg-slate-800/50 border-slate-200 dark:border-slate-700'
                       }`}
-                      role="listitem"
                     >
                       {/* Thumbnail */}
                       <div className="flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-700">
@@ -697,9 +696,9 @@ export default function ToolSection() {
                           </Button>
                         )}
                       </div>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
 
                 {/* Add more button */}
                 {!batchProcessing && (

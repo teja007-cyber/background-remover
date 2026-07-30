@@ -224,7 +224,7 @@ export default function Home() {
                   Read the Guide
                 </a>
               </div>
-              <div className="flex items-center justify-center gap-4 sm:gap-6 mt-8 text-sm text-slate-500 dark:text-slate-400">
+              <div className="flex items-center justify-center gap-4 sm:gap-6 mt-8 text-sm text-slate-600 dark:text-slate-400">
                 <span className="flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-emerald-500" aria-hidden="true" /> Free Forever</span>
                 <span className="flex items-center gap-1.5"><Lock className="h-4 w-4 text-emerald-500" aria-hidden="true" /> No Upload Storage</span>
                 <span className="flex items-center gap-1.5"><Zap className="h-4 w-4 text-emerald-500" aria-hidden="true" /> Instant Results</span>
