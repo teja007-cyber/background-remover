@@ -20,6 +20,7 @@ import {
   Layers,
   X,
   FileImage,
+  FileText,
   Archive,
   Clock,
   ChevronDown,
@@ -806,7 +807,7 @@ export default function Home() {
             {/* Section header */}
             <div className="text-center mb-8">
               <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-50 mb-2">
-                Start Removing Backgrounds
+                Free AI Background Remover — Upload and Remove Instantly
               </h2>
               <p className="text-slate-500 dark:text-slate-400">
                 Single image or batch — your choice.
@@ -1268,7 +1269,7 @@ export default function Home() {
                 Why Choose Us
               </Badge>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-3">
-                Everything You Need, Nothing You Don&apos;t
+                AI Background Remover Features for Perfect Results
               </h2>
               <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                 Professional-grade background removal without the complexity or cost.
@@ -1339,7 +1340,7 @@ export default function Home() {
                 Simple Process
               </Badge>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-3">
-                Three Steps. Zero Hassle.
+                How to Remove Background from Image in 3 Simple Steps
               </h2>
             </div>
 
@@ -1391,7 +1392,7 @@ export default function Home() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-3">
-                Built for Every Use Case
+                Remove Background for E-Commerce, Design, Social Media & More
               </h2>
               <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                 From e-commerce to design, get professional results every time.
@@ -1486,6 +1487,65 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── Blog / Tips Section ────────────────────────────── */}
+        <section aria-label="Latest blog articles" className="py-16 sm:py-20 bg-slate-50/50 dark:bg-slate-900/30">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              className="text-center mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="flex items-center justify-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">
+                <FileText className="h-4 w-4" aria-hidden="true" />
+                Latest from our Blog
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">
+                Background Removal Tips &amp; Guides
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Learn how to remove backgrounds like a pro. Expert tips for e-commerce, design, and social media.
+              </p>
+            </motion.div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {[
+                { href: '/blog/how-to-remove-background-from-image', title: 'How to Remove Background from Any Image in Seconds', desc: 'Step-by-step guide to removing backgrounds with AI. Perfect results every time.', cat: 'Guides' },
+                { href: '/blog/best-free-background-remover-tools', title: '10 Best Free Background Remover Tools Compared', desc: 'See how our tool compares to Remove.bg, Photoshop, and 8 others.', cat: 'Comparisons' },
+                { href: '/blog/remove-white-background-ecommerce', title: 'Remove White Background for E-Commerce Photos', desc: 'Amazon, Shopify & eBay product photo editing guide with AI.', cat: 'E-Commerce' },
+                { href: '/blog/background-remover-vs-photoshop', title: 'AI Remover vs Photoshop: Which Is Better?', desc: 'Speed, quality, cost and ease of use compared side-by-side.', cat: 'Comparisons' },
+              ].map((post) => (
+                <motion.div key={post.href} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
+                  <Link
+                    href={post.href}
+                    className="group block h-full bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 p-5 hover:shadow-md hover:border-emerald-200 dark:hover:border-emerald-700 transition-all duration-300"
+                  >
+                    <span className="inline-block text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-2.5 py-1 rounded-full mb-3">
+                      {post.cat}
+                    </span>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">
+                      {post.desc}
+                    </p>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div className="text-center mt-8" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+              >
+                View All Articles <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
         {/* ─── CTA Section ────────────────────────────────────── */}
         <section aria-label="Call to action" className="py-16 sm:py-24">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -1502,7 +1562,7 @@ export default function Home() {
                 </div>
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">
-                Ready to Cut the Clutter?
+                Remove Any Background for Free — No Signup Required
               </h2>
               <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-lg mx-auto">
                 Start removing backgrounds in seconds. Free forever, no signup, no watermarks.
