@@ -26,9 +26,8 @@ import {
 } from 'lucide-react'
 import JsonLd from '@/components/json-ld'
 
-// Dynamic import — tool section loads only when needed
+// Dynamic import — tool section is code-split
 const ToolSection = dynamic(() => import('@/components/tool-section'), {
-  ssr: false,
   loading: () => (
     <section className="bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 text-center">
